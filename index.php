@@ -1,11 +1,10 @@
-<!DOCTYPE HTML>
-        
 <php 
-     require ('Connection.php'); 
-     $result=mysql_query("SELECT ID FROM Donor");
+     require ('connection.php'); 
      
 ?>
-    
+
+<!DOCTYPE HTML>
+        
 <html>
             
 

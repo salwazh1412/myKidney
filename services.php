@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <php 
-     require ('Connection.php'); 
+     require ('connection.php'); 
      $result=mysql_query("SELECT ID FROM Donor");
      
 ?>
