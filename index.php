@@ -1,10 +1,9 @@
+<!DOCTYPE HTML>
 <php 
      require ('connection.php'); 
      
 ?>
-
-<!DOCTYPE HTML>
-        
+    
 <html>
             
 
