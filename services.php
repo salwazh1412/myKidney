@@ -1,4 +1,10 @@
 <!DOCTYPE HTML>
+<php 
+     require ('Connection.php'); 
+     $result=mysql_query("SELECT ID FROM Donor");
+     
+?>
+
 <html>
 	<head>
 	<meta charset="utf-8">
@@ -62,11 +68,11 @@
 		<div class="gtco-container">
 			<div class="row">
 				<div class="col-xs-2">
-					<div id="gtco-logo"><a href="index.html">Oxygen.</a></div>
+					<div id="gtco-logo"><a href="index.php">Oxygen.</a></div>
 				</div>
 				<div class="col-xs-8 text-center menu-1">
 					<ul>
-						<li><a href="index.html">Home</a></li>
+						<li><a href="index.php">Home</a></li>
 						<li><a href="about.html">About</a></li>
 						<li class="has-dropdown active">
 							<a href="services.html">Services</a>
