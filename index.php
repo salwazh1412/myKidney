@@ -1,8 +1,11 @@
 <!DOCTYPE HTML>
 <php 
+     
      require ('connection.php'); 
      
 ?>
+    
+    
     
 <html>
             
