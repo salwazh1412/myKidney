@@ -1,5 +1,15 @@
 <!DOCTYPE HTML>
+<php 
+     
+     require ('connection.php'); 
+     
+?>
+    
+    
+    
 <html>
+            
+
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -62,15 +72,24 @@
 		<div class="gtco-container">
 			<div class="row">
 				<div class="col-xs-2">
+<<<<<<< HEAD:index.html
 					<div id="gtco-logo"><a href="index.html">MyKidney</a></div>
+=======
+					<div id="gtco-logo"><a href="index.php">Oxygen.</a></div>
+>>>>>>> 3b66e91d737137aed61fa08fb2431c3449f440a6:index.php
 				</div>
 				<div class="col-xs-8 text-center menu-1">
 					<ul>
-						<li class="active"><a href="index.html">Home</a></li>
+						<li class="active"><a href="index.php">Home</a></li>
 						<li><a href="about.html">About</a></li>
+<<<<<<< HEAD:index.html
 						<li><a href="   ">Search</a></li>
 					<!--	<li class="has-dropdown">
 							<a href="services.html">Search</a>
+=======
+						<li class="has-dropdown">
+							<a href="services.php">Services</a>
+>>>>>>> 3b66e91d737137aed61fa08fb2431c3449f440a6:index.php
 							<ul class="dropdown">
 								<li><a href="#">Web Design</a></li>
 								<li><a href="#">eCommerce</a></li>
@@ -457,17 +476,49 @@
 						<div class="col-md-4 col-sm-4">
 							<div class="form-group">
 								<label for="email" class="sr-only">Email</label>
-								<input type="email" class="form-control" id="email" placeholder="Email">
+								
+                                <p><input type="text" class="form-control" id="Name" placeholder="Name" required></p>
+
+                                <p><input type="email" class="form-control" id="email" placeholder="Email" required> </p>
+                                
+                                <p><input type="text" class="form-control" id="password" placeholder="Phone Number" required></p>
+                                <select class="form-control" required>
+                                  <option value="" disabled selected>Select your city</option>
+                                  <option value="Abha">Abha</option>
+                                    <option value="AlBahah">AlBahah</option>
+                                  <option value="Dammam">Dammam</option>
+                                  <option value="Jeddah">Jeddah</option>
+                                  <option value="Makkah">Makkah</option>                                   
+                                <option value="Taif">Taif</option>
+                                  <option value="Riyadh">Riyadh</option>
+                                  <option value="Hail">Hail</option>
+                                  <option value="Tabuk">Tabuk</option>
+                                </select>
 							</div>
 						</div>
 						<div class="col-md-4 col-sm-4">
 							<div class="form-group">
 								<label for="password" class="sr-only">Password</label>
-								<input type="password" class="form-control" id="password" placeholder="Password">
+                                <p><input type="password" class="form-control" id="password" placeholder="Password"required></p>
+                                
+                                <p><input type="password" class="form-control" id="ConfirmPassword" placeholder="Confirm Password" required></p>
+                                
+                               <select class="form-control" required>
+                                  <option value="" disabled selected>Select your blood type</option>
+                                  <option value="A+">A+</option>
+                                  <option value="A-">A-</option>
+                                  <option value="B+">B+</option>
+                                  <option value="B-">B-</option>
+                                  <option value="O+">O+</option>
+                                  <option value="O-">O-</option>
+                                  <option value="AB+">AB+</option>
+                                  <option value="AB-">AB-</option>
+                                </select>
+                                
 							</div>
 						</div>
 						<div class="col-md-4 col-sm-4">
-							<button type="submit" class="btn btn-default btn-block">Sign Up</button>
+                            <P><button type="submit" class="btn btn-default btn-block">Sign Up</button></P>
 						</div>
 					</form>
 				</div>
@@ -517,8 +568,7 @@
 			<div class="row copyright">
 				<div class="col-md-12">
 					<p class="pull-left">
-						<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small> 
-						<small class="block">Designed by <a href="http://gettemplates.co/" target="_blank">GetTemplates.co</a> Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+						<small class="block">&copy; All Rights Reserved to myKidney.</small> 
 					</p>
 					<p class="pull-right">
 						<ul class="gtco-social-icons pull-right">
