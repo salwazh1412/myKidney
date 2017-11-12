@@ -1,15 +1,5 @@
 <!DOCTYPE HTML>
-<php 
-     
-     require ('connection.php'); 
-     
-?>
-    
-    
-    
 <html>
-            
-
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -72,24 +62,15 @@
 		<div class="gtco-container">
 			<div class="row">
 				<div class="col-xs-2">
-<<<<<<< HEAD:index.html
 					<div id="gtco-logo"><a href="index.html">MyKidney</a></div>
-=======
-					<div id="gtco-logo"><a href="index.php">Oxygen.</a></div>
->>>>>>> 3b66e91d737137aed61fa08fb2431c3449f440a6:index.php
 				</div>
 				<div class="col-xs-8 text-center menu-1">
 					<ul>
-						<li class="active"><a href="index.php">Home</a></li>
+						<li class="active"><a href="index.html">Home</a></li>
 						<li><a href="about.html">About</a></li>
-<<<<<<< HEAD:index.html
 						<li><a href="   ">Search</a></li>
 					<!--	<li class="has-dropdown">
 							<a href="services.html">Search</a>
-=======
-						<li class="has-dropdown">
-							<a href="services.php">Services</a>
->>>>>>> 3b66e91d737137aed61fa08fb2431c3449f440a6:index.php
 							<ul class="dropdown">
 								<li><a href="#">Web Design</a></li>
 								<li><a href="#">eCommerce</a></li>
