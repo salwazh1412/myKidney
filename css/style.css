@@ -227,7 +227,7 @@ h1, h2, h3, h4, h5, h6, figure {
   align:center;
 }
 .gtco-nav ul li.btn-cta2 a span {
-	width:99px;
+  width:99px;
   background: #52d3aa;
   padding: 4px 20px;
   display: -moz-inline-stack;

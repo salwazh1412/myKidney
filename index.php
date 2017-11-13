@@ -62,11 +62,11 @@
 		<div class="gtco-container">
 			<div class="row">
 				<div class="col-xs-2">
-					<div id="gtco-logo"><a href="index.html">MyKidney</a></div>
+					<div id="gtco-logo"><a href="index.php">MyKidney</a></div>
 				</div>
 				<div class="col-xs-8 text-center menu-1">
 					<ul>
-						<li class="active"><a href="index.html">Home</a></li>
+						<li class="active"><a href="index.php">Home</a></li>
 						<li><a href="about.html">About</a></li>
 						<li><a href="   ">Search</a></li>
 					<!--	<li class="has-dropdown">
@@ -92,10 +92,10 @@
 				</div>
 				<div class="col-xs-2 text-right hidden-xs menu-2">
 					<ul>
-						<li class="btn-cta2"><a href="#"><span> <div align="center">Login</div>   </span></a></li>
+						<li class="btn-cta2"><a href="Login.php"><span> <div align="center">Login</div>   </span></a></li>
 					</ul>
 					<ul>
-						<li class="btn-cta"><a href="#"><span>Sign Up</span></a></li>
+						<li class="btn-cta"><a href="#Signup"><span>Sign Up</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -448,7 +448,7 @@
 		<div class="gtco-container">
 			<div class="row animate-box">
 				<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-					<h2>Get Started</h2>
+					<h2 id="Signup">Get Started</h2>
 				</div>
 			</div>
 			<div class="row animate-box">
