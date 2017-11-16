@@ -3,7 +3,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Oxygen &mdash; Free Website Template, Free HTML5 Template by gettemplates.co</title>
+	<title>myKidney</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
@@ -109,7 +109,7 @@
 				<div class="col-md-8 col-md-offset-2 text-center">
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
-							<h1>Oxygen</h1>
+							<h1>myKidney</h1>
 							<h2>Free html5 templates Made by <a href="http://gettemplates.co/" target="_blank">gettemplates.co</a></h2>
 							<p><a href="#" class="btn btn-default">Get Started</a></p>
 						</div>
@@ -446,12 +446,12 @@
 
 	<div id="gtco-started">
 		<div class="gtco-container">
-			<div class="row animate-box">
+			<div> <!--  class="row animate-box" -->
 				<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
 					<h2 id="Signup">Get Started</h2>
 				</div>
 			</div>
-			<div class="row animate-box">
+		    <div class="row animate-box"> 
 				<div class="col-md-12">
 					<form class="form-inline">
 						<div class="col-md-4 col-sm-4">
@@ -503,7 +503,7 @@
 						</div>
 					</form>
 				</div>
-			</div>
+		    </div>
 		</div>
 	</div>
 

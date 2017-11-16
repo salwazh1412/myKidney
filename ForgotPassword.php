@@ -3,7 +3,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>myKidney | Login </title>
+    <title>myKidney | Reset Password </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
@@ -92,9 +92,9 @@
 				</div>
 				<div class="col-xs-2 text-right hidden-xs menu-2">
 					<ul>
-						<!-- <li class="btn-cta2"><a href="Login.php"><span> <div align="center">Login</div>   </span></a></li>
+						 <li class="btn-cta2"><a href="Login.php"><span> <div align="center">Login</div>   </span></a></li>
 					</ul>
-					<ul> -->
+					<ul> 
 						<li class="btn-cta"><a href="index.php#Signup"><span>Sign Up</span></a></li>
 					</ul>
 				</div>
@@ -109,29 +109,28 @@
 		<div class="gtco-container">
 			<div class="row animate-box">
 				<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-                      <br><br><br><br><br><h2>Login</h2>
+                      <br><br><br><h2>Reset Forgotten Password</h2>
 				</div>
 			</div>
 		    <div class="row animate-box"> 
 				<div class="col-md-12">
 					<form class="form-inline">
-						<div class="col-md-4 col-sm-4">
-	
-						</div>
-						<div class="col-md-4 col-sm-4">
-							<div class="form-group">
-								<p><input type="email" class="form-control" id="email" placeholder="Email" required > </p>
+						<div >
+	                         <div class="form-group">
+								<h4> <p Style="color:#efeded"> Please enter the email address for your account. You will be emailed a new password. </p></h4>
+                                 <p><input type="email" class="form-control" id="email" placeholder="Email" required style="width: 30%;" > </p>
                                 
-                                <p><input type="password" class="form-control" id="password" placeholder="Password" required></p>
 
-                                <P><button type="submit" class="btn btn-default btn-block" Style="background: rgba(255, 255, 255, 1); color:#52d3aa;">Login</button></P>
-                                <p><a  Style="color:#efeded" href="ForgotPassword.php"> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp; Forgot Password? </a></p>
+                                <P><button type="submit" class="btn btn-default btn-block" Style="background: rgba(255, 255, 255, 1); color:#52d3aa; width: 15%; height: 50px;" >reset</button></P>
 							</div>
 						</div>
+						<!-- <div class="col-md-4 col-sm-4">
+							
+						</div>  -->
                         
-						<div class="col-md-4 col-sm-4">
+						<!-- <div class="col-md-4 col-sm-4">
                             
-						</div>
+						</div> -->
 					</form>
 				</div>
 		    </div>
@@ -139,29 +138,6 @@
 	</div>
         
         
-        
-        
-        <!-- <div class="gtco-container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<div class="display-t">
-						<div class="display-tc animate-box" data-animate-effect="fadeIn" Style="align:center" >
-							
-                            
-                            <h1>Login</h1>
-
-                                <p><input type="email" class="form-control" id="email" placeholder="Email" required style="width: 50%;"> </p>
-                                
-                                <p><input type="text" class="form-control" id="password" placeholder="Phone Number" required style="width: 50%;"></p>
-                            
-                                <P><button type="submit" class="btn btn-default btn-block" style="width: 50%;">Login</button></P>
-
-                            
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
 	</header>
 	
 	<footer id="gtco-footer" role="contentinfo">
