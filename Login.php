@@ -62,7 +62,7 @@
 		<div class="gtco-container">
 			<div class="row">
 				<div class="col-xs-2">
-					<div id="gtco-logo"><a href="index.php">MyKidney</a></div>
+					<div id="gtco-logo"><a href="index.php"><img src="images/Logo.png" style="width:170px;"></a></div>
 				</div>
 				<div class="col-xs-8 text-center menu-1">
 					<ul>
@@ -87,7 +87,7 @@
 								<li><a href="#">jQuery</a></li>
 							</ul>
 						</li> -->
-						<li><a href="contact.html">Contact</a></li>
+						<li><a href="contact.php">Contact</a></li>
 					</ul>
 				</div>
 				<div class="col-xs-2 text-right hidden-xs menu-2">
@@ -95,7 +95,7 @@
 						<!-- <li class="btn-cta2"><a href="Login.php"><span> <div align="center">Login</div>   </span></a></li>
 					</ul>
 					<ul> -->
-						<li class="btn-cta"><a href="index.php#Signup"><span>Sign Up</span></a></li>
+					<br><li class="btn-cta"><a href="index.php#Signup"><span>Sign Up</span></a></li>
 					</ul>
 				</div>
 			</div>
