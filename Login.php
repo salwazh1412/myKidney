@@ -62,12 +62,12 @@
 		<div class="gtco-container">
 			<div class="row">
 				<div class="col-xs-2">
-					<div id="gtco-logo"><a href="index.php"><img src="images/Logo.png" style="width:170px;"></a></div>
+					<div id="gtco-logo"><a href="index.php"><img src="images/Logo.png" style="width:150px;"></a></div>
 				</div>
 				<div class="col-xs-8 text-center menu-1">
 					<ul>
 						<li class="active"><a href="index.php">Home</a></li>
-						<li><a href="about.html">About</a></li>
+						<li><a href="about.php">About</a></li>
 						<li><a href="   ">Search</a></li>
 					<!--	<li class="has-dropdown">
 							<a href="services.html">Search</a>
@@ -164,87 +164,9 @@
 		</div> -->
 	</header>
 	
-	<footer id="gtco-footer" role="contentinfo">
-		<div class="gtco-container">
-			<div class="row row-pb-md">
-				<div class="col-md-4 gtco-widget">
-					<h3>The Company</h3>
-					<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-					<p><a href="#">Learn More</a></p>
-				</div>
-				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-					<ul class="gtco-footer-links">
-						<li><a href="#">About</a></li>
-						<li><a href="#">Help</a></li>
-						<li><a href="#">Contact</a></li>
-						<li><a href="#">Terms</a></li>
-						<li><a href="#">Meetups</a></li>
-					</ul>
-				</div>
+<!------ Footer -------->		
+<?php
+include ('footer.html');
+?>
 
-				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-					<ul class="gtco-footer-links">
-						<li><a href="#">Shop</a></li>
-						<li><a href="#">Privacy</a></li>
-						<li><a href="#">Testimonials</a></li>
-						<li><a href="#">Handbook</a></li>
-						<li><a href="#">Held Desk</a></li>
-					</ul>
-				</div>
-
-				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-					<ul class="gtco-footer-links">
-						<li><a href="#">Find Designers</a></li>
-						<li><a href="#">Find Deelopers</a></li>
-						<li><a href="#">Teams</a></li>
-						<li><a href="#">Advertise</a></li>
-						<li><a href="#">API</a></li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="row copyright">
-				<div class="col-md-12">
-					<p class="pull-left">
-						<small class="block">&copy; All Rights Reserved to myKidney.</small> 
-					</p>
-					<p class="pull-right">
-						<ul class="gtco-social-icons pull-right">
-							<li><a href="#"><i class="icon-twitter"></i></a></li>
-							<li><a href="#"><i class="icon-facebook"></i></a></li>
-							<li><a href="#"><i class="icon-linkedin"></i></a></li>
-							<li><a href="#"><i class="icon-dribbble"></i></a></li>
-						</ul>
-					</p>
-				</div>
-			</div>
-
-		</div>
-	</footer>
-	</div>
-
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-	</div>
-	
-	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
-	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
-	<!-- Carousel -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- countTo -->
-	<script src="js/jquery.countTo.js"></script>
-	<!-- Magnific Popup -->
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
-	<!-- Main -->
-	<script src="js/main.js"></script>
-
-	</body>
-</html>
 
