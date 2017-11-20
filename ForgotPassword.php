@@ -69,8 +69,8 @@ $mail = new PHPMailer;
 $mail->isSMTP();                            // Set mailer to use SMTP
 $mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP servers
 $mail->SMTPAuth = true;                     // Enable SMTP authentication
-$mail->Username = 'mhnghamdi@gmail.com';          // SMTP username
-$mail->Password = 'meme3695464'; // SMTP password
+$mail->Username = '';          // SMTP username
+$mail->Password = ''; // SMTP password
 $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
 $mail->Port = 587;                          // TCP port to connect to
 
@@ -135,7 +135,7 @@ if(!$mail->send()) {
 				<div class="col-xs-8 text-center menu-1">
 					<ul>
 						<li class="active"><a href="index.php">Home</a></li>
-						<li><a href="about.html">About</a></li>
+						<li><a href="about.php">About</a></li>
 						<li><a href="   ">Search</a></li>
 					<!--	<li class="has-dropdown">
 							<a href="services.html">Search</a>
@@ -155,7 +155,7 @@ if(!$mail->send()) {
 								<li><a href="#">jQuery</a></li>
 							</ul>
 						</li> -->
-						<li><a href="contact.html">Contact</a></li>
+						<li><a href="contact.php">Contact</a></li>
 					</ul>
 				</div>
 				<div class="col-xs-2 text-right hidden-xs menu-2">
