@@ -1,9 +1,59 @@
+
 <!DOCTYPE HTML>
+
+     <!-------------- PHP Code --------------->
+<?php
+ 
+require 'phpmailer/PHPMailerAutoload.php';
+require 'phpmailer/class.phpmailer.php';
+
+if ( isset ($_POST['reset']))
+{
+
+$mail = new PHPMailer;
+
+$mail->isSMTP();                            // Set mailer to use SMTP
+$mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP servers
+$mail->SMTPAuth = true;                     // Enable SMTP authentication
+$mail->Username = 'mhnghamdi@gmail.com';          // SMTP username
+$mail->Password = 'meme3695464'; // SMTP password
+$mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
+$mail->Port = 587;                          // TCP port to connect to
+
+$mail->setFrom('info@MyKidney.com', 'MyKidney');
+//$mail->addReplyTo('mhghamdi@hotmail.com', 'CodexWorld');
+$mail->addAddress(''.$_POST['email']);   // Add a recipient
+//$mail->addCC('cc@example.com');
+//$mail->addBCC('bcc@example.com');
+
+$mail->isHTML(true);  // Set email format to HTML
+
+$bodyContent = 'Hi, You recently requested a password reset.';
+$bodyContent .= '<p>Your new password is "aaaaa"</b></p>';
+$bodyContent .= '<p>Thanks</b></p>';
+
+$mail->Subject = 'Reset your password on MyKidney';
+$mail->Body    = $bodyContent;
+
+if(!$mail->send()) {
+    echo 'Message could not be sent.';
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
+} else {
+    echo 'Message has been sent';
+}
+    
+}
+?>
+
+<!-- END of send email PHP Code -->
+
+
+
 <html>
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>myKidney | Reset Password </title>
+    <title>MyKidney | Reset Password </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
@@ -57,46 +107,7 @@
     
 	<body>
 	
-     <!-------------- PHP Code --------------->
-<?php
-if ( isset ($_POST['reset']))
-{
-  require 'PHPMailer/src/PHPMailerAutoload.php';
-   require 'PHPMailer/src/PHPMailer.php';
 
-$mail = new PHPMailer;
-
-$mail->isSMTP();                            // Set mailer to use SMTP
-$mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP servers
-$mail->SMTPAuth = true;                     // Enable SMTP authentication
-$mail->Username = '';          // SMTP username
-$mail->Password = ''; // SMTP password
-$mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
-$mail->Port = 587;                          // TCP port to connect to
-
-$mail->setFrom('mhnghamdi@gmail.com', 'CodexWorld');
-$mail->addReplyTo('mhghamdi@hotmail.com', 'CodexWorld');
-//$mail->addAddress('john@gmail.com');   // Add a recipient
-//$mail->addCC('cc@example.com');
-//$mail->addBCC('bcc@example.com');
-
-$mail->isHTML(true);  // Set email format to HTML
-
-$bodyContent = '<h1>How to Send Email using PHP in Localhost by CodexWorld</h1>';
-$bodyContent .= '<p>This is the HTML email sent from localhost using PHP script by <b>CodexWorld</b></p>';
-
-$mail->Subject = 'Email from Localhost by CodexWorld';
-$mail->Body    = $bodyContent;
-
-if(!$mail->send()) {
-    echo 'Message could not be sent.';
-    echo 'Mailer Error: ' . $mail->ErrorInfo;
-} else {
-    echo 'Message has been sent';
-}
-    
-}
-?>
         
 
 <?php
