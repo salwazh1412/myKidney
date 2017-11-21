@@ -1,7 +1,7 @@
 <?php
 session_start();
 // step 1: connect to database
-if (! ( $database = mysql_connect ("sql101.byethost13.com","b13_21005337","myKidney")) )
+if (! ( $database = mysql_connect ("localhost","root","")) )
 die ("Cann't connect to database");
 
 // setcharset to utf-8
