@@ -8,7 +8,7 @@ die ("Cann't connect to database");
 if(mysql_set_charset('utf8',$database))  
 
 // step 2: open database
-if ( ! ( mysql_select_db ( "mykidney" ,$database )))
+if ( ! ( mysql_select_db ( "Mykidney" ,$database )))
 die ("Cann't open database ");
 
 //  set sql encoding

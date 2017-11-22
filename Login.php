@@ -1,3 +1,55 @@
+<!----------------------- PHP Code ---------- -->
+<?php
+
+//include connection to database
+require ('connection.php');
+
+if (isset($_POST['login'])) {
+    
+$myfile = fopen("AdminInfo.txt", "r") or die("Unable to open file!");
+$i=0;
+$AdminUsername;
+$AdminPassword;
+$email = $_POST["email"];
+$password = $_POST["password"];
+    
+while(!feof($myfile)) {
+
+     if ($i==0) {
+        $AdminUsername = fgets($myfile); 
+     }else {
+        $AdminPassword = fgets($myfile);}
+$i++;         
+
+}
+    
+fclose($myfile);
+
+//////////////////// Login Code redirect (Admin) ///////////////
+
+    echo (strcasecmp($email ,  $AdminUsername));
+    
+    if ( $email === $AdminUsername && $password == $AdminPassword) {
+        //$_SESSION['Admin']=$AdminUsername;
+        header('location:AdminHome.php');
+    }
+    
+    elseif ($email == $AdminUsername && $password != $AdminPassword)
+    {	
+            echo '<script> alert("Incorrect Password. Try again!"); </script>';
+    }   
+    
+    else {
+        echo 'No <br>';
+        echo $AdminUsername."<br>";
+        echo $_POST['email']."<br>";
+        echo $AdminPassword."<br>";
+        echo $_POST['password'];
+    }       
+}      
+
+?>
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -53,8 +105,9 @@
 	<![endif]-->
 
 	</head>
+    
 	<body>
-		
+
 	<div class="gtco-loader"></div>
 	
 	<div id="page">
@@ -95,13 +148,14 @@
 						<!-- <li class="btn-cta2"><a href="Login.php"><span> <div align="center">Login</div>   </span></a></li>
 					</ul>
 					<ul> -->
-					<br><li class="btn-cta"><a href="index.php#Signup"><span>Sign Up</span></a></li>
+					<li class="btn-cta"><a href="index.php#Signup"><span>Sign Up</span></a></li>
 					</ul>
 				</div>
 			</div>
 			
 		</div>
 	</nav>
+
 
 	<header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url(images/img_bg_1.jpg);">
 		
@@ -114,17 +168,17 @@
 			</div>
 		    <div class="row animate-box"> 
 				<div class="col-md-12">
-					<form class="form-inline">
+					<form method="POST" class="form-inline">
 						<div class="col-md-4 col-sm-4">
 	
 						</div>
 						<div class="col-md-4 col-sm-4">
 							<div class="form-group">
-								<p><input type="email" class="form-control" id="email" placeholder="Email" required > </p>
+								<p><input type="email" class="form-control" name="email" id="email" placeholder="Email" required > </p>
                                 
-                                <p><input type="password" class="form-control" id="password" placeholder="Password" required></p>
+                                <p><input type="password" name="password" id="password" class="form-control" id="password" placeholder="Password" required></p>
 
-                                <P><button type="submit" class="btn btn-default btn-block" Style="background: rgba(255, 255, 255, 1); color:#52d3aa;">Login</button></P>
+                                <P><button type="submit" name="login" id="login" class="btn btn-default btn-block" Style="background: rgba(255, 255, 255, 1); color:#52d3aa;">Login</button></P>
                                 <p><a  Style="color:#efeded" href="ForgotPassword.php"> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp; Forgot Password? </a></p>
 							</div>
 						</div>

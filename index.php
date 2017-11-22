@@ -1,4 +1,7 @@
 <!DOCTYPE HTML>
+
+ <?php require ('connection.php'); ?>
+
 <html>
 	<head>
 	<meta charset="utf-8">
