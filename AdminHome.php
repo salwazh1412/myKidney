@@ -1,10 +1,12 @@
 <!DOCTYPE HTML>
 
+ <?php require ('connection.php'); ?>
+
 <html>
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>myKidney | Login </title>
+	<title>myKidney</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
@@ -54,16 +56,8 @@
 	<![endif]-->
 
 	</head>
-    
 	<body>
-<!------------ PHP Code ---------- -->
-        
-<?php
-if (isset($_POST['login'])) {
-}
-        
-
-?>
+		
 	<div class="gtco-loader"></div>
 	
 	<div id="page">
@@ -71,40 +65,25 @@ if (isset($_POST['login'])) {
 		<div class="gtco-container">
 			<div class="row">
 				<div class="col-xs-2">
-					<div id="gtco-logo"><a href="index.php"><img src="images/Logo.png" style="width:150px;"></a></div>
+					<!-- <div id="gtco-logo"><a href="index.php">MyKidney</a></div> -->
+                    <div id="gtco-logo"><a href="index.php"><img src="images/Logo.png" style="width:170px;"></a></div>
 				</div>
 				<div class="col-xs-8 text-center menu-1">
-					<ul>
+					<br>
+                    <ul>
 						<li class="active"><a href="index.php">Home</a></li>
 						<li><a href="about.php">About</a></li>
-						<li><a href="   ">Search</a></li>
-					<!--	<li class="has-dropdown">
-							<a href="services.html">Search</a>
-							<ul class="dropdown">
-								<li><a href="#">Web Design</a></li>
-								<li><a href="#">eCommerce</a></li>
-								<li><a href="#">Branding</a></li>
-								<li><a href="#">API</a></li>
-							</ul>
-						</li> -->
-					<!--	<li class="has-dropdown">
-							<a href="#">Tools</a>
-							<ul class="dropdown">
-								<li><a href="#">HTML5</a></li>
-								<li><a href="#">CSS3</a></li>
-								<li><a href="#">Sass</a></li>
-								<li><a href="#">jQuery</a></li>
-							</ul>
-						</li> -->
+						<li><a href="">Search</a></li>
 						<li><a href="contact.php">Contact</a></li>
 					</ul>
 				</div>
 				<div class="col-xs-2 text-right hidden-xs menu-2">
-					<ul>
-						<!-- <li class="btn-cta2"><a href="Login.php"><span> <div align="center">Login</div>   </span></a></li>
+					
+                    <ul>
+                        <li class="btn-cta2"><a href="Login.php"><span> <div align="center">Login</div>   </span></a></li>
 					</ul>
-					<ul> -->
-					<!-- <li class="btn-cta"><a href="index.php#Signup"><span>Sign Up</span></a></li> -->
+					<ul>
+                        <li class="btn-cta"><a href="#Signup"><span>Sign Up</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -112,65 +91,50 @@ if (isset($_POST['login'])) {
 		</div>
 	</nav>
 
-	<header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url(images/img_bg_1.jpg);">
-		
-	<div id="gtco-started" Style="background: rgba(0, 0, 0, 0);">
+	<header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url(images/img_bg_1.jpg); height:170px;">
+
+	</header>
+	
+	<div id="gtco-features">
 		<div class="gtco-container">
-	    <div class="row animate-box"> 
-				<div class="col-md-12" Style="margin-top: 150px;">
-
-						<div class="col-md-4 col-sm-4">
-
-                                <P><button type="button" name="login" id="login" class="btn btn-default btn-block" Style="background: rgba(255, 255, 255, 0.1); height:200px; width:200px; color:#52d3aa;">Login</button></P>
-
-						</div>
-						<div class="col-md-4 col-sm-4">
-
-                                <P><button type="button" name="login" id="login" class="btn btn-default btn-block" Style="background: rgba(255, 255, 255, 0.1); height:200px; width:200px; color:#52d3aa;">Delete Account</button></P>
-
-
-						</div>
-
-
-						<div class="col-md-4 col-sm-4">
-                                                    
-                                <P><button type="button" name="login" id="login" class="btn btn-default btn-block" Style="background: rgba(255, 255, 255, 0.1); height:200px; width:200px; color:#52d3aa;">Login</button></P>
-						</div>
-				
-				</div>
-		    </div>
- 			
-		</div>
-	</div>
-        
-        	       
-        
-        <!-- <div class="gtco-container">
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<div class="display-t">
-						<div class="display-tc animate-box" data-animate-effect="fadeIn" Style="align:center" >
-							
-                            
-                            <h1>Login</h1>
-
-                                <p><input type="email" class="form-control" id="email" placeholder="Email" required style="width: 50%;"> </p>
-                                
-                                <p><input type="text" class="form-control" id="password" placeholder="Phone Number" required style="width: 50%;"></p>
-                            
-                                <P><button type="submit" class="btn btn-default btn-block" style="width: 50%;">Login</button></P>
-
-                            
-						</div>
+				<div class="col-md-4 col-sm-4">
+					<div class="feature-center animate-box" data-animate-effect="fadeIn">
+						<span class="icon">
+							<i class="icon-plus"></i>
+						</span>
+						 <h3>Add Account</h3>
+						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-4">
+					<div class="feature-center animate-box" data-animate-effect="fadeIn">
+						<span class="icon">
+							<i class="icon-remove"></i>
+						</span>
+						 <h3>Delete Account</h3>
+						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p> 
+						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-4">
+					<div class="feature-center animate-box" data-animate-effect="fadeIn">
+						<span class="icon">
+							<i class="icon-edit"></i>
+						</span>
+						<h3>Edit User's Information</h3>
+						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
 					</div>
 				</div>
 			</div>
-		</div> -->
-	</header>
+		</div>
+	</div>
+
+
 	
-<!------ Footer -------->		
+	<!------ Footer -------->		
 <?php
 include ('footer.html');
 ?>
-
-
