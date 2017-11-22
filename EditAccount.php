@@ -72,9 +72,9 @@
 					<br>
                     <ul>
 						<li class="active"><a href="AdminHome.php">Home</a></li>
-						<li><a href="about.php">About</a></li>
-						<li><a href="">Search</a></li>
-						<li><a href="contact.php">Contact</a></li>
+				        <!-- <li><a href="">Search</a></li>
+                        <li><a href="about.php">About</a></li>
+						<li><a href="contact.php">Contact</a></li> -->
 					</ul>
 				</div>
 				<div class="col-xs-2 text-right hidden-xs menu-2">
@@ -109,15 +109,15 @@
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-4">
-				<a href="AdminHome.php" >	<div class="feature-center animate-box" data-animate-effect="fadeIn">
+				<div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<span class="icon">
 							<i class="icon-trash"></i>
 						</span>
-                    <h3>Delete Account</h3> </a>
+                    <h3>Delete Account</h3>
 						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p> 
 						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
-					</div>
-				</div>
+                    </div>
+                </div>
 				<div class="col-md-4 col-sm-4">
 					<div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<span class="icon">
@@ -128,8 +128,9 @@
 						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
 					</div>
 				</div>
-			</div>
-		</div>
+			</div> <!-- end of row div -->
+        </div>
+      </div>
 	</div>
 
 

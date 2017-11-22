@@ -72,9 +72,9 @@
 					<br>
                     <ul>
 						<li class="active"><a href="AdminHome.php">Home</a></li>
-						<li><a href="about.php">About</a></li>
-						<li><a href="">Search</a></li>
-						<li><a href="contact.php">Contact</a></li>
+				        <!-- <li><a href="">Search</a></li>
+                        <li><a href="about.php">About</a></li>
+						<li><a href="contact.php">Contact</a></li> -->
 					</ul>
 				</div>
 				<div class="col-xs-2 text-right hidden-xs menu-2">
@@ -94,41 +94,122 @@
 	<header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url(images/img_bg_1.jpg); height:170px;">
 
 	</header>
-	
+        
+<style>
+table, th, td {
+    border: 1px solid gray;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+th {
+    text-align: center;
+}
+</style>
+        
+        
 	<div id="gtco-features">
 		<div class="gtco-container">
-			<div class="row">
-				<div class="col-md-4 col-sm-4">
-					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<span class="icon">
-							<i class="icon-user"></i>
-						</span>
-						 <h3>Add Account</h3>
-						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
-						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4">
-				<a href="AdminHome.php" >	<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<span class="icon">
-							<i class="icon-trash"></i>
-						</span>
-                    <h3>Delete Account</h3> </a>
-						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p> 
-						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4">
-					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<span class="icon">
-							<i class="icon-edit"></i>
-						</span>
-						<h3>Edit User's Information</h3>
-						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
-						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
-					</div>
+			<div class="row" Style="margin-top:-150px;">
+                
+				<div>
+                    <div class="feature-center animate-box" data-animate-effect="fadeIn">
+                           
+                        
+	<div id="gtco-services">
+		<div class="gtco-container">
+			
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+					<h2>Delete Account</h2>
+					<p>Select user to delete</p>
 				</div>
 			</div>
+
+			<div class="row animate-box">
+				
+				<div class="gtco-tabs">
+					<ul class="gtco-tab-nav">
+						<li class="active"><a href="#" data-tab="1"><span class="icon visible-xs"><i class="icon-command"></i></span>
+                            <span class="hidden-xs">Web Design</span></a></li>
+						<li><a href="#" data-tab="2"><span class="icon visible-xs"><i class="icon-bar-graph"></i></span>
+                            <span class="hidden-xs">Online Marketing</span></a></li>
+						<li><a href="#" data-tab="3">
+                            <span class="icon visible-xs"><i class="icon-bag"></i></span><span class="hidden-xs">E-Commerce</span></a></li>
+					</ul>
+
+					<!-- Tabs -->
+					<div class="gtco-tab-content-wrap">
+						
+                        <!--------- tab 1 ------>
+                        
+                        <div class="gtco-tab-content tab-content active" data-tab-content="1">
+							<div class="col-md-12">
+								<h2>Web Design</h2>
+								<p>Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius nobis reprehenderit soluta eligendi quo reiciendis fugit? Veritatis tenetur odio delectus quibusdam officiis est.</p>
+
+								<p>Ullam dolorum iure dolore dicta fuga ipsa velit veritatis molestias totam fugiat soluta accusantium omnis quod similique placeat at. Dolorum ducimus libero fuga molestiae asperiores obcaecati corporis sint illo facilis.</p>
+
+							</div>
+						</div>
+                        
+                        
+                        <!--------- tab 2 ------>
+                        
+                        <div class="gtco-tab-content tab-content active" data-tab-content="2">
+							<div class="col-md-12">
+								<h2>Web Design</h2>
+								<p>Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius nobis reprehenderit soluta eligendi quo reiciendis fugit? Veritatis tenetur odio delectus quibusdam officiis est.</p>
+
+								<p>Ullam dolorum iure dolore dicta fuga ipsa velit veritatis molestias totam fugiat soluta accusantium omnis quod similique placeat at. Dolorum ducimus libero fuga molestiae asperiores obcaecati corporis sint illo facilis.</p>
+
+							</div>
+						</div>
+                        
+                           <!--------- tab 3 ------>
+                        
+                        <div class="gtco-tab-content tab-content active" data-tab-content="3">
+							<div class="col-md-12">
+								<h2>Web Design</h2>
+								<p>Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius nobis reprehenderit soluta eligendi quo reiciendis fugit? Veritatis tenetur odio delectus quibusdam officiis est.</p>
+
+								<p>Ullam dolorum iure dolore dicta fuga ipsa velit veritatis molestias totam fugiat soluta accusantium omnis quod similique placeat at. Dolorum ducimus libero fuga molestiae asperiores obcaecati corporis sint illo facilis.</p>
+
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+    
+                        
+                        <table style="width:100%;">
+                              <tr>
+                                <th>Firstname</th>
+                                <th>Lastname</th> 
+                                <th>Age</th>
+                              </tr>
+                              <tr>
+                                <td>Jill</td>
+                                <td>Smith</td> 
+                                <td>50</td>
+                              </tr>
+                              <tr>
+                                <td>Eve</td>
+                                <td>Jackson</td> 
+                                <td>94</td>
+                              </tr>
+                            </table>
+                        
+                    </div> 
+                </div> 
+
+                
+			</div> <!-- end of row div -->
 		</div>
 	</div>
 
