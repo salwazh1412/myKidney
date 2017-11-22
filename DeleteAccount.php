@@ -66,12 +66,12 @@
 			<div class="row">
 				<div class="col-xs-2">
 					<!-- <div id="gtco-logo"><a href="index.php">MyKidney</a></div> -->
-                    <div id="gtco-logo"><a href="AdminHome.php"><img src="images/Logo.png" style="width:170px;"></a></div>
+                    <div id="gtco-logo"><a href="index.php"><img src="images/Logo.png" style="width:170px;"></a></div>
 				</div>
 				<div class="col-xs-8 text-center menu-1">
 					<br>
                     <ul>
-						<li class="active"><a href="index.php">Home</a></li>
+						<li class="active"><a href="AdminHome.php">Home</a></li>
 						<li><a href="about.php">About</a></li>
 						<li><a href="">Search</a></li>
 						<li><a href="contact.php">Contact</a></li>
@@ -83,7 +83,7 @@
                         <br><li class="btn-cta2"><a href="Login.php"><span> <div align="center">Logout</div>   </span></a></li>
 					</ul>
 					<ul>
-                      <!--  <li class="btn-cta"><a href="#Signup"><span>Sign Up</span></a></li> -->
+                        <!-- <li class="btn-cta"><a href="#Signup"><span>Sign Up</span></a></li> -->
 					</ul>
 				</div>
 			</div>
@@ -97,19 +97,19 @@
 	
 	<div id="gtco-features">
 		<div class="gtco-container">
-			<br><div class="row">
+			<div class="row">
 				<div class="col-md-4 col-sm-4">
 					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<a href="AddAccount.php" > <span class="icon">
+						<span class="icon">
 							<i class="icon-user"></i>
 						</span>
-                            <h3>Add Account</h3> </a>
+						 <h3>Add Account</h3>
 						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
 						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-4">
-				<a href="DeleteAccount.php" >	<div class="feature-center animate-box" data-animate-effect="fadeIn">
+				<a href="AdminHome.php" >	<div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<span class="icon">
 							<i class="icon-trash"></i>
 						</span>
@@ -119,11 +119,11 @@
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-4">
-					<a href="EditAccount.php"><div class="feature-center animate-box" data-animate-effect="fadeIn">
+					<div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<span class="icon">
 							<i class="icon-edit"></i>
 						</span>
-                        <h3>Edit User's Information</h3> </a>
+						<h3>Edit User's Information</h3>
 						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
 						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
 					</div>
