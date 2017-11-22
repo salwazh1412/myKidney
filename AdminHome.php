@@ -104,7 +104,7 @@ if (isset($_POST['login'])) {
 						<!-- <li class="btn-cta2"><a href="Login.php"><span> <div align="center">Login</div>   </span></a></li>
 					</ul>
 					<ul> -->
-					<li class="btn-cta"><a href="index.php#Signup"><span>Sign Up</span></a></li>
+					<!-- <li class="btn-cta"><a href="index.php#Signup"><span>Sign Up</span></a></li> -->
 					</ul>
 				</div>
 			</div>
@@ -116,39 +116,34 @@ if (isset($_POST['login'])) {
 		
 	<div id="gtco-started" Style="background: rgba(0, 0, 0, 0);">
 		<div class="gtco-container">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-                      <br><br><br><br><br><h2>Login</h2>
-				</div>
-			</div>
-		    <div class="row animate-box"> 
-				<div class="col-md-12">
-					<form method="POST" class="form-inline">
-						<div class="col-md-4 col-sm-4">
-	
-						</div>
-						<div class="col-md-4 col-sm-4">
-							<div class="form-group">
-								<p><input type="email" class="form-control" id="email" placeholder="Email" required > </p>
-                                
-                                <p><input type="password" class="form-control" id="password" placeholder="Password" required></p>
+	    <div class="row animate-box"> 
+				<div class="col-md-12" Style="margin-top: 150px;">
 
-                                <P><button name='login' id='login' type="submit" class="btn btn-default btn-block" Style="background: rgba(255, 255, 255, 1); color:#52d3aa;">Login</button></P>
-                                <p><a  Style="color:#efeded" href="ForgotPassword.php"> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp; Forgot Password? </a></p>
-							</div>
-						</div>
-                        
 						<div class="col-md-4 col-sm-4">
-                            
+
+                                <P><button type="button" name="login" id="login" class="btn btn-default btn-block" Style="background: rgba(255, 255, 255, 0.1); height:200px; width:200px; color:#52d3aa;">Login</button></P>
+
 						</div>
-					</form>
+						<div class="col-md-4 col-sm-4">
+
+                                <P><button type="button" name="login" id="login" class="btn btn-default btn-block" Style="background: rgba(255, 255, 255, 0.1); height:200px; width:200px; color:#52d3aa;">Delete Account</button></P>
+
+
+						</div>
+
+
+						<div class="col-md-4 col-sm-4">
+                                                    
+                                <P><button type="button" name="login" id="login" class="btn btn-default btn-block" Style="background: rgba(255, 255, 255, 0.1); height:200px; width:200px; color:#52d3aa;">Login</button></P>
+						</div>
+				
 				</div>
 		    </div>
+ 			
 		</div>
 	</div>
         
-        
-        
+        	       
         
         <!-- <div class="gtco-container">
 			<div class="row">

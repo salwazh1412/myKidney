@@ -27,9 +27,14 @@ fclose($myfile);
 
 //////////////////// Login Code redirect (Admin) ///////////////
 
-    echo (strcasecmp($email ,  $AdminUsername));
+   $email = str_replace("@", "", $email);
+   $AdminUsername = str_replace("@", "", $AdminUsername);
     
-    if ( $email === $AdminUsername && $password == $AdminPassword) {
+    
+    echo (strcasecmp($email ,  $AdminUsername))."<br>";
+    echo similar_text($email,$AdminUsername)."<br>";
+    
+    if ( $email == $AdminUsername && $password == $AdminPassword) {
         //$_SESSION['Admin']=$AdminUsername;
         header('location:AdminHome.php');
     }
@@ -42,7 +47,7 @@ fclose($myfile);
     else {
         echo 'No <br>';
         echo $AdminUsername."<br>";
-        echo $_POST['email']."<br>";
+        echo $email."<br>";
         echo $AdminPassword."<br>";
         echo $_POST['password'];
     }       
