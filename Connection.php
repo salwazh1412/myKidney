@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start();/*
 // step 1: connect to database
 if (! ( $database = mysql_connect ("localhost","root","")) )
 die ("Cann't connect to database");
@@ -8,11 +8,24 @@ die ("Cann't connect to database");
 if(mysql_set_charset('utf8',$database))  
 
 // step 2: open database
-if ( ! ( mysql_select_db ( "Mykidney" ,$database )))
+if ( ! ( mysql_select_db ( "mykidney" ,$database )))
 die ("Cann't open database ");
 
 //  set sql encoding
 mysql_query("SET NAMES 'utf-8'");  
-$SqlEncoding=mysql_client_encoding($database);  
-	 
+$SqlEncoding=mysql_client_encoding($database); */ 
+	
+$servername = "localhost";
+$username = "root";
+$password = "";
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=mykidney", $username, $password);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+catch(PDOException $e)
+    {
+    echo "Connection failed: " . $e->getMessage();
+    }
 ?>
