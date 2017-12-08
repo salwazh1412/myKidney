@@ -21,16 +21,6 @@ if (isset($_POST['Add']))
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];    
-    $phone = $_POST['phone'];
-    $city = "";
-    $city = $_POST['city'];
-    $bloodType = "";
-    $bloodType = $_POST['BloodType'];
-    $rawdate = htmlentities($_POST['BD']);
-    $BD = date('Y-m-d', strtotime($rawdate));
-    $diabetes = $_POST['diabetes'];
-    $LowPressure = $_POST['LowPressure'];
-    $HighPressure = $_POST['HighPressure'];
                
 
     // insert into users table
@@ -38,8 +28,11 @@ if (isset($_POST['Add']))
     
     $stmt = $conn->prepare($sql1);
 
-    if ( ! $stmt->execute() )
-        die ("Error while execute query, The Error is: ".mysql_error ()); 
+    if ( ! $stmt->execute() ){
+        //die ("Error while execute query, The Error is: ".mysql_error ()); 
+             $Added = false;
+   
+    }
     
     else {
 
@@ -52,39 +45,58 @@ if (isset($_POST['Add']))
             if ( ! $stmt->execute() )
                 die ("Error while execute query, The Error is: ".mysql_error ()); 
         
-            elseif ($Type == "donor" || $Type == "patient")
+            elseif ($Type == 3 || $Type == 4)
             {
+                    $phone = $_POST['phone'];
+                    $city = "";
+                    $city = $_POST['city'];
+                    $bloodType = "";
+                    $bloodType = $_POST['BloodType'];
+                    $rawdate = htmlentities($_POST['BD']);
+                    $BD = date('y-m-d', strtotime($rawdate));
+                    $diabetes = $_POST['diabetes'];
+                    $LowPressure = $_POST['LowPressure'];
+                    $HighPressure = $_POST['HighPressure'];
+                
                     $row = $stmt->fetch();
+                    if ($Type == 3)
+                        $tableName = 'patient';
+                    elseif ($Type == 4)
+                        $tableName = 'donor';
+
                 
                     // insert into Donor / Patient table
-                    $sql3 = "INSERT INTO ".$Type." (User_ID, Name, Email, Phone, City, Blood_Type, Date_of_Birth, Diabetes, LowPressure, HighPressure) VALUES (".$row[0].",'".$name."','".$email."',".$phone.",'".$city."','".$bloodType."',".$BD.",'".$diabetes."','".$LowPressure."','".$HighPressure."')";
+                    $sql3 = "INSERT INTO ".$tableName." (User_ID, Name, Email, Phone, City, Blood_Type, Date_of_Birth, Diabetes, LowPressure, HighPressure) VALUES (".$row['ID'].",'".$name."','".$email."',".$phone.",'".$city."','".$bloodType."',".$BD.",'".$diabetes."','".$LowPressure."','".$HighPressure."')";
 
                     $stmt = $conn->prepare($sql3);
 
                     if ( ! $stmt->execute() )
-                       die ("Error while execute query, The Error is: ".mysql_error ()); 
+                    { //die ("Error while execute query, The Error is: ".mysql_error ()); 
+                         $Added = false;
 
+                    }
                         else
-
-                            $Add = true;
+                            $Added = true;
             
             
-            } elseif ($Type == "staff")
+            } elseif ($Type == 2)
                 
                 {
                     $row = $stmt->fetch();
 
                     // insert into staff table
-                    $sql4 = "INSERT INTO staff ( Name, Email, User_ID) VALUES ('".$name."','".$email."',".$row[0]."bn)";
+                    $sql4 = "INSERT INTO staff ( Name, Email, User_ID) VALUES ('".$name."','".$email."',".$row['ID'].")";
 
                     $stmt = $conn->prepare($sql4);
 
                     if ( ! $stmt->execute() )
-                       die ("Error while execute query, The Error is: ".mysql_error ()); 
-
+                    { //die ("Error while execute query, The Error is: ".mysql_error ()); 
+                         $Added = false;
+   
+                    }
                         else
 
-                            $Add = true;
+                            $Added = true;
                 }
         
         
@@ -165,7 +177,7 @@ if (isset($_POST['Add']))
 
 $(function() {
     $('input[name="type"]').on('click', function() {
-        if ($(this).val() == 'staff') {
+        if ($(this).val() == 2) {
             $('#notstaff').hide();
         }
         else {
@@ -257,8 +269,13 @@ function checkAvailability() {
 			<div class="row">
 				<div class="col-md-12 animate-box">
 					<h2 class= "text-center"; Style="color:gray; margin-top:-80px;">  Add Account </h2>			
-                    
-                    <p Style="color:green; margin-left:150px;"></p>
+                    <?php 
+                    if (isset($Added) && $Added == 'true')
+                        echo "<div Style='color:green; text-align:center;'>The account has been successfully deleted</div><br>";
+                    elseif (isset($Added) && $Added == 'false')
+                        echo "<div Style='color:red; text-align:center;'>Couldn't complete the process, please try again</div><br>";
+
+                    ?>
                     
 					<form action='AddAccount.php' method='post' class='col-md-6 animate-box' Style='margin-left:80px;'>
 				        
@@ -266,13 +283,13 @@ function checkAvailability() {
 							<div class="col-md-12">
 								<label for="type"> Type &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</label>
                                  <br><p Style="margin-left:50px;">
-                                    <input type="radio" name="type" value="patient" > Patient 
+                                    <input type="radio" name="type" value=3 > Patient 
                                     
                                     &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; 
-                                    <input type="radio" name="type" value="donor" > Donor 
+                                    <input type="radio" name="type" value=4 > Donor 
                                     
                                     &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; 
-                                    <input type="radio" name="type" value='staff' > Staff </p>
+                                    <input type="radio" name="type" value=2 > Staff </p>
 							</div>
                             
 						</div>
@@ -403,9 +420,9 @@ function checkAvailability() {
 							<div class="col-md-12">
 								<label for="phone" >Suffer from High Blood Pressure?</label>
                                 <span Style="margin-left:50px;">
-                                    <input type="radio" name="HighPressure" value="Yes"> Yes 
+                                    <input type="radio" name="HighPressure" value='Yes'> Yes 
                                     &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; 
-                                    <input type="radio" name="HighPressure" value="No"> No </span>
+                                    <input type="radio" name="HighPressure" value='No'> No </span>
 							</div>
 						</div>
                  
