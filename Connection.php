@@ -25,7 +25,7 @@ $opt = [
 ];
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=mykidney", $username, $password,$opt);
+    $conn = new PDO("mysql:host=$servername;dbname=mykidney4", $username, $password,$opt);
     // set the PDO error mode to exception
     //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }

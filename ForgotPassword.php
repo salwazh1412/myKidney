@@ -1,15 +1,42 @@
-
 <!DOCTYPE HTML>
 
      <!-------------- PHP Code --------------->
 <?php
- 
+ require ('connection.php');
 require 'phpmailer/PHPMailerAutoload.php';
 require 'phpmailer/class.phpmailer.php';
+        
+ if (isset($_GET['sent']))
+ {
+     $sent = $_GET['sent'];
+ }
+else 
+    $sent = "non";
 
-if ( isset ($_POST['reset']))
+if ( isset ($_POST['send']))
 {
 
+    $sql1='SELECT count(*) FROM Donor WHERE Email ="'.$_POST['email'].'"';   
+    $stmt = $conn->prepare($sql1);
+    $stmt->execute();
+    $row1 = $stmt->fetchColumn();
+    
+    $sql2='SELECT count(*) FROM patient WHERE Email ="'.$_POST['email'].'"';   
+    $stmt = $conn->prepare($sql2);
+    $stmt->execute();
+    $row2 = $stmt->fetchColumn();
+
+    $sql3='SELECT count(*) FROM staff WHERE Email ="'.$_POST['email'].'"';   
+    $stmt = $conn->prepare($sql3);
+    $stmt->execute();
+    $row3 = $stmt->fetchColumn();
+
+    if ($row1==0 && $row2==0 && $row3==0)
+    {
+        header('location:forgotpassword.php?notfound=true');    
+    }
+    else {
+    
 $mail = new PHPMailer;
 
 $mail->isSMTP();                            // Set mailer to use SMTP
@@ -27,9 +54,9 @@ $mail->addAddress(''.$_POST['email']);   // Add a recipient
 //$mail->addBCC('bcc@example.com');
 
 $mail->isHTML(true);  // Set email format to HTML
-
+$randPass = generatePassword();
 $bodyContent = 'Hi, You recently requested a password reset.';
-$bodyContent .= '<p>Your new password is "aaaaa"</b></p>';
+$bodyContent .= '<p>Your new password is'.$randPass.'</b></p>';
 $bodyContent .= '<p>Thanks</b></p>';
 
 $mail->Subject = 'Reset your password on MyKidney';
@@ -38,15 +65,32 @@ $mail->Body    = $bodyContent;
 if(!$mail->send()) {
     echo 'Message could not be sent.';
     echo 'Mailer Error: ' . $mail->ErrorInfo;
+    $sent = 'false';
 } else {
-    echo 'Message has been sent';
-}
+    //echo 'Message has been sent';
+    $sent = 'true';
+    echo "<script type='text/javascript'>document.getElementById('email').style.display = 'none';</script>";
+    //echo "<script> document.getElementById('email').style.display = 'none'; </script>";
+    header('location:forgotpassword.php?sent=true');
     
+}
+}
+}
+/////////////////   genrate password code
+function generatePassword($length = 8) {
+    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    $count = mb_strlen($chars);
+
+    for ($i = 0, $result = ''; $i < $length; $i++) {
+        $index = rand(0, $count - 1);
+        $result .= mb_substr($chars, $index, 1);
+    }
+
+    return $result;
 }
 ?>
 
 <!-- END of send email PHP Code -->
-
 
 
 <html>
@@ -103,36 +147,28 @@ if(!$mail->send()) {
 	<![endif]-->
 
 	</head>
+
+ <!--------- JavaScript ------------>
     
+<link rel="stylesheet" href="css/colorbox.css"/>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.colorbox.js"></script>
+<script>
+      //function openColorBox(){
+      //    $.colorbox({iframe:false, width:"50%", height:"50%" });
+         // setTimeout($.colorbox.close(), 5000);
+          
+    //      setTimeout(function() {
+      //      $(openColorBox()).fadeOut('fast');
+    //        }, 5000);
+  //    }
+ 
+
+
+</script>
     
 	<body>
-	
-
-        
-
-<?php
-        
-//if ( isset ($_POST['reset']))
-//{    
    
-//$password = "5464";
-//$to      = $_POST['email'];
-//$subject = 'Your Recovered Password';
-//$message = 'Please use this password to login'.$password;
-//$headers = 'From: maryam.alghamdi_g4@yahoo.com' . "\r\n" .
-  //  'Reply-To: mhghamdi@hotmail.com' . "\r\n" .
-    //'X-Mailer: PHP/' . phpversion();
-
-//if(mail($to, $subject, $message, $headers))
-//{echo "Your Password has been sent to your email id";}
-        
-//else
-        
-//{echo "Failed to Recover your password, try again";}
-    
-//}
-    ?>               
-       
         
 	<div class="gtco-loader"></div>
 	
@@ -144,7 +180,7 @@ if(!$mail->send()) {
 					<div id="gtco-logo"><a href="index.php"><img src="images/Logo.png" style="width:170px;"></a></div>
 				</div>
 				<div class="col-xs-8 text-center menu-1">
-					<ul>
+					<br><ul>
 						<li class="active"><a href="index.php">Home</a></li>
 						<li><a href="about.php">About</a></li>
 						<li><a href="   ">Search</a></li>
@@ -182,48 +218,67 @@ if(!$mail->send()) {
 		</div>
 	</nav>
 
-	<header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url(images/img_bg_1.jpg);">
-		
-	<div id="gtco-started" Style="background: rgba(0, 0, 0, 0);">
-		<div class="gtco-container">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-                      <br><br><br><br><h2>Reset Forgotten Password</h2>
-				</div>
-			</div>
-		    <div class="row animate-box"> 
-				<div class="col-md-12">
-					<form class="form-inline" method="POST" action ="Forgotpassword.php">
-						<div >
-	                         <div class="form-group">
-								<h4> <p Style="color:#efeded"> Please enter the email address for your account. You will be emailed a new password. </p></h4>
-                                 
-                                <p><input type='email' class="form-control" name= 'email' id='email' placeholder="Email" required style="width: 30%;" > </p>
-                                
-
-                                <P><button type="submit" value='reset' id='reset' name='reset' class="btn btn-default btn-block" Style="background: rgba(255, 255, 255, 1); color:#52d3aa; width: 15%; height: 50px;" >reset</button></P>
-                                                                    
-							</div>
-						</div>
-						<!-- <div class="col-md-4 col-sm-4">
-							
-						</div>  -->
-                        
-						<!-- <div class="col-md-4 col-sm-4">
-                            
-						</div> -->
-					</form>
-				</div>
-		    </div>
-		</div>
-	</div>
-        
+	<header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url(images/img_bg_1.jpg); height:170px;">
         
 	</header>
-	
+  	
+	<div class="gtco-section">
+		<div class="gtco-container">
+			<div class="row">
+				<div class="col-md-12 animate-box">
+					<h3 class= "text-center"; Style="color:gray; margin-top:-80px; <?php echo (isset($_GET['sent'])) == true ?  "display:none;" : "display:block;"?>">Reset Forgotten Password</h3>
+                    
+                    <p <?php echo (isset($_GET['notfound']) == true) ?  "Style='display:block;'" : "Style='display:none;'"?>><span Style="color:red; text-align:center;"> User not found
+                        
+                       <!-- <lable class="form-control" Style="color:white; border:0px; text-align:center; background:rgba(230, 79, 79,.3); width:200; align:center;" >  User not found  </lable> -->
+                        
+                       
+                        
+                        </span> </p>
+                    
+                    <p <?php echo (isset($_GET['sent'])) == true ?  "Style='display:none;'" : "Style='display:block;'"?>> Please enter the email address for your account. You will be emailed a new password. </p>
+					<form action="Forgotpassword.php" method="post" <?php echo (isset($_GET['sent'])) == true ?  "Style='display:none;'" : "Style='display:block;'"?>>
+						<div class="row form-group">
+							<div class="col-md-5">
+								<input type="email" name="email" id="email" class="form-control" placeholder="Your email address">
+							
+                                <label><?php 
+                                    if ($sent == 'true') 
+                                            echo " <script>  openColorBox(); </script>";
+                                        elseif ($sent == 'false') 
+                                            echo "NOT SENT :/"; ?>
+                                </label>
+                            </div>
+						</div>
+
+						<div class="form-group">
+							<input type="submit" value="Send" id="send" name="send" class="btn btn-primary">
+						</div>
+
+					</form>		
+                    
+                   <!-------------- SENT ---------------> 
+                <div class="col-md-12" <?php echo (isset($_GET['sent'])) == true ?  "Style='display:block;'" : "Style='display:none;'"?>>
+                    
+					<div Style="margin-top:-50px;" class="feature-center animate-box" data-animate-effect="fadeIn">
+						<span class="icon" Style="zoom:1.2;">
+							 <i class="icon-check" ></i> 
+                            <!--<img src="images/OK.png" width="60px" Style="margin-top:20px"> -->
+						</span>
+                 <h1 Style=" color:gray;">Mail Sent Successfully !</h1>
+                <h4 Style=" color:gray;">A new password has been successfully sent to your e-mail</h4>
+				<a href="Login.php">Login now</a>
+                </div>
+                  
+				</div>
+
+			</div>
+			
+		</div>
+	</div>      
+    
 <!------ Footer -------->		
 <?php
+
 include ('footer.html');
 ?>
-
-

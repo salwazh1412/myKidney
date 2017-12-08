@@ -1,12 +1,107 @@
 <!DOCTYPE HTML>
 
- <?php require ('connection.php'); ?>
+ <?php 
+require ('connection.php'); 
+
+// If no session value is present, redirect the user to the login page:
+//if (!isset($_SESSION['usr_id']) || ($_SESSION['Level'] != 1))
+//	{
+//		header('location:login.php');
+//	}//end if statement
+
+//$sessionID=$_SESSION['usr_id'];	
+//$sessionLevel=$_SESSION['usr_level'];		
+
+if (isset($_POST['Add']))
+{
+
+    
+    $Type = $_POST['type'];
+    $username = $_POST['username'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];    
+    $phone = $_POST['phone'];
+    $city = "";
+    $city = $_POST['city'];
+    $bloodType = "";
+    $bloodType = $_POST['BloodType'];
+    $rawdate = htmlentities($_POST['BD']);
+    $BD = date('Y-m-d', strtotime($rawdate));
+    $diabetes = $_POST['diabetes'];
+    $LowPressure = $_POST['LowPressure'];
+    $HighPressure = $_POST['HighPressure'];
+               
+
+    // insert into users table
+    $sql1 = "INSERT INTO users (User_Name, Password, Level) VALUES ('".$username."','".$password."','".$Type."')";
+    
+    $stmt = $conn->prepare($sql1);
+
+    if ( ! $stmt->execute() )
+        die ("Error while execute query, The Error is: ".mysql_error ()); 
+    
+    else {
+
+            /// get ID
+
+            $sql2 = "SELECT ID FROM users where User_Name = '".$username."'";
+
+            $stmt = $conn->prepare($sql2);
+
+            if ( ! $stmt->execute() )
+                die ("Error while execute query, The Error is: ".mysql_error ()); 
+        
+            elseif ($Type == "donor" || $Type == "patient")
+            {
+                    $row = $stmt->fetch();
+                
+                    // insert into Donor / Patient table
+                    $sql3 = "INSERT INTO ".$Type." (User_ID, Name, Email, Phone, City, Blood_Type, Date_of_Birth, Diabetes, LowPressure, HighPressure) VALUES (".$row[0].",'".$name."','".$email."',".$phone.",'".$city."','".$bloodType."',".$BD.",'".$diabetes."','".$LowPressure."','".$HighPressure."')";
+
+                    $stmt = $conn->prepare($sql3);
+
+                    if ( ! $stmt->execute() )
+                       die ("Error while execute query, The Error is: ".mysql_error ()); 
+
+                        else
+
+                            $Add = true;
+            
+            
+            } elseif ($Type == "staff")
+                
+                {
+                    $row = $stmt->fetch();
+
+                    // insert into staff table
+                    $sql4 = "INSERT INTO staff ( Name, Email, User_ID) VALUES ('".$name."','".$email."',".$row[0]."bn)";
+
+                    $stmt = $conn->prepare($sql4);
+
+                    if ( ! $stmt->execute() )
+                       die ("Error while execute query, The Error is: ".mysql_error ()); 
+
+                        else
+
+                            $Add = true;
+                }
+        
+        
+        
+    }
+    
+}  // end of post add function
+
+
+
+?>
 
 <html>
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>myKidney</title>
+	<title>myKidney | Add Account</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
@@ -57,7 +152,69 @@
 
 	</head>
 	<body>
-		
+        
+<style>
+.status-available{color:green;}
+.status-not-available{color:#D60202;}
+</style>
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>      
+        
+<script type="text/javascript">
+
+$(function() {
+    $('input[name="type"]').on('click', function() {
+        if ($(this).val() == 'staff') {
+            $('#notstaff').hide();
+        }
+        else {
+            $('#notstaff').show();
+        }
+      });
+});
+    
+function checkEmail() {
+    var email_x = document.getElementById("email").value;
+    filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (filter.test(email.value)) {
+        document.getElementById("email").style.border = "3px solid green";
+        return true;
+    } else {
+        document.getElementById("email").style.border = "3px solid red";
+            return false;
+    }
+ }
+    
+  var checkPasswords = function() {
+  if (document.getElementById('password').value ==
+    document.getElementById('ConfirmPassword').value) {
+    document.getElementById('message').style.color = 'green';
+    document.getElementById('message').innerHTML = 'matching';
+  } else {
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').innerHTML = 'not matching';
+  }
+}
+
+    
+function checkAvailability() {
+	$("#loaderIcon").show();
+	jQuery.ajax({
+	url: "check_availability.php",
+	data:'username='+$("#username").val(),
+	type: "POST",
+	success:function(data){
+		$("#user-availability-status").html(data);
+		$("#loaderIcon").hide();
+	},
+	error:function (){}
+	});
+}
+            
+</script>
+        
+        
 	<div class="gtco-loader"></div>
 	
 	<div id="page">
@@ -95,43 +252,179 @@
 
 	</header>
 	
-	<div id="gtco-features">
+	<div class="gtco-section">
 		<div class="gtco-container">
 			<div class="row">
-				<div class="col-md-4 col-sm-4">
-					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<span class="icon">
-							<i class="icon-user"></i>
-						</span>
-						 <h3>Add Account</h3>
-						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
-						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
-					</div>
+				<div class="col-md-12 animate-box">
+					<h2 class= "text-center"; Style="color:gray; margin-top:-80px;">  Add Account </h2>			
+                    
+                    <p Style="color:green; margin-left:150px;"></p>
+                    
+					<form action='AddAccount.php' method='post' class='col-md-6 animate-box' Style='margin-left:80px;'>
+				        
+                        <div class="row form-group">
+							<div class="col-md-12">
+								<label for="type"> Type &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</label>
+                                 <br><p Style="margin-left:50px;">
+                                    <input type="radio" name="type" value="patient" > Patient 
+                                    
+                                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; 
+                                    <input type="radio" name="type" value="donor" > Donor 
+                                    
+                                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; 
+                                    <input type="radio" name="type" value='staff' > Staff </p>
+							</div>
+                            
+						</div>
+                       
+                         <div class="row form-group" id="frmCheckUsername">
+							<div class="col-md-12">
+								<label for="username"> Username </label>
+								<input type="text" id="username" name="username" class="form-control demoInputBox" placeholder="Username" onBlur="checkAvailability();" required>
+                                <span id="user-availability-status"></span> 
+                                <p><img src="images/LoaderIcon.gif" id="loaderIcon" style="display:none" /></p>
+							</div> 
+							</div> 
+
+                             
+					<!-- </div> -->
+                        
+                        <div class="row form-group">
+							<div class="col-md-12">
+								<label for="name" > Name </label>
+								<input type="text" id="name" name="name" class="form-control" placeholder="Name" required>
+							</div>
+						</div>
+
+						<div class="row form-group">
+							<div class="col-md-12">
+								<label for="email">Email</label>
+								<input type="email" id="email" name="email" class="form-control" placeholder="e-mail address" required onchange="checkEmail();">
+							</div>
+						</div>						
+                        
+                        <div class="row form-group">
+							<div class="col-md-12">
+								<label for="password">Password</label>
+								<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+							</div>
+						</div>  
+                        
+                        <div class="row form-group">
+							<div class="col-md-12">
+								<label for="ConfirmPassword">Confirm Password</label>
+								<input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" placeholder="Confirm Password" onkeyup='checkPasswords();' required>
+                                <span id='message'></span>
+							</div>
+						</div>
+                        
+             <div id="notstaff" Style="display:block;">
+         
+                        <div class="row form-group" >
+							<div class="col-md-12">
+								<label for="phone" >Phone</label>
+								<input type="text" id="phone" name= "phone" class="form-control" placeholder="ex. 0555555555" >
+							</div>
+						</div>       
+                        
+                        <div class="row form-group">
+							<div class="col-md-12">
+								<label for="phone" >Birth Date</label>
+								<input type="date" id="BD" name="BD" class="form-control" >
+							</div>
+						</div>
+                 
+                        <div class="row form-group">
+							<div class="col-md-12">
+								<label for="test" >Test</label>
+                                <input type="file" id="test" name="test" size="40"  >
+							</div>
+						</div>
+                 
+                 
+
+						<div class="row form-group">
+							<div class="col-md-12">
+								<label for="city">City</label>
+                                <select class="form-control" name="city" id="city">
+                                  <option value="" disabled selected>Select city</option>
+                                  <option value="Abha" >Abha</option>
+                                  <option value="AlBahah" >AlBahah</option>
+                                  <option value="Dammam">Dammam</option>
+                                  <option value="Jeddah" >Jeddah</option>
+                                  <option value="Makkah" >Makkah</option>                                   
+                                  <option value="Taif">Taif</option>
+                                  <option value="Riyadh">Riyadh</option>
+                                  <option value="Hail" >Hail</option>
+                                  <option value="Tabuk">Tabuk</option>
+                                </select>
+							</div>
+						</div>
+                        
+                        <div class="row form-group">
+							<div class="col-md-12">
+								<label for="BloodType">Blood Type </label>
+                                <select class="form-control" name="BloodType" id="BloodType">
+                                  <option value="" disabled selected>Select blood type</option>
+                                  <option value="A+" >A+</option>
+                                  <option value="A-" >A-</option>
+                                  <option value="B+" >B+</option>
+                                  <option value="B-" >B-</option>
+                                  <option value="O+" >O+</option>
+                                  <option value="O-" >O-</option>
+                                  <option value="AB+">AB+</option>
+                                  <option value="AB-">AB-</option>
+                                </select>
+							</div>
+						</div>
+                 
+                        <div class="row form-group">
+							<div class="col-md-12">
+								<br><label for="phone" >Suffer from diabetes?</label>
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<span Style="margin-left:50px;">
+                                    <input type="radio" name="diabetes" value="Yes"> Yes 
+                                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; 
+                                    <input type="radio" name="diabetes" value="No"> No </span>
+							</div>
+						</div>                        
+                 
+                        
+                        <div class="row form-group">
+							<div class="col-md-12">
+								<label for="phone" >Suffer from Low Blood Pressure?</label>
+                                <span Style="margin-left:50px;">
+                                    <input type="radio" name="LowPressure" value="Yes"> Yes 
+                                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; 
+                                    <input type="radio" name="LowPressure" value="No"> No </span>
+							</div>
+						</div>
+                 
+                        <div class="row form-group">
+							<div class="col-md-12">
+								<label for="phone" >Suffer from High Blood Pressure?</label>
+                                <span Style="margin-left:50px;">
+                                    <input type="radio" name="HighPressure" value="Yes"> Yes 
+                                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; 
+                                    <input type="radio" name="HighPressure" value="No"> No </span>
+							</div>
+						</div>
+                 
+                 
+             </div>  
+   
+                        <div class="form-group">
+                            						                         
+							<input type="submit" value="Add" name = "Add" id="Add"  class="btn btn-primary">
+						</div>
+
+					</form>		
 				</div>
-				<div class="col-md-4 col-sm-4">
-				<a href="AdminHome.php" >	<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<span class="icon">
-							<i class="icon-trash"></i>
-						</span>
-                    <h3>Delete Account</h3> </a>
-						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p> 
-						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4">
-					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<span class="icon">
-							<i class="icon-edit"></i>
-						</span>
-						<h3>Edit User's Information</h3>
-						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
-						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
-					</div>
-				</div>
+	
 			</div>
+			
 		</div>
 	</div>
-
+        </div>
 
 	
 	<!------ Footer -------->		

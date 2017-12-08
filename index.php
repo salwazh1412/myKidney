@@ -72,7 +72,7 @@
 					<ul>
 						<li class="active"><a href="index.php">Home</a></li>
 						<li><a href="about.php">About</a></li>
-						<li><a href="   ">Search</a></li>
+						<li><a href="Search.php">Search</a></li>
 					<!--	<li class="has-dropdown">
 							<a href="services.html">Search</a>
 							<ul class="dropdown">
@@ -139,7 +139,7 @@
 				<div class="col-md-4 col-sm-4">
 					<div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<span class="icon">
-							<i class="icon-command"></i>
+							<i class="icon-user"></i>
 						</span>
 						<h3>Fully Responsive</h3>
 						<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
@@ -371,8 +371,8 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<h2>Online Marketing</h2>
-								<p>Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius nobis reprehenderit soluta eligendi quo reiciendis fugit? Veritatis tenetur odio delectus quibusdam officiis est.</p>
+								<h2><a href="#">memem</a>Online Marketing</h2>
+								Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius nobis reprehenderit soluta eligendi quo reiciendis fugit? Veritatis tenetur odio delectus quibusdam officiis est.<a href="#">memem</a>
 
 								<p>Ullam dolorum iure dolore dicta fuga ipsa velit veritatis molestias totam fugiat soluta accusantium omnis quod similique placeat at. Dolorum ducimus libero fuga molestiae asperiores obcaecati corporis sint illo facilis.</p>
 

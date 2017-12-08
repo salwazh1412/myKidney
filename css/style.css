@@ -499,6 +499,9 @@ h1, h2, h3, h4, h5, h6, figure {
   content: "\e9af";
 }
 
+
+
+
 form label {
   font-weight: normal !important;
 }
@@ -798,7 +801,7 @@ form label {
   clear: both;
   margin: 0 0 3em 0;
   padding: 3px;
-  float: left;
+  float: center;
   width: 100%;
   background: #f2f2f2;
   -webkit-border-radius: 4px;
@@ -807,7 +810,7 @@ form label {
   border-radius: 4px;
 }
 .gtco-tabs .gtco-tab-nav li {
-  float: left;
+  float: center;
   margin: 0;
   padding: 0;
   width: 25%;

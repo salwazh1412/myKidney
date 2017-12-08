@@ -1,6 +1,17 @@
 <!DOCTYPE HTML>
 
- <?php require ('connection.php'); ?>
+ <?php require ('connection.php'); 
+
+// If no session value is present, redirect the user to the login page:
+//if (!isset($_SESSION['usr_id']) || ($_SESSION['Level'] != 1))
+//	{
+//		header('location:login.php');
+//	}//end if statement
+
+//$sessionID=$_SESSION['usr_id'];	
+//$sessionLevel=$_SESSION['usr_level'];	
+
+?>
 
 <html>
 	<head>
@@ -66,7 +77,7 @@
 			<div class="row">
 				<div class="col-xs-2">
 					<!-- <div id="gtco-logo"><a href="index.php">MyKidney</a></div> -->
-                    <div id="gtco-logo"><a href="AdminHome.php"><img src="images/Logo.png" style="width:170px;"></a></div>
+                    <div id="gtco-logo"><a href="index.php"><img src="images/Logo.png" style="width:170px;"></a></div>
 				</div>
 				<div class="col-xs-8 text-center menu-1">
 					<br>
@@ -109,7 +120,7 @@
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-4">
-				<a href="DeleteAccount.php" >	<div class="feature-center animate-box" data-animate-effect="fadeIn">
+				<a href="DeleteAccount.php" ><div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<span class="icon">
 							<i class="icon-trash"></i>
 						</span>
