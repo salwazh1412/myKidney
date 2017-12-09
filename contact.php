@@ -1,4 +1,59 @@
 <!DOCTYPE HTML>
+<?php
+
+require 'phpmailer/PHPMailerAutoload.php';
+require 'phpmailer/class.phpmailer.php';
+
+if (isset($_POST['send']))
+{
+    $fName = $_POST['fname'];
+    $lName = $_POST['lname'];
+    $email = $_POST['email'];
+    $subject = $_POST['subject'];
+    $message = $_POST['message'];
+    
+$mail = new PHPMailer;
+
+$mail->isSMTP();                            // Set mailer to use SMTP
+$mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP servers
+$mail->SMTPAuth = true;                     // Enable SMTP authentication
+$mail->Username = 'mykidney.sa@gmail.com';          // SMTP username
+$mail->Password = 'mykidney.sa12345'; // SMTP password
+$mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
+$mail->Port = 587;                          // TCP port to connect to
+
+$mail->setFrom($email, $fName." ".$lName);
+//$mail->addReplyTo('mhghamdi@hotmail.com', 'CodexWorld');
+$mail->addAddress('mykidney.sa@gmail.com');   // Add a recipient
+//$mail->addCC('cc@example.com');
+//$mail->addBCC('bcc@example.com');
+
+$mail->isHTML(true);  // Set email format to HTML
+//$bodyContent = 'Hi, You recently requested a password reset.';
+
+$mail->Subject = $subject;
+$mail->Body    = $message;
+
+if(!$mail->send()) {
+    //echo 'Message could not be sent.';
+    //echo 'Mailer Error: ' . $mail->ErrorInfo;
+    //$sent = 'false';
+    header('location:contact.php?sent=false');
+
+} else {
+    //echo 'Message has been sent';
+   // $sent = 'true';
+    //echo "<script type='text/javascript'>document.getElementById('email').style.display = 'none';</script>";
+    //echo "<script> document.getElementById('email').style.display = 'none'; </script>";
+    header('location:contact.php?sent=true');
+    
+
+}
+    
+}
+
+?>
+
 <html>
 	<head>
 	<meta charset="utf-8">
@@ -54,7 +109,21 @@
 
 	</head>
 	<body>
-		
+<script>
+        
+function checkEmail() {
+    var email_x = document.getElementById("email").value;
+    filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (filter.test(email.value)) {
+        document.getElementById("email").style.border = "3px solid green";
+        return true;
+    } else {
+        document.getElementById("email").style.border = "3px solid red";
+            return false;
+    }
+ }        
+        
+</script>		
 	<div class="gtco-loader"></div>
 	
 	<div id="page">
@@ -112,7 +181,7 @@
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
 							<h1>Get In Touch</h1>
-							<h2>Free html5 templates Made by <a href="http://gettemplates.co" target="_blank">gettemplates.co</a></h2>
+				<!--			<h2>Free html5 templates Made by <a href="http://gettemplates.co" target="_blank">gettemplates.co</a></h2> -->
 						</div>
 					</div>
 				</div>
@@ -123,42 +192,54 @@
 	<div class="gtco-section">
 		<div class="gtco-container">
 			<div class="row">
+                				
+                    <?php 
+                        if (isset($_GET['sent']) && $_GET['sent'] == 'true')
+                            echo "<div Style='color:green; text-align:center;'>Thank you! your message has been sent successfully.</div><br><br>";
+                    
+                        elseif (isset($_GET['sent']) && $_GET['sent'] == 'false')
+                            echo "<div Style='color:red; text-align:center;'>Sorry, message could not be sent. Please try again </div><br><br>";
+                        
+                    ?>
+                
 				<div class="col-md-6 animate-box">
-					<h3>Get In Touch</h3>
-					<form action="#">
+
+                    
+                    <h3>Get In Touch</h3>
+					<form action="contact.php" method="post">
 						<div class="row form-group">
 							<div class="col-md-6">
 								<label for="fname">First Name</label>
-								<input type="text" id="fname" class="form-control" placeholder="Your firstname">
+								<input type="text" id="fname" name="fname" class="form-control" placeholder="Your firstname" required>
 							</div>
 							<div class="col-md-6">
 								<label for="lname">Last Name</label>
-								<input type="text" id="lname" class="form-control" placeholder="Your lastname">
+								<input type="text" id="lname" name="lname" class="form-control" placeholder="Your lastname">
 							</div>
 						</div>
 
 						<div class="row form-group">
 							<div class="col-md-12">
 								<label for="email">Email</label>
-								<input type="text" id="email" class="form-control" placeholder="Your email address">
+								<input type="text" id="email" name="email" class="form-control" placeholder="Your email address" required onchange="checkEmail();">
 							</div>
 						</div>
 
 						<div class="row form-group">
 							<div class="col-md-12">
 								<label for="subject">Subject</label>
-								<input type="text" id="subject" class="form-control" placeholder="Your subject of this message">
+								<input type="text" id="subject" name="subject" class="form-control" placeholder="Your subject of this message" required>
 							</div>
 						</div>
 
 						<div class="row form-group">
 							<div class="col-md-12">
 								<label for="message">Message</label>
-								<textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Write us something"></textarea>
+								<textarea name="message" id="message" name="message" cols="30" rows="10" class="form-control" placeholder="Write us something" required></textarea>
 							</div>
 						</div>
 						<div class="form-group">
-							<input type="submit" value="Send Message" class="btn btn-primary">
+							<input type="submit" id="send" name="send" value="Send Message" class="btn btn-primary">
 						</div>
 
 					</form>		
@@ -168,10 +249,10 @@
 					<div class="gtco-contact-info">
 						<h3>Contact Information</h3>
 						<ul>
-							<li class="address">198 West 21th Street, <br> Suite 721 New York NY 10016</li>
-							<li class="phone"><a href="tel://1234567920">+ 1235 2355 98</a></li>
-							<li class="email"><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
-							<li class="url"><a href="http://gettemplates.co">gettemplates.co</a></li>
+							<!-- <li class="address">198 West 21th Street, <br> Suite 721 New York NY 10016</li> -->
+							<li class="phone"><a href="tel://0555705464">+966 55 570 5464</a></li>
+							<li class="email"><a href="mailto:mykidney.sa@gmail.com">mykidney.sa@gmail.com</a></li>
+							<li class="url"><a href="http://gettemplates.co">www.mykidney.com.sa</a></li>
 						</ul>
 					</div>
 
@@ -180,7 +261,7 @@
 			
 		</div>
 	</div>
-
+<!--
 	<div class="gtco-cover gtco-cover-sm" style="background-image:url(images/img_bg_3.jpg);">
 		<div class="overlay"></div>
 		<div class="gtco-container">
@@ -196,7 +277,7 @@
 			</div>
 		</div>
 	</div>
-	
+-->
 
 <!------ Footer -------->		
 <?php
