@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 
- <?php require ('connection.php'); 
+ <?php require ('connection.php');
+$_SESSION['usr_level'] = 2;
+
 ?>
 
 <html>
@@ -334,7 +336,7 @@ table tr.header, table tr:hover {
                      
 				    <div class="col-md-6">	
 
-                    <input type="text" class="myInput" id="myInput1" onkeyup="myFunction1()" placeholder="Search for names.." Style="display: inline-block; float: left; margin-right: 20px;"> 
+                    <input type="text" class="myInput" id="myInput1" onkeyup="myFunction1()" placeholder="Search for names <?php if(isset($_SESSION['usr_level']) && $_SESSION['usr_level'] == 2) {echo "or phone numbers";} ?>.." Style="display: inline-block; float: left; margin-right: 20px;"> 
                      </div>
                      
                     <div class="col-md-6">
@@ -390,10 +392,16 @@ table tr.header, table tr:hover {
                                 echo "<tr class='header'>
                                         <th style='width:25%; text-align:center;'>Name</th>
                                         <th style='width:10%; text-align:center;'>Blood Type</th>
-                                        <th style='width:10%; text-align:center;'>City</th>
-                                        <th style='width:13%; text-align:center;'>Phone number</th>
-                                        <th style='width:25%; text-align:center;'>e-mail</th>
-                                        <th style='width:5%; text-align:center;'>Diabetes</th>
+                                        <th style='width:10%; text-align:center;'>City</th>";
+                                        
+                                        
+                                    if (isset($_SESSION['usr_level']) && $_SESSION['usr_level'] == 2)
+                                    {
+                                        echo "<th style='width:13%; text-align:center;'>Phone number</th>
+                                              <th style='width:25%; text-align:center;'>e-mail</th>";
+                                    }
+                                    
+                                        echo "<th style='width:5%; text-align:center;'>Diabetes</th>
                                         <th style='width:5%; text-align:center;'>Low Pressure</th>
                                         <th style='width:5%; text-align:center;'>High Pressure</th>
 
@@ -414,27 +422,31 @@ table tr.header, table tr:hover {
                                     echo "</td>";	 
                                     
                                     // column 3
-                                    echo "<td class='11'>".$row['City']."";
+                                    echo "<td class='11' Style='text-align:center;'>".$row['City']."";
                                     echo "</td>";	                                    
                                     
+                                  if (isset($_SESSION['usr_level']) && $_SESSION['usr_level'] == 2)
+                                  {
                                     // column 4
-                                    echo "<td class='11'>0".$row['Phone']."";
+                                    echo "<td class='11' Style='text-align:center;'> 0".$row['Phone']."";
                                     echo "</td>";		
                                  
                                     // column 5
-                                    echo "<td class='11'>".$row['Email']."";
+                                    echo "<td class='11' Style='text-align:center;'>".$row['Email']."";
                                     echo "</td>";	 
+                                  
+                                  }
                                     
                                     // column 6
-                                    echo "<td class='11'>".$row['Diabetes']."";
+                                    echo "<td class='11' Style='text-align:center;'>".$row['Diabetes']."";
                                     echo "</td>";
                                     
                                     // column 7
-                                    echo "<td class='11'>".$row['LowPressure']."";
+                                    echo "<td class='11' Style='text-align:center;'>".$row['LowPressure']."";
                                     echo "</td>";	                                    
                                     
                                     // column 8
-                                    echo "<td class='11'>".$row['HighPressure']."";
+                                    echo "<td class='11' Style='text-align:center;'>".$row['HighPressure']."";
                                     echo "</td>";
 
                                     echo "</tr>";
@@ -455,7 +467,7 @@ table tr.header, table tr:hover {
 
 						<div class="row form-group">
 							<div class="col-md-6">
-                                <input width=100% type="text" id= "myInput2" class="myInput" onkeyup="myFunction2()" placeholder="Search for names..">
+                                <input width=100% type="text" id= "myInput2" class="myInput" onkeyup="myFunction2()" placeholder="Search for names <?php if(isset($_SESSION['usr_level']) && $_SESSION['usr_level'] == 2) {echo "or phone numbers";} ?>..">
 							</div>
                             
 							<div class="col-md-6">
@@ -511,10 +523,17 @@ table tr.header, table tr:hover {
                                 echo "<tr class='header'>
                                         <th style='width:25%; text-align:center;'>Name</th>
                                         <th style='width:10%; text-align:center;'>Blood Type</th>
-                                        <th style='width:10%; text-align:center;'>City</th>
-                                        <th style='width:13%; text-align:center;'>Phone number</th>
-                                        <th style='width:25%; text-align:center;'>e-mail</th>
-                                        <th style='width:5%; text-align:center;'>Diabetes</th>
+                                        <th style='width:10%; text-align:center;'>City</th>";
+                                        
+                                        
+                                  if (isset($_SESSION['usr_level']) && $_SESSION['usr_level'] == 2)
+                                    {
+                                        echo "<th style='width:13%; text-align:center;'>Phone number</th>
+                                              <th style='width:25%; text-align:center;'>e-mail</th>";
+                                    }
+                                        
+                                        
+                                  echo "<th style='width:5%; text-align:center;'>Diabetes</th>
                                         <th style='width:5%; text-align:center;'>Low Pressure</th>
                                         <th style='width:5%; text-align:center;'>High Pressure</th>
 
@@ -535,27 +554,29 @@ table tr.header, table tr:hover {
                                     echo "</td>";	 
                                     
                                     // column 3
-                                    echo "<td class='22'>".$row['City']."";
-                                    echo "</td>";	                                    
+                                    echo "<td class='22' Style='text-align:center;'>".$row['City']."";
+                                    echo "</td>";	
                                     
+                        if (isset($_SESSION['usr_level']) && $_SESSION['usr_level'] == 2)
+                        {
                                     // column 4
-                                    echo "<td class='22'>0".$row['Phone']."";
+                                    echo "<td class='22' Style='text-align:center;'> 0".$row['Phone']."";
                                     echo "</td>";		
                                  
                                     // column 5
-                                    echo "<td class='22'>".$row['Email']."";
+                                    echo "<td class='22' Style='text-align:center;'>".$row['Email']."";
                                     echo "</td>";	 
-                                    
+                        }
                                     // column 6
-                                    echo "<td class='22'>".$row['Diabetes']."";
+                                    echo "<td class='22' Style='text-align:center;'>".$row['Diabetes']."";
                                     echo "</td>";
                                     
                                     // column 7
-                                    echo "<td class='22'>".$row['LowPressure']."";
+                                    echo "<td class='22' Style='text-align:center;'> ".$row['LowPressure']."";
                                     echo "</td>";	                                    
                                     
                                     // column 8
-                                    echo "<td class='22'>".$row['HighPressure']."";
+                                    echo "<td class='22' Style='text-align:center;'> ".$row['HighPressure']."";
                                     echo "</td>";	
 
                                     echo "</tr>";
