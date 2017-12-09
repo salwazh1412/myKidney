@@ -10,7 +10,7 @@ require ('connection.php');
 //	}//end if statement
 
 //$sessionID=$_SESSION['usr_id'];	
-//$sessionLevel=$_SESSION['usr_level'];		
+//$sessionLevel=$_SESSION['usr_level'];	
 
 if (isset($_POST['Add']))
 {
@@ -53,7 +53,7 @@ if (isset($_POST['Add']))
                     $bloodType = "";
                     $bloodType = $_POST['BloodType'];
                     $rawdate = htmlentities($_POST['BD']);
-                    $BD = date('y-m-d', strtotime($rawdate));
+                    $BD = date('Y-m-d', strtotime($rawdate));
                     $diabetes = $_POST['diabetes'];
                     $LowPressure = $_POST['LowPressure'];
                     $HighPressure = $_POST['HighPressure'];
@@ -179,9 +179,25 @@ $(function() {
     $('input[name="type"]').on('click', function() {
         if ($(this).val() == 2) {
             $('#notstaff').hide();
+            $("#phone").prop('required',false);
+            $("#BD").prop('required',false);
+            $("#city").prop('required',false);
+            $("#BloodType").prop('required',false);
+            $("#diabetes").prop('required',false);
+            $("#LowPressure").prop('required',false);
+            $("#HighPressure").prop('required',false);
+
         }
         else {
             $('#notstaff').show();
+            $("#phone").prop('required',true);
+            $("#BD").prop('required',true);
+            $("#city").prop('required',true);
+            $("#BloodType").prop('required',true);
+            $("#diabetes").prop('required',true);
+            $("#LowPressure").prop('required',true);
+            $("#HighPressure").prop('required',true);
+
         }
       });
 });
@@ -223,7 +239,33 @@ function checkAvailability() {
 	error:function (){}
 	});
 }
-            
+     
+function checkPassLength(){
+    
+    if ($("#password").val().length < 8 && $("#password").val().length > 0)
+        {
+            document.getElementById('passMessage').style.color = 'red';
+            document.getElementById('passMessage').innerHTML = 'password length should be at least 8 ';
+        }
+    else
+           document.getElementById('passMessage').innerHTML = '';
+}
+    
+function checkPhoneLength(){
+    
+    if ($("#phone").val().length != 10 && $("#phone").val().length > 0)
+        {
+            document.getElementById('phoneMessage').style.color = 'red';
+            document.getElementById('phoneMessage').innerHTML = 'phone should be 10 digits ';
+        }
+    else
+           document.getElementById('phoneMessage').innerHTML = '';
+    
+    if (isNaN($("#phone").val())){
+            document.getElementById('phoneMessage').style.color = 'red';
+            document.getElementById('phoneMessage').innerHTML = 'please enter numbers only';
+    }
+}
 </script>
         
         
@@ -271,9 +313,11 @@ function checkAvailability() {
 					<h2 class= "text-center"; Style="color:gray; margin-top:-80px;">  Add Account </h2>			
                     <?php 
                     if (isset($Added) && $Added == 'true')
-                        echo "<div Style='color:green; text-align:center;'>The account has been successfully deleted</div><br>";
+                        echo "<div Style='color:green; text-align:center;'>The account has been successfully created</div><br>";
                     elseif (isset($Added) && $Added == 'false')
                         echo "<div Style='color:red; text-align:center;'>Couldn't complete the process, please try again</div><br>";
+             
+                    $Added = false;
 
                     ?>
                     
@@ -301,7 +345,7 @@ function checkAvailability() {
                                 <span id="user-availability-status"></span> 
                                 <p><img src="images/LoaderIcon.gif" id="loaderIcon" style="display:none" /></p>
 							</div> 
-							</div> 
+				        </div> 
 
                              
 					<!-- </div> -->
@@ -323,8 +367,10 @@ function checkAvailability() {
                         <div class="row form-group">
 							<div class="col-md-12">
 								<label for="password">Password</label>
-								<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-							</div>
+								<input type="password" id="password" name="password" class="form-control" placeholder="Password" onblur="checkPassLength()" required>
+							    <span id='passMessage'></span>
+
+                            </div>
 						</div>  
                         
                         <div class="row form-group">
@@ -340,14 +386,15 @@ function checkAvailability() {
                         <div class="row form-group" >
 							<div class="col-md-12">
 								<label for="phone" >Phone</label>
-								<input type="text" id="phone" name= "phone" class="form-control" placeholder="ex. 0555555555" >
-							</div>
+								<input type="text" id="phone" name= "phone" class="form-control" placeholder="ex. 0555555555" onblur="checkPhoneLength()">
+							    <span id='phoneMessage'></span>
+                            </div>
 						</div>       
                         
                         <div class="row form-group">
 							<div class="col-md-12">
-								<label for="phone" >Birth Date</label>
-								<input type="date" id="BD" name="BD" class="form-control" >
+								<label for="BD" >Birth Date</label>
+								<input type="date" id="BD" name="BD" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" class="form-control" >
 							</div>
 						</div>
                  
@@ -397,11 +444,11 @@ function checkAvailability() {
                  
                         <div class="row form-group">
 							<div class="col-md-12">
-								<br><label for="phone" >Suffer from diabetes?</label>
+								<br><label for="diabetes" >Suffer from diabetes?</label>
                                 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<span Style="margin-left:50px;">
-                                    <input type="radio" name="diabetes" value="Yes"> Yes 
+                                    <input type="radio" name="diabetes" id="diabetes" value="Yes"> Yes 
                                     &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; 
-                                    <input type="radio" name="diabetes" value="No"> No </span>
+                                    <input type="radio" name="diabetes" id="diabetes" value="No"> No </span>
 							</div>
 						</div>                        
                  
@@ -410,9 +457,9 @@ function checkAvailability() {
 							<div class="col-md-12">
 								<label for="phone" >Suffer from Low Blood Pressure?</label>
                                 <span Style="margin-left:50px;">
-                                    <input type="radio" name="LowPressure" value="Yes"> Yes 
+                                    <input type="radio" name="LowPressure" id="LowPressure" value="Yes"> Yes 
                                     &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; 
-                                    <input type="radio" name="LowPressure" value="No"> No </span>
+                                    <input type="radio" name="LowPressure" id="LowPressure" value="No"> No </span>
 							</div>
 						</div>
                  
@@ -420,9 +467,9 @@ function checkAvailability() {
 							<div class="col-md-12">
 								<label for="phone" >Suffer from High Blood Pressure?</label>
                                 <span Style="margin-left:50px;">
-                                    <input type="radio" name="HighPressure" value='Yes'> Yes 
+                                    <input type="radio" name="HighPressure" id="HighPressure" value='Yes'> Yes 
                                     &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; 
-                                    <input type="radio" name="HighPressure" value='No'> No </span>
+                                    <input type="radio" name="HighPressure" id="HighPressure" value='No'> No </span>
 							</div>
 						</div>
                  
