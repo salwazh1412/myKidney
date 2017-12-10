@@ -403,9 +403,15 @@ table tr.header, table tr:hover {
                                     
                                         echo "<th style='width:5%; text-align:center;'>Diabetes</th>
                                         <th style='width:5%; text-align:center;'>Low Pressure</th>
-                                        <th style='width:5%; text-align:center;'>High Pressure</th>
+                                        <th style='width:5%; text-align:center;'>High Pressure</th>";
+                                            
+                                    if (isset($_SESSION['usr_level']) && $_SESSION['usr_level'] == 2)
+                                    {
+                                        echo "<th style='width:13%; text-align:center;'>Test</th> 
+                                            </tr>";
 
-                                      </tr>";
+                                    }
+                                      
                                         
                                 while($row = $stmt->fetch())
 
@@ -449,6 +455,15 @@ table tr.header, table tr:hover {
                                     echo "<td class='11' Style='text-align:center;'>".$row['HighPressure']."";
                                     echo "</td>";
 
+                                if (isset($_SESSION['usr_level']) && $_SESSION['usr_level'] == 2)
+                                  {
+                                    // column 9
+                                    echo "<td class='11' Style='text-align:center;'><a href='".$row['Test']."'>Download</a>";
+                                    echo "</td>";		
+                                  
+                                  
+                                  }
+                                    
                                     echo "</tr>";
 
                                 }
@@ -578,7 +593,14 @@ table tr.header, table tr:hover {
                                     // column 8
                                     echo "<td class='22' Style='text-align:center;'> ".$row['HighPressure']."";
                                     echo "</td>";	
+                                    
+                                    if (isset($_SESSION['usr_level']) && $_SESSION['usr_level'] == 2)
+                                    {
+                                        echo "<th style='width:13%; text-align:center;'>Test</th> 
+                                            </tr>";
 
+                                    }
+                                      
                                     echo "</tr>";
 
                                 }
