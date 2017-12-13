@@ -5,8 +5,8 @@
 $ID = $_GET['ID'];
 $Type = $_GET['Type'];
 
-$_SESSION['usr_level'] = 3;
-$_SESSION['usr_id'] = 20;
+//$_SESSION['usr_level'] = 3;
+//$_SESSION['usr_id'] = 20;
 
 
 if (isset($_SESSION['usr_level']))

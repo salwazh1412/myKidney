@@ -1,15 +1,5 @@
-<!DOCTYPE HTML>
-
- <?php require ('connection.php');
-
-// If no session value is present, redirect the user to the login page:
-//if (!isset($_SESSION['usr_id']) || ($_SESSION['Level'] != 1))
-//	{
-//		header('location:login.php');
-//	}//end if statement
-
-//$sessionID=$_SESSION['usr_id'];	
-//$sessionLevel=$_SESSION['usr_level'];	
+<?php
+    include("HeaderAdmin.php");
 
 $userName=0;
 $Type=4;
@@ -19,15 +9,14 @@ $Type=$_GET['Type'];
 $updated = false;
 
 if (isset($_POST['Save']))
-{
-    $sql='SELECT * FROM Staff';
-                 
-    $stmt = $conn->prepare($sql);
-
-    $stmt->execute();
-    
+{   
     $updatedName = $_POST['name'];
     $updatedEmail = $_POST['email'];
+
+    
+    
+    if ($Type == 3) {
+        
     $updatedPhone = $_POST['phone'];
     $updatedCity = $_POST['city'];
     $updatedBloodType = $_POST['BloodType'];
@@ -35,10 +24,9 @@ if (isset($_POST['Save']))
     $updatedBD = date('Y-m-d', strtotime($rawdate));
     $updatedDiabetes = $_POST['diabetes'];
     $updatedLowPressure = $_POST['LowPressure'];
-    $updatedHighPressure = $_POST['HighPressure'];
-    
-    
-    if ($Type == 3) {
+    $updatedHighPressure = $_POST['HighPressure']; 
+        
+        
     $sql4 = "UPDATE Patient SET Name='".$updatedName."', Email ='".$updatedEmail."', Phone = ".$updatedPhone.",City ='".$updatedCity."', Blood_Type = '".$updatedBloodType."', Date_of_Birth = '".$updatedBD."',  Diabetes='".$updatedDiabetes."', LowPressure ='".$updatedLowPressure."',HighPressure = '".$updatedHighPressure."'   WHERE User_ID='".$userName."'";
     
     $stmt = $conn->prepare($sql4);
@@ -51,6 +39,17 @@ if (isset($_POST['Save']))
     }
     
     else if ($Type == 4) {
+        
+    $updatedPhone = $_POST['phone'];
+    $updatedCity = $_POST['city'];
+    $updatedBloodType = $_POST['BloodType'];
+    $rawdate = htmlentities($_POST['BD']);
+    $updatedBD = date('Y-m-d', strtotime($rawdate));
+    $updatedDiabetes = $_POST['diabetes'];
+    $updatedLowPressure = $_POST['LowPressure'];
+    $updatedHighPressure = $_POST['HighPressure'];
+        
+        
     $sql5 = "UPDATE Donor SET Name='".$updatedName."', Email ='".$updatedEmail."', Phone = ".$updatedPhone.",City ='".$updatedCity."', Blood_Type = '".$updatedBloodType."', Date_of_Birth = '".$updatedBD."',  Diabetes='".$updatedDiabetes."', LowPressure ='".$updatedLowPressure."',HighPressure = '".$updatedHighPressure."'   WHERE User_ID='".$userName."'";
     
     $stmt = $conn->prepare($sql5);
@@ -60,8 +59,19 @@ if (isset($_POST['Save']))
     
         $updated = true;
         
-    }
-    
+    }    
+        else if ($Type == 2) {
+        $sql6 = "UPDATE Staff SET Name='".$updatedName."', Email ='".$updatedEmail."' WHERE User_ID='".$userName."'";
+
+        $stmt = $conn->prepare($sql6);
+
+        if ( ! $stmt->execute())
+                    die ("Error while execute query, The Error is: ".mysql_error ()); 
+
+            $updated = true;
+
+        }
+
 }
 
     
@@ -109,63 +119,13 @@ if ($Type == 3)
         elseif ($Type == 2)
             $stmt = $conn->prepare($sql3);
             $stmt->execute();
+            $row3 = $stmt->fetch();
+
+            $name = $row3['Name']; 
+            $email = $row3['Email']; 
 
 ?>
 
-<html>
-	<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MyKidney</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
-	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-	<meta name="author" content="gettemplates.co" />
-
-	<!--
-		Oxygen by gettemplates.co
-		Twitter: http://twitter.com/gettemplateco
-		URL: http://gettemplates.co
-	-->
-
-  	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
-
-	<!-- <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet' type='text/css'> -->
-	
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
-
-	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="css/magnific-popup.css">
-
-	<!-- Owl Carousel  -->
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/owl.theme.default.min.css">
-
-	<!-- Theme style  -->
-	<link rel="stylesheet" href="css/style.css">
-
-	<!-- Modernizr JS -->
-	<script src="js/modernizr-2.6.2.min.js"></script>
-	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
-
-	</head>
 	<body>
 	
 <script>
@@ -176,47 +136,9 @@ if ($Type == 3)
         }, 5000);    
     
     }
-
-
-
+ 
 </script>
         
-	<div class="gtco-loader"></div>
-	
-	<div id="page">
-	<nav class="gtco-nav" role="navigation">
-		<div class="gtco-container">
-			<div class="row">
-				<div class="col-xs-2">
-					<!-- <div id="gtco-logo"><a href="index.php">MyKidney</a></div> -->
-                    <div id="gtco-logo"><a href="AdminHome.php"><img src="images/Logo.png" style="width:170px;"></a></div>
-				</div>
-				<div class="col-xs-8 text-center menu-1">
-					<br>
-                    <ul>
-						<li class="active"><a href="AdminHome.php">Home</a></li>
-				        <!-- <li><a href="">Search</a></li>
-                        <li><a href="about.php">About</a></li>
-						<li><a href="contact.php">Contact</a></li> -->
-					</ul>
-				</div>
-				<div class="col-xs-2 text-right hidden-xs menu-2">
-					
-                    <ul>
-                        <br><li class="btn-cta2"><a href="Login.php"><span> <div align="center">Logout</div>   </span></a></li>
-					</ul>
-					<ul>
-                      <!--  <li class="btn-cta"><a href="#Signup"><span>Sign Up</span></a></li> -->
-					</ul>
-				</div>
-			</div>
-			
-		</div>
-	</nav>
-
-	<header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url(images/img_bg_1.jpg); height:170px;">
-
-	</header>
 	
 	<div class="gtco-section">
 		<div class="gtco-container">
@@ -239,6 +161,7 @@ if ($Type == 3)
 							</div>
                             
 						</div>
+
                         
                         <div class="row form-group">
 							<div class="col-md-12">
@@ -246,25 +169,34 @@ if ($Type == 3)
 								<input type="text" id="name" name="name" class="form-control" placeholder="Name" value="<?php echo $name; ?>" required>
 							</div>
 						</div>
-
+                                        
 						<div class="row form-group">
 							<div class="col-md-12">
 								<label for="email">Email</label>
 								<input type="email" id="email" name="email" class="form-control" placeholder="e-mail address" value="<?php echo $email; ?>" required>
 							</div>
 						</div>
+                
+                <?php 
+                        if ($Type == 2)
+                            echo "<div id='notstaff' Style='display:none;'>";
                         
+                        else
+                            echo "<div id='notstaff' Style='display:block;'>"
+                ?>
+                
+      
                         <div class="row form-group">
 							<div class="col-md-12">
 								<label for="phone">Phone</label>
-								<input type="text" id="phone" name= "phone" class="form-control" placeholder="Phone number" value="<?php echo $phone; ?>" required>
+								<input type="text" id="phone" name= "phone" class="form-control" placeholder="Phone number" value="<?php echo $phone; ?>" <?php if ($Type == 2) echo ''; else echo 'required';?>>
 							</div>
 						</div>       
                         
                         <div class="row form-group">
 							<div class="col-md-12">
 								<label for="phone">Birth Date</label>
-								<input type="date" id="BD" name= "BD" class="form-control" value="<?php echo $BD; ?>" required>
+								<input type="date" id="BD" name= "BD" class="form-control" value="<?php echo $BD; ?>" <?php if ($Type == 2) echo ''; else echo 'required'?>>
 							</div>
 						</div>
 
@@ -280,7 +212,7 @@ if ($Type == 3)
 						<div class="row form-group">
 							<div class="col-md-12">
 								<label for="city">City</label>
-                                <select class="form-control" name="city" id="city" required>
+                                <select class="form-control" name="city" id="city" <?php if ($Type == 2) echo ''; else echo 'required';?>>
                                   <option value="Abha" <?php echo $city == 'Abha' ? 'selected':''?> >Abha</option>
                                   <option value="AlBahah" <?php echo $city == 'AlBahah' ? 'selected':''?>>AlBahah</option>
                                   <option value="Dammam" <?php echo $city == 'Dammam' ? 'selected':''?>>Dammam</option>
@@ -297,7 +229,7 @@ if ($Type == 3)
                         <div class="row form-group">
 							<div class="col-md-12">
 								<label for="BloodType">Blood Type </label>
-                                <select class="form-control" name="BloodType" required>
+                                <select class="form-control" name="BloodType" <?php if ($Type == 2) echo ''; else echo 'required'?>>
                                   <option value="A+" <?php echo $bloodType == 'A+' ? 'selected':''?> >A+</option>
                                   <option value="A-" <?php echo $bloodType == 'A-' ? 'selected':''?>>A-</option>
                                   <option value="B+" <?php echo $bloodType == 'B+' ? 'selected':''?>>B+</option>
@@ -342,14 +274,15 @@ if ($Type == 3)
 						</div>
                  
                         
+                        </div>
 
 						<div class="form-group">
 							<input type="submit" value="Save" name = "Save" id="Save" class="btn btn-primary">
 						</div>
-
+                        
 					</form>		
 				</div>
-	
+                
 			</div>
 			
 		</div>

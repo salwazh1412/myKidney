@@ -3,11 +3,6 @@
 
  require ('connection.php');
 
-if(isset($_SESSION['usr_id'])!= "") {
-	header("Location: index.php");
-}
-
-
 
 //check if form is submitted
 if (isset($_POST['login'])) {
@@ -21,14 +16,24 @@ if (isset($_POST['login'])) {
 		$_SESSION['usr_id'] = $row['ID'];
 		$_SESSION['usr_name'] = $row['User_Name'];
 		$_SESSION['usr_level'] = $row['Level'];
-		header("Location:index.php");
+		
+        if ($_SESSION['usr_level'] == 3 || $_SESSION['usr_level'] == 4)
+            header("Location:HomePD.php");
+        
+        elseif ($_SESSION['usr_level'] == 1)
+            header("Location:AdminHome.php");
+        
+        elseif ($_SESSION['usr_level'] == 2)
+            header("Location:StaffHome.php");
+
+                
 	} else {
 		$errormsg = "Incorrect Email or Password!!!";
 	}
 }
 ?>
 
-<?php include("templates/header.php") ?>
+<?php include("header.php") ?>
 
 	<header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url(images/img_bg_1.jpg);">
 		

@@ -1,128 +1,184 @@
 <!DOCTYPE HTML>
 
- <?php require ('connection.php'); ?>
+<?php
+ require ('connection.php');
 
-<html>
-	<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>myKidney</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
-	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-	<meta name="author" content="gettemplates.co" />
+if(isset($_SESSION['usr_id'])){
+    
+    
+$userid = $_SESSION['usr_id'];
+$sql1= "SELECT * FROM Users WHERE ID =". $userid."";
+$stmt=$conn->prepare($sql1);
+$stmt->execute();
+$row =  $stmt->fetch();
+    
+if ($row['Level'] == 4){
+	$tableprofile = 'patient';
+	$bloodtypecol = 'Donor';
+}elseif($row['Level'] == 3){
+	$tableprofile = 'donor';
+	$bloodtypecol = 'Patient';
+}
+    
+$sql2 ="SELECT * FROM ".$bloodtypecol." WHERE ".$User_ID="".$userid."";
+$stmt = $conn->prepare($sql2);
+$stmt->execute();
+$rowUserDet =$stmt->fetch();
+    
+$bloodtypeUser = $rowUserDet['Blood_Type'];
 
-	<!--
-		Oxygen by gettemplates.co
-		Twitter: http://twitter.com/gettemplateco
-		URL: http://gettemplates.co
-	-->
+$sqlgetDonorUser = "SELECT * FROM ".$tableprofile."";
+$stmt=$conn->prepare($sqlgetDonorUser);
+$stmt->execute();
+$rowDonor = $stmt->fetch();
 
-  	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
+if ($row['Level'] == 4){
+// SEND REQUEST
 
-	<!-- <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet' type='text/css'> -->
-	
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
 
-	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="css/magnific-popup.css">
+if($bloodtypeUser == 'A+' OR $bloodtypeUser == 'A-'){
+		$getBloodTypes = array('A+','A-','AB');
+}
+elseif($bloodtypeUser == 'B+' OR $bloodtypeUser == 'B-'){
+		$getBloodTypes = array('B+','B-','AB');
+}
+elseif($bloodtypeUser == 'AB+' OR $bloodtypeUser == 'AB-'){
+		$getBloodTypes = array('AB+','AB-');
+}
+elseif($bloodtypeUser == 'O+' OR $bloodtypeUser == 'O-'){
+		$getBloodTypes = array('A+','A-','B+','B-','AB+','AB-','O+','O-');
+}
+}elseif($row['Level'] == 3){
+  // SEND REQUEST
 
-	<!-- Owl Carousel  -->
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+if($bloodtypeUser == 'A+' OR $bloodtypeUser == 'A-'){
+		$getBloodTypes = array('A+','A-','O+','O-');
+}
+elseif($bloodtypeUser == 'B+' OR $bloodtypeUser == 'B-'){
+		$getBloodTypes = array('B+','B-','O+','O-');
+}
+elseif($bloodtypeUser == 'AB+' OR $bloodtypeUser == 'AB-'){
+		$getBloodTypes = array('A+','A-','B+','B-','AB+','AB-','O+','O-');
+}
+elseif($bloodtypeUser == 'O+' OR $bloodtypeUser == 'O-'){
+		$getBloodTypes = array('O+','O-');
+}
+}
 
-	<!-- Theme style  -->
-	<link rel="stylesheet" href="css/style.css">
+if(isset($_POST['senddonreq'])){
+	$reciverid	 = mysqli_real_escape_string($con, $_POST['reciverid']);
+	$senderid	 = mysqli_real_escape_string($con, $_POST['senderid']); //THE SENDER IS THE DONOR
+	$q = "INSERT INTO requests (Sender_ID, Receiver_ID)
+	VALUES('" . $senderid . "', '" . $reciverid . "')";
+	$stmt4=$conn->prepare($q);
+    
+	if($stmt4->execute())
+	{
+		$errormsg = "Your Request Has Been Sent";
+	} else {
+		$errormsg = "Error in registering...Please try again later! <br>".$q;
+	}
+}
 
-	<!-- Modernizr JS -->
-	<script src="js/modernizr-2.6.2.min.js"></script>
-	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
 
-	</head>
-	<body>
-		
-	<div class="gtco-loader"></div>
-	
-	<div id="page">
-	<nav class="gtco-nav" role="navigation">
-		<div class="gtco-container">
-			<div class="row">
-				<div class="col-xs-2">
-					<!-- <div id="gtco-logo"><a href="index.php">MyKidney</a></div> -->
-                    <div id="gtco-logo"><a href="index.php"><img src="images/Logo.png" style="width:170px;"></a></div>
-				</div>
-				<div class="col-xs-8 text-center menu-1">
-					<ul>
-						<li class="active"><a href="index.php">Home</a></li>
-						<li><a href="about.php">About</a></li>
-						<li><a href="Search.php">Search</a></li>
-					<!--	<li class="has-dropdown">
-							<a href="services.html">Search</a>
-							<ul class="dropdown">
-								<li><a href="#">Web Design</a></li>
-								<li><a href="#">eCommerce</a></li>
-								<li><a href="#">Branding</a></li>
-								<li><a href="#">API</a></li>
-							</ul>
-						</li> -->
-					<!--	<li class="has-dropdown">
-							<a href="#">Tools</a>
-							<ul class="dropdown">
-								<li><a href="#">HTML5</a></li>
-								<li><a href="#">CSS3</a></li>
-								<li><a href="#">Sass</a></li>
-								<li><a href="#">jQuery</a></li>
-							</ul>
-						</li> -->
-						<li><a href="contact.php">Contact</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-2 text-right hidden-xs menu-2">
-					<ul>
-                        <li class="btn-cta2"><a href="Login.php"><span> <div align="center">Login</div>   </span></a></li>
-					</ul>
-					<ul>
-                        <li class="btn-cta"><a href="#Signup"><span>Sign Up</span></a></li>
-					</ul>
-				</div>
-			</div>
-			
-		</div>
-	</nav>
+//$sql5 = "SELECT * FROM requests WHERE Sender_ID =".$userid." AND Donor_Approval = '0' ";
+//$stmt5=$conn->prepare($sql5);
+//$stmt5->execute();
+//$rowRequests = $stmt5->fetch();
+//$requestArray = array();
+    
+//if ($sql5->num_rows > 0) { foreach ($sql5 as $Reqkey => $getRequDetail) {
+//	$requestArray[] = $getRequDetail['Receiver_ID'];
+//}
+//}
 
+}
+
+
+include("header.php") ?>
 	<header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url(images/img_bg_1.jpg);">
 		<div class="gtco-container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center">
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
+							<?php if(isset($_SESSION['usr_id']) == ""){ ?>
 							<h1>myKidney</h1>
 							<h2>Free html5 templates Made by <a href="http://gettemplates.co/" target="_blank">gettemplates.co</a></h2>
 							<p><a href="#" class="btn btn-default">Get Started</a></p>
+						<?php }else{ ?>
+							<?php if (isset($errormsg)){ ?>
+								<div class="panel panel-info">
+									<?php echo $errormsg ?>
+								</div>
+							<?php } ?>
+							<table class="table table-hover" id="datatable" style="color:#333; background:#fff">
+								<thead>
+									<tr>
+										<th>
+											Name
+										</th>
+										<th>
+											Email
+										</th>
+										<th>
+											City
+										</th>
+										<th>
+											Blood Type
+										</th>
+										<th>
+											Request
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+
+								<?php if ($getDonorUser->num_rows > 0) { foreach ($getDonorUser as $key => $getDonorDetail) {
+									if (in_array($getDonorDetail['Blood_Type'], $getBloodTypes)){
+									?>
+									<tr <?php if (in_array($getDonorDetail['ID'],$requestArray)){ ?>style="background:#ddd;"<?php } ?>>
+									<td>
+										<?php echo $getDonorDetail['Name']?>
+									</td>
+									<td>
+										<?php echo $getDonorDetail['Email']?>
+									</td>
+									<td>
+										<?php echo $getDonorDetail['City']?>
+									</td>
+									<td>
+										<?php echo $getDonorDetail['Blood_Type']?>
+									</td>
+									<td>
+										<?php if (in_array($getDonorDetail['ID'],$requestArray)){ ?>
+											<small>Request has been sent to this member</small>
+										<?php } ?>
+										<form method="post" action="">
+										<input type="hidden" name="reciverid" value="<?php echo $getDonorDetail['ID']?>">
+										<input type="hidden" name="senderid" value="<?php echo $row['ID']?>">
+										<input type="hidden" name="senddonreq" />
+										<button id="submitbtn<?php echo $key ?>" type="submit" class="btn btn-sm btn-success">SEND Request</button>
+										</form>
+									</td>
+								</tr>
+
+							<?php }}}else{ ?>
+									<td colspan="5">
+										NO DATA AVAILABLE
+									</td>
+								<?php } ?>
+
+								</tbody>
+							</table>
+						<?php } ?>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</header>
-	
+
 	<div id="gtco-features">
 		<div class="gtco-container">
 			<div class="row">
@@ -139,7 +195,7 @@
 				<div class="col-md-4 col-sm-4">
 					<div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<span class="icon">
-							<i class="icon-user"></i>
+							<i class="icon-command"></i>
 						</span>
 						<h3>Fully Responsive</h3>
 						<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
@@ -273,8 +329,8 @@
 					</div>
 				</div>
 				<div class="row animate-box">
-					
-				
+
+
 					<div class="owl-carousel owl-carousel-fullwidth ">
 						<div class="item">
 							<div class="testimony-slide active text-center">
@@ -317,7 +373,7 @@
 
 	<div id="gtco-services">
 		<div class="gtco-container">
-			
+
 			<div class="row animate-box">
 				<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
 					<h2>What We Offer</h2>
@@ -326,7 +382,7 @@
 			</div>
 
 			<div class="row animate-box">
-				
+
 				<div class="gtco-tabs">
 					<ul class="gtco-tab-nav">
 						<li class="active"><a href="#" data-tab="1"><span class="icon visible-xs"><i class="icon-command"></i></span><span class="hidden-xs">Web Design</span></a></li>
@@ -371,8 +427,8 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<h2><a href="#">memem</a>Online Marketing</h2>
-								Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius nobis reprehenderit soluta eligendi quo reiciendis fugit? Veritatis tenetur odio delectus quibusdam officiis est.<a href="#">memem</a>
+								<h2>Online Marketing</h2>
+								<p>Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius nobis reprehenderit soluta eligendi quo reiciendis fugit? Veritatis tenetur odio delectus quibusdam officiis est.</p>
 
 								<p>Ullam dolorum iure dolore dicta fuga ipsa velit veritatis molestias totam fugiat soluta accusantium omnis quod similique placeat at. Dolorum ducimus libero fuga molestiae asperiores obcaecati corporis sint illo facilis.</p>
 
@@ -411,7 +467,7 @@
 										<p>Ullam dolorum iure dolore dicta fuga ipsa velit veritatis</p>
 									</div>
 								</div>
-								
+
 							</div>
 						</div>
 
@@ -455,65 +511,21 @@
 					<h2 id="Signup">Get Started</h2>
 				</div>
 			</div>
-		    <div class="row animate-box"> 
-				<div class="col-md-12">
-					<form class="form-inline">
-						<div class="col-md-4 col-sm-4">
-							<div class="form-group">
-								<label for="email" class="sr-only">Email</label>
-								
-                                <p><input type="text" class="form-control" id="Name" placeholder="Name" required></p>
 
-                                <p><input type="email" class="form-control" id="email" placeholder="Email" required> </p>
-                                
-                                <p><input type="text" class="form-control" id="password" placeholder="Phone Number" required></p>
-                                <select class="form-control" required>
-                                  <option value="" disabled selected>Select your city</option>
-                                  <option value="Abha">Abha</option>
-                                    <option value="AlBahah">AlBahah</option>
-                                  <option value="Dammam">Dammam</option>
-                                  <option value="Jeddah">Jeddah</option>
-                                  <option value="Makkah">Makkah</option>                                   
-                                <option value="Taif">Taif</option>
-                                  <option value="Riyadh">Riyadh</option>
-                                  <option value="Hail">Hail</option>
-                                  <option value="Tabuk">Tabuk</option>
-                                </select>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-4">
-							<div class="form-group">
-								<label for="password" class="sr-only">Password</label>
-                                <p><input type="password" class="form-control" id="password" placeholder="Password"required></p>
-                                
-                                <p><input type="password" class="form-control" id="ConfirmPassword" placeholder="Confirm Password" required></p>
-                                
-                               <select class="form-control" required>
-                                  <option value="" disabled selected>Select your blood type</option>
-                                  <option value="A+">A+</option>
-                                  <option value="A-">A-</option>
-                                  <option value="B+">B+</option>
-                                  <option value="B-">B-</option>
-                                  <option value="O+">O+</option>
-                                  <option value="O-">O-</option>
-                                  <option value="AB+">AB+</option>
-                                  <option value="AB-">AB-</option>
-                                </select>
-                                
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-4">
-                            <P><button type="submit" class="btn btn-default btn-block">Sign Up</button></P>
-						</div>
-					</form>
-				</div>
-		    </div>
 		</div>
 	</div>
-        
-        
-    
-	<!------ Footer -------->		
+
+
+
+	<!------ Footer -------->
 <?php
 include ('footer.html');
 ?>
+<script>
+$(document).ready(function(){
+    $('#datatable').DataTable({
+			"pageLength": 5,
+			"bLengthChange" : false,
+		});
+});
+</script>

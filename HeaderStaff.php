@@ -1,36 +1,15 @@
 <!DOCTYPE HTML>
 
- <?php 
-
-require ('connection.php'); 
-
- //If no session value is present, redirect the user to the login page:
-
-if (!(isset($_SESSION['usr_level'])) && $_SESSION['usr_level'] != 1)
-	{
-		header('location:login.php');
-	}//end if statement
-
-$sessionID=$_SESSION['usr_id'];	
-$sessionLevel=$_SESSION['usr_level'];	
-
-?>
-
 <html>
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>myKidney</title>
+	<title>MyKidney | Medical Staff</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
 	<meta name="author" content="gettemplates.co" />
 
-	<!--
-		Oxygen by gettemplates.co
-		Twitter: http://twitter.com/gettemplateco
-		URL: http://gettemplates.co
-	-->
 
   	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
@@ -80,12 +59,12 @@ $sessionLevel=$_SESSION['usr_level'];
 			<div class="row">
 				<div class="col-xs-2">
 					<!-- <div id="gtco-logo"><a href="index.php">MyKidney</a></div> -->
-                    <div id="gtco-logo"><a href="index.php"><img src="images/Logo.png" style="width:170px;"></a></div>
+                    <div id="gtco-logo"><a href="StaffHome.php"><img src="images/Logo.png" style="width:170px;"></a></div>
 				</div>
 				<div class="col-xs-8 text-center menu-1">
 					<br>
                     <ul>
-						<li class="active"><a href="AdminHome.php" Style="font-size:25px;">Admin Home Interface</a></li>
+						<li class="active"><a href="StaffHome.php" Style="font-size:25px;">Medical Staff Home Interface</a></li>
 				        <!-- <li><a href="">Search</a></li>
                         <li><a href="about.php">About</a></li>
 						<li><a href="contact.php">Contact</a></li> -->
@@ -94,7 +73,6 @@ $sessionLevel=$_SESSION['usr_level'];
 				<div class="col-xs-2 text-right hidden-xs menu-2">
 					
                     <ul>
-
                         <br><li class="btn-cta2"><a href="logout.php"><span> <div align="center">Logout</div>   </span></a></li>
 					</ul>
 					<ul>
@@ -110,46 +88,3 @@ $sessionLevel=$_SESSION['usr_level'];
 
 	</header>
 	
-	<div id="gtco-features">
-		<div class="gtco-container">
-			<br><div class="row">
-				<div class="col-md-4 col-sm-4">
-					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<a href="AddAccount.php" > <span class="icon">
-							<i class="icon-user"></i>
-						</span>
-                            <h3>Add Account</h3> </a>
-						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
-						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4">
-				<a href="DeleteAccount.php" ><div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<span class="icon">
-							<i class="icon-trash"></i>
-						</span>
-                    <h3>Delete Account</h3> </a>
-						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p> 
-						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4">
-					<a href="EditAccount.php"><div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<span class="icon">
-							<i class="icon-edit"></i>
-						</span>
-                        <h3>Edit User's Information</h3> </a>
-						<!-- <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
-						<p><a href="#" class="btn btn-primary">Learn More</a></p> -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	
-	<!------ Footer -------->		
-<?php
-include ('footer.html');
-?>
