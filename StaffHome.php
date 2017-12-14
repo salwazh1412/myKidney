@@ -1,6 +1,4 @@
-<!DOCTYPE HTML>
-
- <?php 
+<?php 
 
 include("HeaderStaff.php");
         

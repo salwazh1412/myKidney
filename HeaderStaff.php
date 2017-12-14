@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<?php include ("connection.php"); ?>
 
 <html>
 	<head>

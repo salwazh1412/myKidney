@@ -5,9 +5,6 @@
 $ID = $_GET['ID'];
 $Type = $_GET['Type'];
 
-//$_SESSION['usr_level'] = 3;
-//$_SESSION['usr_id'] = 20;
-
 
 if (isset($_SESSION['usr_level']))
 {
@@ -20,7 +17,7 @@ if (isset($_POST['Request']))
     
     if($Type == 4){
     
-    $sql3 = "INSERT INTO requests (Patients_ID, Donor_ID , Donor_Approval , Sender, Request_Date) VALUES (".$_SESSION['usr_id'].",".$ID.",0,".$_SESSION['usr_id'].",'".date("Y-m-d H:i:s")."')";
+    $sql3 = "INSERT INTO requests (Patients_ID, Donor_ID , Donor_Approval , Sender, Request_Date) VALUES (".$_SESSION['usr_id'].",".$ID.",1,".$_SESSION['usr_id'].",'".date("Y-m-d H:i:s")."')";
 
     $stmt = $conn->prepare($sql3);
 
@@ -237,15 +234,15 @@ text-align:left;
                     
                     <?php 
                         
-                        if (($Type != $Level)&&($requested == false)&&($Type != 2)&&($Type != 1)&&($matched != 'true'))
+                        if (($Type != $Level)&&($Level != 1)&&($Level != 2)&&($requested == false)&&($Type != 2)&&($Type != 1)&&($matched != 'true'))
                         {
                             echo "<form method='POST'><input type='submit' value='Request' name = 'Request' id='Request'  class='btn btn-primary'></form>";
                         } 
-                        elseif(($Type != $Level)&&($requested == true)&&($Type != 2)&&($Type != 1)&&($matched != 'true'))
+                        elseif(($Type != $Level)&&($Level != 1)&&($Level != 2)&&($requested == true)&&($Type != 2)&&($Type != 1)&&($matched != 'true'))
                         {
                             echo "<form method='POST'><input type='submit' value='Requested' name = 'Requested' disabled = true id='Requested'  class='btn btn-primary'></form>";
                         }
-                        elseif (($Type != $Level)&&($requested == false)&&($Type != 2)&&($Type != 1)&&($matched == true))
+                        elseif (($Type != $Level)&&($Level != 1)&&($Level != 2)&&($requested == false)&&($Type != 2)&&($Type != 1)&&($matched == true))
                         {
                             echo "<form method='POST'><input type='submit' value='Matched' name = 'Matched' disabled = true id='Matched'  class='btn btn-primary'></form>";
                         }

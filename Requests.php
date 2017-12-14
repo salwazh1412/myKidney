@@ -1,16 +1,13 @@
-<!DOCTYPE HTML>
+<?php 
 
- <?php require ('connection.php'); 
+include ("headerPD.php");
 
-$_SESSION['usr_level'] = 3;
-$_SESSION['usr_id'] = 20;
-
-
-if (isset($_SESSION['usr_level']))
+if (isset($_SESSION['usr_level']) && isset($_SESSION['usr_id']))
 {
     $Level = $_SESSION['usr_level'];
-}
+    $sessionID = $_SESSION['usr_id'];
 
+}
 
 
 
@@ -19,7 +16,6 @@ if (isset($_SESSION['usr_id']))
     if ($_SESSION['usr_level'] == 3)
     {
     
-    $sessionID = $_SESSION['usr_id'];
     
     $sql1="SELECT * from requests WHERE Patients_ID = ".$sessionID."";   
     
@@ -27,107 +23,15 @@ if (isset($_SESSION['usr_id']))
     $stmt->execute();
     $row1 = $stmt->fetchColumn();
     
+    }
+
 }
 
 
 
 ?>
 
-<html>
-	<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MyKidney | <?php echo $row['Name']?></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
-	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-	<meta name="author" content="gettemplates.co" />
 
-        
-        
-        
-	<!--
-		Oxygen by gettemplates.co
-		Twitter: http://twitter.com/gettemplateco
-		URL: http://gettemplates.co
-	-->
-
-  	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
-
-	<!-- <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet' type='text/css'> -->
-	
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
-
-	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="css/magnific-popup.css">
-
-	<!-- Owl Carousel  -->
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/owl.theme.default.min.css">
-
-	<!-- Theme style  -->
-	<link rel="stylesheet" href="css/style.css">
-
-	<!-- Modernizr JS -->
-	<script src="js/modernizr-2.6.2.min.js"></script>
-	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
-
-	</head>
-	<body>
-		
-	<div class="gtco-loader"></div>
-	
-	<div id="page">
-	<nav class="gtco-nav" role="navigation">
-		<div class="gtco-container">
-			<div class="row">
-				<div class="col-xs-2">
-					<!-- <div id="gtco-logo"><a href="index.php">MyKidney</a></div> -->
-                    <div id="gtco-logo"><a href="index.php"><img src="images/Logo.png" style="width:170px;"></a></div>
-				</div>
-				<div class="col-xs-8 text-center menu-1">
-					<br>
-                    <ul>
-						<li><a href="index.php">Home</a></li>
-				         <li class="active"><a href="Search.php">Search</a></li>
-                        <li><a href="about.php">About</a></li>
-						<li><a href="contact.php">Contact</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-2 text-right hidden-xs menu-2">
-					
-                    <ul>
-                        <br><li class="btn-cta2"><a href="Login.php"><span> <div align="center">Login</div>   </span></a></li> 
-					</ul>
-					<ul>
-                         <li class="btn-cta"><a href="#Signup"><span>Sign Up</span></a></li>
-					</ul>
-				</div>
-			</div>
-			
-		</div>
-	</nav>
-
-	<header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url(images/img_bg_1.jpg); height:170px;">
-
-	</header>
  
 
 <!----- link the tabs stylesheet ---->
@@ -138,7 +42,10 @@ if (isset($_SESSION['usr_id']))
 <!-------------------- Table Style --------------------->
 <style>
 .BoxBorder {
-    
+padding-left: 50px;    
+padding-right: 50px;    
+padding-top: 30px;    
+padding-bottom: 30px;    
 border: 1px solid #f1f1f1; 
 border-radius: 10px;
 width:85%;
@@ -155,25 +62,73 @@ text-align:left;
         <div class="gtco-contact-info row animate-box" >
             <div class="row animate-box" align="center" >
 	
-                <div class="BoxBorder" Style="text-align:right; border:0px;">
-
-                                    
-                <h2 class= "text-center"; Style="color:gray; margin-top:-80px;"> Requests
-
-                </h2>
+                <div class="BoxBorder" Style="text-align:right; border:0px;">                  
+                <h2 class= "text-center"; Style="color:gray; margin-top:-80px;"> Manage Requests </h2>
                 </div>
                 
+                <?php 
                 
-                <div class="BoxBorder">
-                    
+                    if ($Level == 4)
+                    {
+                     //   echo "<span Style='text-align:left; font-size:18px; color:#b7b7b7; margin-left:-830px;'> Requests</span>";
+                        
+                        $sql = "SELECT * FROM requests WHERE Donor_ID = ".$sessionID." AND Sender != ".$sessionID." AND Donor_Approval = 0";
 
-                    
-				</div>
+                        $stmt2 = $conn->prepare($sql);
+
+                        if ( ! $stmt2->execute() )
+                            die ("Error while execute query, The Error is: ".mysql_error ()); 
+                        
+                        
+                            echo "<div class=' BoxBorder'>";        
+                        
+                        while($row = $stmt2->fetch())
+                        {
+                            $sql2 = "SELECT Name, User_ID FROM patient WHERE User_ID = ".$row['Patients_ID']."";
+
+                            $stmt = $conn->prepare($sql2);
+
+                            $stmt->execute();
+                            
+                            $row2 = $stmt->fetch();
+                            
+                            echo "<table border=0>";
+                            echo "<tr>";
+                            echo "<td width=200px> <a href='Profile.php?ID=".$row['Patients_ID']."&Type=3'>".$row2['Name']."</a>";
+                            echo "</td>";
+
+                            
+                            //echo "<div class='col-md-4 col-sm-4'  Style='margin:0; padding:0px;'>";
+                            echo "<td width=100px ><br><br><a class='feature-center' href='AcceptRequest.php?ID=".$row2['User_ID']."'><span class='icon' Style='zoom:0.5; margin=-200px; padding:-200px;'>
+							 <i class='icon-check'></i></span></a></td>";
+                            
+                            echo "<td width=100px><br><br><a class='feature-center' href='RejectRequest.php?ID=".$row2['User_ID']."'><span class='icon' Style='zoom:0.5; margin=-200px; padding:-200px;'>
+							 <i class='icon-cross' Style='color:red;'></i></span></a></td>";
+                            
+                            echo "</tr>";
+                            echo "</table>";
+                            
+                        }
+
+                                                
+                       // echo "<span Style='text-align:left; font-size:18px; color:#b7b7b7; margin-left:-800px;' >Sent Requests</span>"; 
+                        
+ 
+                        
+                }
+                   elseif ($Level == 3)
+                   {
+                       echo "";
+                   }
+                
+                ?>
+                
+                  
+
+                
 			</div>            
             
-            <div class="row animate-box" align="center">
 
-			</div>
 
         </div>
               

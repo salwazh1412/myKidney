@@ -11,7 +11,7 @@ if (isset($_SESSION['usr_level']) )
     
     if($Level == 4){
     
-    $sql3 = "INSERT INTO requests (Patients_ID, Donor_ID , Donor_Approval , Sender, Request_Date) VALUES (".$ID.",".$_SESSION['usr_id'].",0,".$_SESSION['usr_id'].",'".date("Y-m-d H:i:s")."')";
+    $sql3 = "INSERT INTO requests (Patients_ID, Donor_ID , Donor_Approval , Sender, Request_Date) VALUES (".$ID.",".$_SESSION['usr_id'].",1,".$_SESSION['usr_id'].",'".date("Y-m-d H:i:s")."')";
 
     $stmt = $conn->prepare($sql3);
 

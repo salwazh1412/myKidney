@@ -61,15 +61,16 @@
 			<div class="row">
 				<div class="col-xs-2">
 					<!-- <div id="gtco-logo"><a href="index.php">MyKidney</a></div> -->
-                    <div id="gtco-logo"><a href="StaffHome.php"><img src="images/Logo.png" style="width:170px;"></a></div>
+                    <div id="gtco-logo"><a href="HomePD.php"><img src="images/Logo.png" style="width:170px;"></a></div>
 				</div>
 				<div class="col-xs-8 text-center menu-1">
 					<br>
                     <ul>
-						<li class="active"><a href="AdminHome.php">Home</a></li>
+						<li><a href="HomePD.php">Home</a></li>
 				        <li><a href="Search.php">Search</a></li>
                         <li><a href="about.php">About</a></li>
 						<li><a href="contact.php">Contact</a></li>
+						<li><a href="Requests.php">Requests</a></li>
 					</ul>
 				</div>
                 
@@ -79,8 +80,8 @@
                 <?php if (isset($_SESSION['usr_id'])) { ?>
                    
                         <br>
-                        <li class="btn-cta"><a href="logout.php"><span>Logout</span></a></li>
-                        <br><li><a href="profile.php">My Profile </a></li>
+                        <li class="btn-cta" style="margin:-10px;"><a href="logout.php"><span>Logout</span></a></li>
+                        <br><li style="margin-left:-200px;"><a href="MyProfile.php">My Profile </a></li>
                         <?php }
                         else{ 
                             

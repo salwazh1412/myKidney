@@ -3,7 +3,6 @@
     include("HeaderStaff.php");
 ?>
 
-	<body>
 <style>       
 .myInput {
     background-image: url('images/searchicon.png'); /* Add a search icon to input */

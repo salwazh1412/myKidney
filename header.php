@@ -102,8 +102,9 @@
                 <ul>
                 <?php if (isset($_SESSION['usr_id'])) { ?>
                    
-                        <li><a href="profile.php">logged in as as <?php echo $_SESSION['usr_name']; ?></a></li>
-                        <li class="btn-cta"><a href="logout.php"><span>Logout</span></a></li>
+                    <li class="btn-cta"><a href="logout.php"><span>Logout</span></a></li>
+    
+                    <li><a href="profile.php">logged in as <?php echo $_SESSION['usr_name']; ?></a></li>
                        
                         <?php }
                         else{ 

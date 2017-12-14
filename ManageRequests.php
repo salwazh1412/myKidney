@@ -14,6 +14,7 @@ th, td {
 th {
     text-align: center;
 }
+    
 </style>
         
         
@@ -93,14 +94,18 @@ th {
 		</div>
 	</div>
                         <?php   
+                      
+                      //  $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ? AND status=?');
+                      //  $stmt->execute([$email, $status]);
+                     //   $user = $stmt->fetch();
                         $target='./Tests/';
                         echo "<table style='width:100%';>";
-                        echo "<tr><th>Patient Name</th><th>Patient Tests</th><th>Donor Name</th><th>Donor Tests</th><th>Mach</th></tr>";
+                        echo "<tr><th>Patient Name</th><th>Patient Tests</th><th>Donor Name</th><th>Donor Tests</th><th>Mach</th></tr>";  
                         try {
                             $stmt = $conn->prepare("SELECT patient.Name as PName, patient.Test as PTest, donor.Name as DName, donor.Test as DTest 
                                 FROM requests 
-                                INNER JOIN patient ON patient.ID=requests.Patients_ID
-                                INNER JOIN donor ON donor.ID=requests.Donor_ID
+                                INNER JOIN patient ON patient.User_ID=requests.Patients_ID
+                                INNER JOIN donor ON donor.User_ID=requests.Donor_ID
                                 where requests.Donor_Approval=1 ORDER BY requests.Request_Date;");
                             $stmt->execute();
                             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);                            
@@ -116,16 +121,10 @@ th {
                          echo "Error: " . $e->getMessage();
                         }
                         echo "</table>";
-
                         ?>
-
-                    
-                        
-                    </div> 
-                </div> 
-
-                
-			</div> <!-- end of row div -->
+                    </div>
+                </div>
+            </div> <!-- end of row div -->
 		</div>
 	</div>
 

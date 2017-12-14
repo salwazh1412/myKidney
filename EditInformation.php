@@ -1,5 +1,6 @@
 <?php
     include("HeaderAdmin.php");
+    include_once ('dbconnect.php');
 
 $userName=0;
 $Type=4;

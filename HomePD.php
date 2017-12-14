@@ -89,10 +89,204 @@ color:#b7b7b7;
                     if ($Level == 3)
                     {
 		            
+                        // Query 1
+                        $sql1="SELECT Blood_Type, City from patient WHERE User_ID=".$_SESSION['usr_id']."";
+
+                        $stmt = $conn->prepare($sql1);
+                        $stmt->execute();
+                        $row1 = $stmt->fetch();
+                        
+                        $bloodType = $row1['Blood_Type']; 
+                        $city = $row1['City']; 
 
                         
+                        // Query 2
+                        $sql2="SELECT count(*) from donor WHERE Blood_Type='".$bloodType."' AND City ='".$city."'";
+
+                        $stmt = $conn->prepare($sql2);
+                        $stmt->execute();
+                        $row2 = $stmt->fetchColumn();
+                        
+                        // Query 3
+                        $sql3="SELECT * from donor WHERE Blood_Type='".$bloodType."'AND City ='".$city."'";
+
+                        $stmt3 = $conn->prepare($sql3);
+                        $stmt3->execute();    
+                        
+                        
+                        echo "<Div class='BoxTitle'> 
+                            Donors with same your blood type and also live in your city:
+                        </div>";
+                              
+                        
+                    while($row3 = $stmt3->fetch())
+                    {
+                 
+                        $sql7="SELECT count(*) from requests WHERE (Donor_ID= ".$row3['User_ID']." AND Patients_ID = ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id'].")";   
+
+                        $stmt = $conn->prepare($sql7);
+                        $stmt->execute();
+                        $row7 = $stmt->fetchColumn();
+
+                        if($row7 > 0) 
+                        {
+                            $requested = 'true';
+                        }
+                        else {
+                            $requested = 'false';
+
+                        }
+                        
+
+                        $sql8="SELECT count(*) from matches WHERE (Patient_ID=".$_SESSION['usr_id']." AND  Donor_ID = ".$row3['User_ID'].")";   
+
+                        $stmt8 = $conn->prepare($sql8);
+                        $stmt8->execute();
+                        $row8 = $stmt8->fetchColumn();
+
+                        if($row8 > 0) 
+                        {
+                            $matched = 'true';
+                        }
+                        else {
+                            $matched = 'false';
+
+                        }
+    
+                                                        
+                
+                        
+                        echo "<div class='BoxBorder animate-box'>
+                                <ul>
+                                <br>
+                                <li class='icon-user' Style='align:center;'><b><a href='Profile.php?ID=".$row3['User_ID']."&Type=4'>".$row3['Name']."</a></b></<li>
+                                <li class='address' Style='align:center;'> ".$row3['City']."</<li>
+                                <li class='email' Style='align:center;'> ".$row3['Email']."</<li>";
+                                  
+                        if (($requested == 'false')&&($matched == 'false'))
+                        {
+                            echo "<br><br>";
+                            echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Request' name = 'Request' id='Request'  class='btn btn-primary'></a>";
+                        } 
+                        
+                        elseif(($requested == 'true')&&($matched == 'false'))
+                        {
+                            echo "<br><br>";
+                            echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Requested' name = 'Requested' disabled = true id='Requested'  class='btn btn-primary'></a>";
+                        }
+                        elseif (($requested == 'false')&&($matched == 'true'))
+                        {
+                            echo "<br><br>";
+                            echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Matched' name = 'Matched' disabled = true id='Matched'  class='btn btn-primary'></a>";
+                        }
+                        
+                        
+                        
+                        echo "</ul>
+                            </div>";
+
+                    }
+                      
+                        
+                        
+                         // Query 4
+                        $sql2="SELECT count(*) from donor WHERE Blood_Type='".$bloodType."' AND City !='".$city."'";
+
+                        $stmt = $conn->prepare($sql2);
+                        $stmt->execute();
+                        $row2 = $stmt->fetchColumn();
+                        
+                        $bloodType2 = $row1['Blood_Type']; 
+                        $city2 = $row1['City']; 
+                        
+                        
+                        // Query 5
+                        $sql3="SELECT * from donor WHERE Blood_Type='".$bloodType2."'AND City !='".$city2."'";
+
+                        $stmt5 = $conn->prepare($sql3);
+                        $stmt5->execute();                    
+                        
+                        echo "<Div class='BoxTitle'> 
+                            <br> Donors with same your blood type BUT live in another city:
+                        </div>";
+                        
+                        
+                        
+                        // Donors with same your blood type BUT live in another city
+                        
+                    while($row4 = $stmt5->fetch())
+                    {
+                         
+                                  
+                        $sql7="SELECT count(*) from requests WHERE (Donor_ID = ".$row4['User_ID']." AND Patients_ID= ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id'].")";   
+
+                        $stmt = $conn->prepare($sql7);
+                        $stmt->execute();
+                        $row7 = $stmt->fetchColumn();
+
+                        if($row7 > 0) 
+                        {
+                            $requested = 'true';
+                        }
+                        else {
+                            $requested = 'false';
+
+                        }
+                        
+
+                        $sql8="SELECT count(*) from matches WHERE (Patient_ID =".$_SESSION['usr_id']." AND Donor_ID = ".$row4['User_ID'].")";   
+
+                        $stmt8 = $conn->prepare($sql8);
+                        $stmt8->execute();
+                        $row8 = $stmt8->fetchColumn();
+
+                        if($row8 > 0) 
+                        {
+                            $matched = 'true';
+                        }
+                        else {
+                            $matched = 'false';
+
+                        }
+    
+                        
+                        echo "<div class='BoxBorder animate-box'>
+                                <ul>
+                                <br>
+                                <li class='icon-user' Style='align:center;'><b><a href='Profile.php?ID=".$row4['User_ID']."&Type=4'>".$row4['Name']."</a></b></<li>
+                                <li class='address' Style='align:center;'> ".$row4['City']."</<li>
+                                <li class='email' Style='align:center;'> ".$row4['Email']."</<li>";
+                                  
+                        if (($requested == 'false')&&($matched == 'false'))
+                        {
+                            echo "<br><br>";
+                            echo "<a href='SentRequest.php?ID=".$row4['User_ID']."'><input type='submit' value='Request' name = 'Request' id='Request'  class='btn btn-primary'></a>";
+                        } 
+                        
+                        elseif(($requested == 'true')&&($matched == 'false'))
+                        {
+                            echo "<br><br>";
+                            echo "<a href='SentRequest.php?ID=".$row4['User_ID']."'><input type='submit' value='Requested' name = 'Requested' disabled = true id='Requested'  class='btn btn-primary'></a>";
+                        }
+                        elseif (($requested == 'false')&&($matched == 'true'))
+                        {
+                            echo "<br><br>";
+                            echo "<a href='SentRequest.php?ID=".$row4['User_ID']."'><input type='submit' value='Matched' name = 'Matched' disabled = true id='Matched'  class='btn btn-primary'></a>";
+                        }
+                        
+                        
+                        
+                        echo "</ul>
+                            </div>";
+                        
+
+                    }
                         
                     }
+                
+                
+                       
+                    
                 
             // ------------------------- DONOR HOME PAGE ------------------------
 
