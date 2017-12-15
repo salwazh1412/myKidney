@@ -1,8 +1,6 @@
 <?php 
 
 include ("headerPD.php");
-include_once ('dbconnect.php');
-
     
 if (isset($_SESSION['usr_level']) && isset($_SESSION['usr_id']))
 {

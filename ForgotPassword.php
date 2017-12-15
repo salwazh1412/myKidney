@@ -3,9 +3,9 @@
      <!-------------- PHP Code --------------->
 <?php
  require ('connection.php');
-require 'phpmailer/PHPMailerAutoload.php';
-require 'phpmailer/class.phpmailer.php';
-        
+ require 'phpmailer/PHPMailerAutoload.php';
+ require 'phpmailer/class.phpmailer.php';
+
  if (isset($_GET['sent']))
  {
      $sent = $_GET['sent'];
@@ -16,7 +16,7 @@ else
 if ( isset ($_POST['send']))
 {
 
-    $sql1='SELECT count(*) FROM Donor WHERE Email ="'.$_POST['email'].'"';   
+    $sql1='SELECT count(*) FROM donor WHERE Email ="'.$_POST['email'].'"';   
     $stmt = $conn->prepare($sql1);
     $stmt->execute();
     $row1 = $stmt->fetchColumn();
@@ -56,7 +56,7 @@ $mail->addAddress(''.$_POST['email']);   // Add a recipient
 $mail->isHTML(true);  // Set email format to HTML
 $randPass = generatePassword();
 $bodyContent = 'Hi, You recently requested a password reset.';
-$bodyContent .= '<p>Your new password is'.$randPass.'</b></p>';
+$bodyContent .= '<p>Your new password is '.$randPass.'</b></p>';
 $bodyContent .= '<p>Thanks</b></p>';
 
 $mail->Subject = 'Reset your password on MyKidney';
@@ -69,8 +69,47 @@ if(!$mail->send()) {
 } else {
     //echo 'Message has been sent';
     $sent = 'true';
-    echo "<script type='text/javascript'>document.getElementById('email').style.display = 'none';</script>";
-    //echo "<script> document.getElementById('email').style.display = 'none'; </script>";
+
+    if ($row1 > 0)
+    {
+        $sql1='SELECT * FROM donor WHERE Email ="'.$_POST['email'].'"';   
+        $stmt = $conn->prepare($sql1);
+        $stmt->execute();
+        $row11 = $stmt->fetch();
+        
+        $sql3='UPDATE users SET Password ="'.md5($randPass).'" WHERE ID ='.$row11['User_ID'].'';   
+        $stmt = $conn->prepare($sql3);
+        $stmt->execute();
+    }
+    
+    elseif ($row2 > 0)
+    {
+        $sql1='SELECT * FROM patient WHERE Email ="'.$_POST['email'].'"';   
+        $stmt = $conn->prepare($sql1);
+        $stmt->execute();
+        $row22 = $stmt->fetch();
+        
+        $sql3='UPDATE users SET Password ="'.md5($randPass).'" WHERE ID ='.$row22['User_ID'].'';   
+        $stmt = $conn->prepare($sql3);
+        $stmt->execute();
+    }
+    elseif ($row3 > 0)
+    {        
+        $sql1='SELECT * FROM staff WHERE Email ="'.$_POST['email'].'"';   
+        $stmt = $conn->prepare($sql1);
+        $stmt->execute();
+        $row33 = $stmt->fetch();
+        
+        $sql3='UPDATE users SET Password ="'.md5($randPass).'" WHERE ID ='.$row33['User_ID'].'';   
+        $stmt = $conn->prepare($sql3);
+        $stmt->execute();
+        
+    }
+    
+    
+    
+    echo "<script type='text/javascript'>document.getElementById('email').style.display = 'none';</script>";    
+    
     header('location:forgotpassword.php?sent=true');
     
 }
@@ -153,19 +192,6 @@ function generatePassword($length = 8) {
 <link rel="stylesheet" href="css/colorbox.css"/>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.colorbox.js"></script>
-<script>
-      //function openColorBox(){
-      //    $.colorbox({iframe:false, width:"50%", height:"50%" });
-         // setTimeout($.colorbox.close(), 5000);
-          
-    //      setTimeout(function() {
-      //      $(openColorBox()).fadeOut('fast');
-    //        }, 5000);
-  //    }
- 
-
-
-</script>
     
 	<body>
    

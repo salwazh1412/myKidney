@@ -119,6 +119,9 @@ color:#b7b7b7;
                         </div>";
                               
                         
+                    if ($row33 = $stmt3->fetchfetchColumn()  > 0)
+                    {
+                        
                     while($row3 = $stmt3->fetch())
                     {
                  
@@ -211,6 +214,12 @@ color:#b7b7b7;
                         </div>";
                         
                         
+                    }
+                        else
+                        {
+                            echo "<div><br><br><br> No <br><br><br></div>";
+                            
+                        }
                         
                         // Donors with same your blood type BUT live in another city
                         
@@ -322,7 +331,10 @@ color:#b7b7b7;
                         echo "<Div class='BoxTitle'> 
                             Patients with same your blood type and also live in your city:
                         </div>";
-                              
+                     
+                    
+                    if ($row33 = $stmt3->fetchfetchColumn()  > 0))
+                    {
                         
                     while($row3 = $stmt3->fetch())
                     {
@@ -415,7 +427,12 @@ color:#b7b7b7;
                             <br> Patients with same your blood type BUT live in another city:
                         </div>";
                         
-                        
+                        }
+                        else
+                        {
+                            echo "<div><br><br><br> No <br><br><br></div>";
+
+                        }
                         
                         // Donors with same your blood type BUT live in another city
                         
@@ -488,7 +505,6 @@ color:#b7b7b7;
                     }
                         
                     }
-                
 
                 ?>
                 
