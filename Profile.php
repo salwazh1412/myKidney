@@ -63,7 +63,7 @@ if (isset($_SESSION['usr_id']))
 {
     $sessionID = $_SESSION['usr_id'];
     
-    $sql="SELECT count(*) from requests WHERE (Patients_ID=".$ID." AND Donor_ID = ".$sessionID." AND Sender = ".$sessionID.") OR (Donor_ID=".$ID." AND Patients_ID = ".$sessionID." AND Sender = ".$sessionID.")";   
+    $sql="SELECT count(*) from requests WHERE (Patients_ID=".$ID." AND Donor_ID = ".$sessionID." AND Sender = ".$sessionID." AND Donor_Approval != 2) OR (Donor_ID=".$ID." AND Patients_ID = ".$sessionID." AND Sender = ".$sessionID." AND Donor_Approval != 2)";   
     
     $stmt = $conn->prepare($sql);
     $stmt->execute();
@@ -71,13 +71,12 @@ if (isset($_SESSION['usr_id']))
     
     if($row > 0) 
     {
-        $requested = true;
+        $requested = 'true';
     }
     else {
-        $requested = false;
+        $requested = 'false';
 
     }    
-    echo $row;
     
     $sql2="SELECT count(*) from matches WHERE (Patient_ID=".$ID." AND Donor_ID = ".$sessionID.") OR (Donor_ID=".$ID." AND Patient_ID = ".$sessionID.")";   
     
@@ -87,15 +86,15 @@ if (isset($_SESSION['usr_id']))
     
     if($row > 0) 
     {
-        $matched = true;
+        $matched = 'true';
     }
     else {
-        $matched = false;
+        $matched = 'false';
 
     }
     
                         
-    $sql9="SELECT count(*) from requests WHERE (Donor_ID= ".$ID." AND Patients_ID = ".$sessionID." AND Sender = ".$sessionID." AND Donor_Approval = 2) OR (Donor_ID= ".$sessionID." AND Patients_ID = ".$ID." AND Sender = ".$ID." AND Donor_Approval = 2)";   
+    $sql9="SELECT count(*) from requests WHERE (Patients_ID=".$ID." AND Donor_ID = ".$sessionID." AND Sender = ".$sessionID." AND Donor_Approval = 2) OR (Donor_ID=".$ID." AND Patients_ID = ".$sessionID." AND Sender = ".$sessionID." AND Donor_Approval = 2)";  
 
     $stmt = $conn->prepare($sql9);
     $stmt->execute();
@@ -103,10 +102,10 @@ if (isset($_SESSION['usr_id']))
 
     if($row > 0) 
     {
-        $rejected = true;
+        $rejected = 'true';
     }
     else {
-        $rejected = false;
+        $rejected = 'false';
 
     }    
     
@@ -172,21 +171,21 @@ text-align:left;
                     
                     <?php 
                         
-                        if (($Type != $Level)&&($Level != 1)&&($Level != 2)&&($requested == false)&&($Type != 2)&&($Type != 1)&&($matched != 'true')&&($rejected == 'false'))
+                        if (($Type != $Level)&&($Level != 1)&&($Level != 2)&&($requested == 'false')&&($Type != 2)&&($Type != 1)&&($matched == 'false')&&($rejected == 'false'))
                         {
                             echo "<form method='POST'><input type='submit' value='Request' name = 'Request' id='Request'  class='btn btn-primary'></form>";
                         } 
-                        elseif(($Type != $Level)&&($Level != 1)&&($Level != 2)&&($requested == true)&&($Type != 2)&&($Type != 1)&&($matched != 'true')&&($rejected == 'false'))
+                        elseif(($Type != $Level)&&($Level != 1)&&($Level != 2)&&($requested == 'true')&&($Type != 2)&&($Type != 1)&&($matched != 'true')&&($rejected == 'false'))
                         {
                             echo "<form method='POST'><input type='submit' value='Requested' name = 'Requested' disabled = true id='Requested'  class='btn btn-primary'></form>";
                         }
-                        elseif (($Type != $Level)&&($Level != 1)&&($Level != 2)&&($requested == false)&&($Type != 2)&&($Type != 1)&&($matched == 'true')&&($rejected == 'false'))
+                        elseif (($Type != $Level)&&($Level != 1)&&($Level != 2)&&($requested == 'false')&&($Type != 2)&&($Type != 1)&&($matched == 'true')&&($rejected == 'false'))
                         {
                             echo "<form method='POST'><input type='submit' value='Matched' name = 'Matched' disabled = true id='Matched'  class='btn btn-primary'></form>";
                         }
                         elseif (($Type != $Level)&&($Level != 1)&&($Level != 2)&&($requested == 'false')&&($Type != 2)&&($Type != 1)&&($matched == 'false')&&($rejected == 'true'))
                         {
-                            echo "<form method='POST'><input type='submit' value='Rejected' name = 'Rejected' disabled = true id='Rejected' class='btn btn-primary' style='background: rgb(239,145,145);'></form>";
+                            echo "<form method='POST'><input type='submit' value='Rejected' name = 'Rejected' disabled = true id='Rejected' class='btn btn-primary' style='background: rgb(239,145,145); border-color:rgb(239,145,145);'></form>";
                         }
 
                     ?>

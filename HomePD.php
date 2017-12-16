@@ -198,7 +198,7 @@ color:#b7b7b7;
                         elseif (($requested == 'false')&&($matched == 'false')&&($rejected == 'true'))
                         {
                             echo "<br><br>";
-                            echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Rejected' name = 'Rejected' disabled = true id='Rejected'  class='btn btn-primary' Style='background: rgb(239,145,145);'></a>";
+                            echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Rejected' name = 'Rejected' disabled = true id='Rejected'  class='btn btn-primary' Style='background: rgb(239,145,145); border-color:rgb(239,145,145);'></a>";
                         }
                         
                         
@@ -250,7 +250,7 @@ color:#b7b7b7;
                     {
                          
                                   
-                        $sql7="SELECT count(*) from requests WHERE (Donor_ID = ".$row4['User_ID']." AND Patients_ID= ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id']." AND Donor_Approval = 0)";   
+                        $sql7="SELECT count(*) from requests WHERE (Donor_ID = ".$row4['User_ID']." AND Patients_ID= ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id']." AND Donor_Approval != 2)";   
 
                         $stmt = $conn->prepare($sql7);
                         $stmt->execute();
@@ -323,7 +323,7 @@ color:#b7b7b7;
                         elseif (($requested == 'false')&&($matched == 'false')&&($rejected == 'true'))
                         {
                             echo "<br><br>";
-                            echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Rejected' name = 'Rejected' disabled = true id='Rejected'  class='btn btn-primary' Style='background: rgb(239,145,145);'></a>";
+                            echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Rejected' name = 'Rejected' disabled = true id='Rejected'  class='btn btn-primary' Style='background: rgb(239,145,145);  border-color:rgb(239,145,145);'></a>";
                         }
                         
                         
@@ -386,7 +386,7 @@ color:#b7b7b7;
                     while($row3 = $stmt3->fetch())
                     {
                  
-                        $sql7="SELECT count(*) from requests WHERE (Patients_ID= ".$row3['User_ID']." AND Donor_ID = ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id'].")";   
+                        $sql7="SELECT count(*) from requests WHERE (Patients_ID= ".$row3['User_ID']." AND Donor_ID = ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id']." AND Donor_Approval != 2)";   
 
                         $stmt = $conn->prepare($sql7);
                         $stmt->execute();
@@ -401,6 +401,20 @@ color:#b7b7b7;
 
                         }
                         
+                        $sql9="SELECT count(*) from requests WHERE (Patients_ID = ".$row3['User_ID']." AND Donor_ID = ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id']." AND Donor_Approval = 2)";   
+
+                        $stmt = $conn->prepare($sql9);
+                        $stmt->execute();
+                        $row7 = $stmt->fetchColumn();
+
+                        if($row7 > 0) 
+                        {
+                            $rejected = 'true';
+                        }
+                        else {
+                            $rejected = 'false';
+
+                        }
 
                         $sql8="SELECT count(*) from matches WHERE (Donor_ID=".$_SESSION['usr_id']." AND Patient_ID = ".$row3['User_ID'].")";   
 
@@ -427,21 +441,26 @@ color:#b7b7b7;
                                 <li class='address' Style='align:center;'> ".$row3['City']."</<li>
                                 <li class='email' Style='align:center;'> ".$row3['Email']."</<li>";
                                   
-                        if (($requested == 'false')&&($matched == 'false'))
+                        if (($requested == 'false')&&($matched == 'false')&&($rejected == 'false'))
                         {
                             echo "<br><br>";
                             echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Request' name = 'Request' id='Request'  class='btn btn-primary'></a>";
                         } 
                         
-                        elseif(($requested == 'true')&&($matched == 'false'))
+                        elseif(($requested == 'true')&&($matched == 'false')&&($rejected == 'false'))
                         {
                             echo "<br><br>";
                             echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Requested' name = 'Requested' disabled = true id='Requested'  class='btn btn-primary'></a>";
                         }
-                        elseif (($requested == 'false')&&($matched == 'true'))
+                        elseif (($requested == 'false')&&($matched == 'true')&&($rejected == 'false'))
                         {
                             echo "<br><br>";
                             echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Matched' name = 'Matched' disabled = true id='Matched'  class='btn btn-primary'></a>";
+                        }                        
+                        elseif (($requested == 'false')&&($matched == 'false')&&($rejected == 'true'))
+                        {
+                            echo "<br><br>";
+                            echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Rejected' name = 'Rejected' disabled = true id='Rejected'  class='btn btn-primary' Style='background: rgb(239,145,145);  border-color:rgb(239,145,145);'></a>";
                         }
                         
                         
@@ -488,7 +507,7 @@ color:#b7b7b7;
                     {
                          
                                   
-                        $sql7="SELECT count(*) from requests WHERE (Patients_ID= ".$row4['User_ID']." AND Donor_ID = ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id'].")";   
+                        $sql7="SELECT count(*) from requests WHERE (Patients_ID= ".$row4['User_ID']." AND Donor_ID = ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id']." AND  Donor_Approval != 2)";   
 
                         $stmt = $conn->prepare($sql7);
                         $stmt->execute();
@@ -503,7 +522,21 @@ color:#b7b7b7;
 
                         }
                         
+                        $sql9="SELECT count(*) from requests WHERE (Patients_ID = ".$row4['User_ID']." AND Donor_ID = ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id']." AND Donor_Approval = 2)";   
 
+                        $stmt = $conn->prepare($sql9);
+                        $stmt->execute();
+                        $row7 = $stmt->fetchColumn();
+
+                        if($row7 > 0) 
+                        {
+                            $rejected = 'true';
+                        }
+                        else {
+                            $rejected = 'false';
+
+                        }
+                        
                         $sql8="SELECT count(*) from matches WHERE (Donor_ID=".$_SESSION['usr_id']." AND Patient_ID = ".$row4['User_ID'].")";   
 
                         $stmt8 = $conn->prepare($sql8);
@@ -527,21 +560,26 @@ color:#b7b7b7;
                                 <li class='address' Style='align:center;'> ".$row4['City']."</<li>
                                 <li class='email' Style='align:center;'> ".$row4['Email']."</<li>";
                                   
-                        if (($requested == 'false')&&($matched == 'false'))
+                        if (($requested == 'false')&&($matched == 'false')&&($rejected == 'false'))
                         {
                             echo "<br><br>";
                             echo "<a href='SentRequest.php?ID=".$row4['User_ID']."'><input type='submit' value='Request' name = 'Request' id='Request'  class='btn btn-primary'></a>";
                         } 
                         
-                        elseif(($requested == 'true')&&($matched == 'false'))
+                        elseif(($requested == 'true')&&($matched == 'false')&&($rejected == 'false'))
                         {
                             echo "<br><br>";
                             echo "<a href='SentRequest.php?ID=".$row4['User_ID']."'><input type='submit' value='Requested' name = 'Requested' disabled = true id='Requested'  class='btn btn-primary'></a>";
                         }
-                        elseif (($requested == 'false')&&($matched == 'true'))
+                        elseif (($requested == 'false')&&($matched == 'true')&&($rejected == 'false'))
                         {
                             echo "<br><br>";
                             echo "<a href='SentRequest.php?ID=".$row4['User_ID']."'><input type='submit' value='Matched' name = 'Matched' disabled = true id='Matched'  class='btn btn-primary'></a>";
+                        }                        
+                        elseif (($requested == 'false')&&($matched == 'false')&&($rejected == 'true'))
+                        {
+                            echo "<br><br>";
+                            echo "<a href='SentRequest.php?ID=".$row4['User_ID']."'><input type='submit' value='Rejected' name = 'Rejected' disabled = true id='Rejected'  class='btn btn-primary' Style='background: rgb(239,145,145); border-color:rgb(239,145,145);'></a>";
                         }
                         
                         
