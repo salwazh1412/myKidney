@@ -1,5 +1,10 @@
 <?php
-session_start();/*
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+    
+/*
 // step 1: connect to database
 if (! ( $database = mysql_connect ("localhost","root","")) )
 die ("Cann't connect to database");

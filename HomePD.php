@@ -119,13 +119,13 @@ color:#b7b7b7;
                         </div>";
                               
                         
-                    if ($row33 = $stmt3->fetchfetchColumn()  > 0)
+                    if ($row2 > 0)
                     {
                         
                     while($row3 = $stmt3->fetch())
                     {
                  
-                        $sql7="SELECT count(*) from requests WHERE (Donor_ID= ".$row3['User_ID']." AND Patients_ID = ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id'].")";   
+                        $sql7="SELECT count(*) from requests WHERE (Donor_ID= ".$row3['User_ID']." AND Patients_ID = ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id']." AND Donor_Approval != 2)";   
 
                         $stmt = $conn->prepare($sql7);
                         $stmt->execute();
@@ -137,6 +137,21 @@ color:#b7b7b7;
                         }
                         else {
                             $requested = 'false';
+
+                        }
+                        
+                        $sql9="SELECT count(*) from requests WHERE (Donor_ID= ".$row3['User_ID']." AND Patients_ID = ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id']." AND Donor_Approval = 2)";   
+
+                        $stmt = $conn->prepare($sql9);
+                        $stmt->execute();
+                        $row7 = $stmt->fetchColumn();
+
+                        if($row7 > 0) 
+                        {
+                            $rejected = 'true';
+                        }
+                        else {
+                            $rejected = 'false';
 
                         }
                         
@@ -154,9 +169,7 @@ color:#b7b7b7;
                         else {
                             $matched = 'false';
 
-                        }
-    
-                                                        
+                        }                              
                 
                         
                         echo "<div class='BoxBorder animate-box'>
@@ -166,21 +179,26 @@ color:#b7b7b7;
                                 <li class='address' Style='align:center;'> ".$row3['City']."</<li>
                                 <li class='email' Style='align:center;'> ".$row3['Email']."</<li>";
                                   
-                        if (($requested == 'false')&&($matched == 'false'))
+                        if (($requested == 'false')&&($matched == 'false')&&($rejected == 'false'))
                         {
                             echo "<br><br>";
                             echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Request' name = 'Request' id='Request'  class='btn btn-primary'></a>";
                         } 
                         
-                        elseif(($requested == 'true')&&($matched == 'false'))
+                        elseif(($requested == 'true')&&($matched == 'false')&&($rejected == 'false'))
                         {
                             echo "<br><br>";
                             echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Requested' name = 'Requested' disabled = true id='Requested'  class='btn btn-primary'></a>";
                         }
-                        elseif (($requested == 'false')&&($matched == 'true'))
+                        elseif (($requested == 'false')&&($matched == 'true')&&($rejected == 'false'))
                         {
                             echo "<br><br>";
                             echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Matched' name = 'Matched' disabled = true id='Matched'  class='btn btn-primary'></a>";
+                        }
+                        elseif (($requested == 'false')&&($matched == 'false')&&($rejected == 'true'))
+                        {
+                            echo "<br><br>";
+                            echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Rejected' name = 'Rejected' disabled = true id='Rejected'  class='btn btn-primary' Style='background: rgb(239,145,145);'></a>";
                         }
                         
                         
@@ -189,7 +207,12 @@ color:#b7b7b7;
                             </div>";
 
                     }
-                      
+                    }  else
+                      {
+                            echo "<div class='text-center'><br><br><br><br>non<br><br><br>";
+
+                      }
+                          
                         
                         
                          // Query 4
@@ -214,20 +237,20 @@ color:#b7b7b7;
                         </div>";
                         
                         
-                    }
-                        else
-                        {
-                            echo "<div><br><br><br> No <br><br><br></div>";
-                            
-                        }
+                    
+  
+                        
+                        
                         
                         // Donors with same your blood type BUT live in another city
                         
+                    if ($row2 >0)
+                    {
                     while($row4 = $stmt5->fetch())
                     {
                          
                                   
-                        $sql7="SELECT count(*) from requests WHERE (Donor_ID = ".$row4['User_ID']." AND Patients_ID= ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id'].")";   
+                        $sql7="SELECT count(*) from requests WHERE (Donor_ID = ".$row4['User_ID']." AND Patients_ID= ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id']." AND Donor_Approval = 0)";   
 
                         $stmt = $conn->prepare($sql7);
                         $stmt->execute();
@@ -239,6 +262,21 @@ color:#b7b7b7;
                         }
                         else {
                             $requested = 'false';
+
+                        }
+                        
+                        $sql9="SELECT count(*) from requests WHERE (Donor_ID = ".$row4['User_ID']." AND Patients_ID = ".$_SESSION['usr_id']." AND Sender = ".$_SESSION['usr_id']." AND Donor_Approval = 2)";   
+
+                        $stmt = $conn->prepare($sql9);
+                        $stmt->execute();
+                        $row7 = $stmt->fetchColumn();
+
+                        if($row7 > 0) 
+                        {
+                            $rejected = 'true';
+                        }
+                        else {
+                            $rejected = 'false';
 
                         }
                         
@@ -266,21 +304,26 @@ color:#b7b7b7;
                                 <li class='address' Style='align:center;'> ".$row4['City']."</<li>
                                 <li class='email' Style='align:center;'> ".$row4['Email']."</<li>";
                                   
-                        if (($requested == 'false')&&($matched == 'false'))
+                        if (($requested == 'false')&&($matched == 'false')&&($rejected == 'false'))
                         {
                             echo "<br><br>";
                             echo "<a href='SentRequest.php?ID=".$row4['User_ID']."'><input type='submit' value='Request' name = 'Request' id='Request'  class='btn btn-primary'></a>";
                         } 
                         
-                        elseif(($requested == 'true')&&($matched == 'false'))
+                        elseif(($requested == 'true')&&($matched == 'false')&&($rejected == 'false'))
                         {
                             echo "<br><br>";
                             echo "<a href='SentRequest.php?ID=".$row4['User_ID']."'><input type='submit' value='Requested' name = 'Requested' disabled = true id='Requested'  class='btn btn-primary'></a>";
                         }
-                        elseif (($requested == 'false')&&($matched == 'true'))
+                        elseif (($requested == 'false')&&($matched == 'true')&&($rejected == 'false'))
                         {
                             echo "<br><br>";
                             echo "<a href='SentRequest.php?ID=".$row4['User_ID']."'><input type='submit' value='Matched' name = 'Matched' disabled = true id='Matched'  class='btn btn-primary'></a>";
+                        }             
+                        elseif (($requested == 'false')&&($matched == 'false')&&($rejected == 'true'))
+                        {
+                            echo "<br><br>";
+                            echo "<a href='SentRequest.php?ID=".$row3['User_ID']."'><input type='submit' value='Rejected' name = 'Rejected' disabled = true id='Rejected'  class='btn btn-primary' Style='background: rgb(239,145,145);'></a>";
                         }
                         
                         
@@ -291,6 +334,10 @@ color:#b7b7b7;
 
                     }
                         
+                    }
+                        else
+                            echo "<div class='text-center'><br><br><br><br>non<br><br><br>";
+
                     }
                 
                 
@@ -332,8 +379,8 @@ color:#b7b7b7;
                             Patients with same your blood type and also live in your city:
                         </div>";
                      
-                    
-                    if ($row33 = $stmt3->fetchfetchColumn()  > 0))
+                        
+                    if ($row2 > 0)
                     {
                         
                     while($row3 = $stmt3->fetch())
@@ -403,6 +450,9 @@ color:#b7b7b7;
                             </div>";
 
                     }
+                    }
+                        else
+                            echo "<div class='text-center'><br><br><br><br>non<br><br><br>";
                       
                         
                         
@@ -427,15 +477,13 @@ color:#b7b7b7;
                             <br> Patients with same your blood type BUT live in another city:
                         </div>";
                         
-                        }
-                        else
-                        {
-                            echo "<div><br><br><br> No <br><br><br></div>";
+                        
 
-                        }
-                        
+                
                         // Donors with same your blood type BUT live in another city
-                        
+                
+                    if ($row2 > 0)
+                    {
                     while($row4 = $stmt5->fetch())
                     {
                          
@@ -503,6 +551,10 @@ color:#b7b7b7;
                         
 
                     }
+                    }
+                        else
+                            echo "<div class='text-center'><br><br><br><br>non<br><br><br>";
+
                         
                     }
 

@@ -1,6 +1,7 @@
+<?php 
 
-<?php
-    include("HeaderStaff.php");
+include("HeaderStaff.php");
+        
 ?>
 
 <style>       
@@ -54,7 +55,8 @@ table tr.header, table tr:hover {
     background-color: #f1f1f1;
 }
 
-</style>	
+</style>
+        
 
         
 <style>
@@ -81,7 +83,7 @@ th {
 		<div ID ="rcorners1"class="gtco-container">
             <div class="row animate-box">
 				
-                <h2 class= "text-center"; Style="color:gray; margin-top:-80px;"> Patients Information </h2>
+                <h2 class= "text-center"; Style="color:gray; margin-top:-80px;"> Donor Information </h2>
 			</div>
             
 			<div class="row" Style="margin-top:30px; margin-bottom:-41px; margin-right:10px; margin-left:10px;">
@@ -131,6 +133,7 @@ th {
                         }
                         echo "</table>";
                         echo "<input type='hidden' name='patients' value='".$_POST['patients']."' />";
+                        
                         ?>
  
                 
@@ -143,12 +146,20 @@ th {
 				</div>
                 </div>
                 
+                <a href='MatchingPatients.php'><input type="button" 
+                        name="back"
+                        value="Back"
+                        id="back" 
+                        class="btn btn-default btn-block"
+                               Style="background: rgb(82,211,170); width: 150px; color:#ffffff; margin-top:-20px; float: left; margin-left:-330px;"></a>
+                    
+                    
                 <button type="submit" 
                         name="result"
                         value="result"
                         id="login" 
                         class="btn btn-default btn-block"
-                        Style="background: rgb(82,211,170); width: 200px; color:#ffffff; margin-top:-20px; margin-right:450px;float: right;">Find a Donor</button>
+                        Style="background: rgb(82,211,170); width: 150px; color:#ffffff; margin-top:-20px; margin-right:30px; float: right;">Match</button>
            
             </form>
             </div> <!-- end of row div -->

@@ -1,8 +1,12 @@
-<?php 
+<?php
+
+require ('connection.php'); 
+
 
 if (isset($_SESSION['usr_level']) )
 {
     $Level = $_SESSION['usr_level'];
+
 
 if ($Level == 2)
     include("HeaderStaff.php");
@@ -14,6 +18,7 @@ if ($Level == 2)
              include("HeaderAdmin.php");
 }
 else
+
     include("HeaderSearch.php");
 
 

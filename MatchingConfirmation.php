@@ -1,19 +1,7 @@
-<?php
-    include("HeaderStaff.php");
+<?php 
 
-require __DIR__ . '/twilio-php-master/Twilio/autoload.php';
-
-use Twilio\Rest\Client;
-
-$client = new Client($sid, $token);
-$client->messages->create(
- '+966555705464', // number to send to
- array(
- 'from' => '+15017250604', // your Twilio number
- 'body' => "There’s something strange in my neighborhood. I don’t know who to call. Send help!"
- )
-);
-
+include("HeaderStaff.php");
+        
 ?>
 
 <style>       
@@ -67,8 +55,7 @@ table tr.header, table tr:hover {
     background-color: #f1f1f1;
 }
 
-</style>
-              
+        
 <style>
 table, th, td {
     border: 1px solid gray;
@@ -97,7 +84,7 @@ th {
 			</div>
             
 			<div class="row" Style="margin-top:30px; margin-bottom:-41px; margin-right:10px; margin-left:10px;">
-                <form method="POST" action="result.php" class="form-inline">
+                <form method="POST" action="MatchingPatients.php" class="form-inline">
 				<div>
                     <div class="feature-center animate-box" data-animate-effect="fadeIn">
                            
@@ -121,15 +108,17 @@ th {
                             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);                            
                                 foreach ($stmt as $row){ 
                                     echo "<tr>"."<td style='width:10%; text-align:center;'>".$_POST["patients"]."</td>".
-                                        "<td style='text-align:center;'>"."<a href='profile.php?ID=".$_POST["patients"]."&Type=3' target='_blank'>".$row['PName']."</a>"."</td>".
+                                        "<td style='text-align:center;'>"."<a href='profile.php?ID=".$_POST["patients"]."&Type=3'>".$row['PName']."</a>"."</td>".
                                         "<td style='width:10%; text-align:center;'>".$_POST["donors"]."</td>".
-                                        "<td style=' width:35%; text-align:center;'>"."<a href='profile.php?ID=".$_POST["donors"]."&Type=4' target='_blank'>".$row['DName']."</a>"."</td>".
+                                        "<td style=' width:35%; text-align:center;'>"."<a href='profile.php?ID=".$_POST["donors"]."&Type=4'>".$row['DName']."</a>"."</td>".
                                         "<td style='width:10%';><button type='submit' 
-                        name='SMS'
-                        value='SMS'
+                        name='Match'
+                        value='match'
                         class='btn btn-default btn-block'
                         Style='background: rgb(82,211,170); width: 100px; color:#ffffff;  float: right;'>send</button></td>".
                                         "</tr>"."\n";
+                                    echo "<input type='hidden' name='patients' value='".$_POST["patients"]."' />";
+                                    echo "<input type='hidden' name='donors' value='".$_POST['donors']."' />";
                                 }
                         }catch(PDOException $e) {
                          echo "Error: " . $e->getMessage();
@@ -139,9 +128,9 @@ th {
  
                 
                         
-                    </div> 
-                        <div class="col-md-4 col-sm-4">
-					<div class="feature-center animate-box"   data-animate-effect="fadeIn">
+                </div> 
+                <div class="col-md-4 col-sm-4">
+					<div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<P></P>
 					</div>
 				</div>

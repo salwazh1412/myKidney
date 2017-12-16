@@ -74,7 +74,8 @@
 				<div class="col-xs-2 text-right hidden-xs menu-2">
 					
                     <ul>
-                        <br><li class="btn-cta2"><a href="logout.php"><span> <div align="center">Logout</div>   </span></a></li>
+                        <br><li class="btn-cta2" style="margin:-10px;"><a href="logout.php"><span> <div align="center">Logout</div></span></a></li>
+                        <br><li style="margin-left:-300px;"><a href="StaffProfile.php">My Profile </a></li>
 					</ul>
 					<ul>
                       <!--  <li class="btn-cta"><a href="#Signup"><span>Sign Up</span></a></li> -->

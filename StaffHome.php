@@ -1,7 +1,7 @@
 <?php 
 
 include("HeaderStaff.php");
-        
+
 ?>
 	<div id="gtco-features">
 		<div class="gtco-container">

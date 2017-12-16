@@ -1,11 +1,9 @@
-<!DOCTYPE HTML>
+<?php 
 
- <?php
-    include("HeaderStaff.php");
-
+include("HeaderStaff.php");
+        
 ?>
 
-<body>
 <style>       
 .myInput {
     background-image: url('images/searchicon.png'); /* Add a search icon to input */
@@ -59,7 +57,7 @@ table tr.header, table tr:hover {
 
 </style>
         
-
+        
 <style>
 table, th, td {
     border: 1px solid gray;
@@ -98,6 +96,7 @@ th {
                     
                         
                         <?php   
+                         if (isset($_Post['yes'])){}
                         $target='./Tests/';
                         echo "<table style='width:100%';>";
                         echo "<tr class='header' >
@@ -130,10 +129,33 @@ th {
                                 }
                         }catch(PDOException $e) {
                          echo "Error: " . $e->getMessage();
-                        }
+                        } $conn = null;
                         echo "</table>";
                         
+                        
                         ?>
+                        
+                        
+                        
+                        <?php
+                        
+                         if (isset($_POST['patients']) && isset($_POST['donors'])) {
+
+                             $date = date('Y-m-d H:i:s');    
+                             $db = new PDO("mysql:host=localhost;dbname=mykideny4;charset=utf8mb4", 'root', '');                      
+                             $sql = "INSERT INTO requests(Patients_ID,Donor_ID,Donor_Approval,Sender,Request_Date) 
+                             VALUES (".$_POST['patients'].",".$_POST['donors'].",0,1,'".$date."')";
+                            
+                             $stmt = $db->prepare($sql);
+                            
+                             if ( ! $stmt->execute() )
+                             { die ("Error while execute query, The Error is: ".mysql_error ()); }
+                             
+                        }
+                        ?>
+                        
+                        
+                        
  
                 
                         
@@ -145,14 +167,18 @@ th {
 				</div>
                 </div>
                 
+                    
                 <button type="submit" 
                         name="result"
                         value="result"
                         id="login" 
                         class="btn btn-default btn-block"
                         Style="background: rgb(82,211,170); width: 200px; color:#ffffff; margin-top:-20px; margin-right:450px;float: right;">Find a Donor</button>
+                
+
            
-            </form>
+            <br>
+                </form>
             </div> <!-- end of row div -->
 		</div>
 	</div>
@@ -162,6 +188,6 @@ th {
 	
 	<!------ Footer -------->		
 <?php
-        $conn = null;
+       
 include ('footer.html');
 ?>
