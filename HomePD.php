@@ -7,6 +7,9 @@ if (isset($_SESSION['usr_level']) )
 {
     $Level = $_SESSION['usr_level'];
 }
+else 
+    header("Location:login.php");
+
 
 ?>
     	        

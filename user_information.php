@@ -24,11 +24,18 @@ if (isset($_POST['signup'])) {
 		$email_error = "Please Enter Valid Email ID";
 	}
 
+    if ($_SESSION['usr_level'] == 3)
+        $Level = 'patient';
+    
+    elseif ($_SESSION['usr_level'] == 4)
+        $Level = 'donor';
+
 
 	if (!$error) {
-		$q = "INSERT INTO ". $_SESSION['usr_level'] ." (Name, Email, Phone, Blood_Type, City, Date_of_Birth, Q1, Q2, Q3, User_ID)
-		VALUES('" . $name . "', '" . $email . "', '" . $phone . "', '" . $blood . "', '" . $city . "', '" . $dob . "', '" . $q1 . "', '" . $q2 . "', '" . $q3 . "', '" . $_SESSION['usr_id'] . "')";
-		if(mysqli_query($con, $q))
+		$q = "INSERT INTO ".$Level." (User_ID, Name, Email, Phone, Blood_Type, City, Date_of_Birth, Diabetes, LowPressure, HighPressure, Test)
+		VALUES (".$_SESSION['usr_id'].", '".$name."', '".$email."', ".$phone.", '".$blood."', '".$city."', '".$dob."', '".$q1."', '".$q2."', '".$q3."', '')";
+		
+        if(mysqli_query($con, $q))
 		{
 		 	header("Location: control_panel.php");
 		} else {

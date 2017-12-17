@@ -155,9 +155,9 @@ $db = new PDO("mysql:host=localhost;dbname=mykideny4;charset=utf8mb4", 'root', '
                             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);                            
                                 foreach ($stmt as $row){
                                     echo "<tr>"."<td>".$row['PName']."</td>".
-                                        "<td>". "<a href=" .$target.basename($row['PTest']).">Download</a>"."</td>".
+                                        "<td>". "<a href=" .$target.basename($row['PTest'])." target='_blank'>Download</a>"."</td>".
                                         "<td>".$row['DName']."</td>".
-                                        "<td>". "<a href=" .$target.basename($row['DTest']).">Download</a>"."</td>".
+                                        "<td>". "<a href=" .$target.basename($row['DTest'])." target='_blank'>Download</a>"."</td>".
                                         "<td width=50>". 
                                         "<a href='Match.php?PID=".$row['patientID']."&DID=".$row['donorID']."&match=true'> <input type='button'
                                         ID='match' 

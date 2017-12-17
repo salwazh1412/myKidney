@@ -88,10 +88,13 @@ if (isset($_POST['signup'])) {
 					<p>
 							<select name="level" required class="form-control">
 									<option selected hidden="hidden" disabled value="">Choose User Type</option>
-									<option>Donor</option>
-									<option>Patient</option>
-								</select>
-					</p>
+									<option value="4">Donor</option>
+									<option value="3">Patient</option>
+				            </select>
+                        
+                        
+
+                    
 					<p><input type="text" name="user_name" placeholder="User Name" required value="<?php if($error) echo $user_name; ?>" class="form-control" /></p>
 
 					<p><input type="password" name="password" placeholder="Password" required class="form-control" />

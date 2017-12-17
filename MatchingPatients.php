@@ -124,7 +124,7 @@ th {
                                         "<td style='text-align:center;'>".$row['Diabetes']."</td>".
                                         "<td style='text-align:center;'>".$row['LowPressure']."</td>".
                                         "<td style='text-align:center;'>".$row['HighPressure']."</td>".
-                                        "<td style='text-align:center;'>". "<a href=" .$target.basename($row['Test']).">Download</a>"."</td>".          
+                                        "<td style='text-align:center;'>". "<a href=" .$target.basename($row['Test'])." target='_blank'>Download</a>"."</td>".          
                                         "</tr>"."\n";
                                 }
                         }catch(PDOException $e) {

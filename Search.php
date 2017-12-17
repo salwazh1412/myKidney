@@ -383,7 +383,7 @@ table tr.header, table tr:hover {
                                 if (isset($_SESSION['usr_level']) && $_SESSION['usr_level'] == 2)
                                   {
                                     // column 9
-                                    echo "<td class='11' Style='text-align:center;'><a href='".$target.basename($row['Test'])."'>Download</a>";
+                                    echo "<td class='11' Style='text-align:center;'><a href='".$target.basename($row['Test'])."' target='_blank'>Download</a>";
                                     echo "</td>";		
                                   
                                   
@@ -526,7 +526,7 @@ table tr.header, table tr:hover {
                                     
                                     if (isset($_SESSION['usr_level']) && $_SESSION['usr_level'] == 2)
                                     {
-                                        echo "<th style='width:13%; text-align:center;'><a href='".$target.basename($row['Test'])."'>Download</a></th> 
+                                        echo "<th style='width:13%; text-align:center;'><a href='".$target.basename($row['Test'])."' target='_blank'>Download</a></th> 
                                             </tr>";
 
                                     }
