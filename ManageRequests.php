@@ -129,7 +129,7 @@ th {
         $part3=(int)$part1;
         $part4=(int)$part2;
                                                
-$db = new PDO("mysql:host=localhost;dbname=mykideny4;charset=utf8mb4", 'root', '');
+$db = new PDO("mysql:host=localhost;dbname=mykideny6;charset=utf8mb4", 'root', '');
 
 // works not with the following set to 0. You can comment this line as 1 is default
 //$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);

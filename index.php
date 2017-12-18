@@ -3,7 +3,7 @@
 <?php
  require ('connection.php');
 
-if(isset($_SESSION['usr_id'])){
+/* if(isset($_SESSION['usr_id'])){
     
     
 $userid = $_SESSION['usr_id'];
@@ -78,100 +78,24 @@ if(isset($_POST['senddonreq'])){
 	} else {
 		$errormsg = "Error in registering...Please try again later! <br>".$q;
 	}
-}
+} 
 
-
-//$sql5 = "SELECT * FROM requests WHERE Sender_ID =".$userid." AND Donor_Approval = '0' ";
-//$stmt5=$conn->prepare($sql5);
-//$stmt5->execute();
-//$rowRequests = $stmt5->fetch();
-//$requestArray = array();
-    
-//if ($sql5->num_rows > 0) { foreach ($sql5 as $Reqkey => $getRequDetail) {
-//	$requestArray[] = $getRequDetail['Receiver_ID'];
-//}
-//}
-
-}
+} */
 
 
 include("header.php") ?>
+
+
 	<header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url(images/img_bg_1.jpg);">
 		<div class="gtco-container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center">
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
-							<?php if(isset($_SESSION['usr_id']) == ""){ ?>
-							<h1>myKidney</h1>
-							<h2>Free html5 templates Made by <a href="http://gettemplates.co/" target="_blank">gettemplates.co</a></h2>
-							<p><a href="#" class="btn btn-default">Get Started</a></p>
-						<?php }else{ ?>
-							<?php if (isset($errormsg)){ ?>
-								<div class="panel panel-info">
-									<?php echo $errormsg ?>
-								</div>
-							<?php } ?>
-							<table class="table table-hover" id="datatable" style="color:#333; background:#fff">
-								<thead>
-									<tr>
-										<th>
-											Name
-										</th>
-										<th>
-											Email
-										</th>
-										<th>
-											City
-										</th>
-										<th>
-											Blood Type
-										</th>
-										<th>
-											Request
-										</th>
-									</tr>
-								</thead>
-								<tbody>
+							<h1>MyKidney</h1>
+                            <h2>Kidney Matching System</h2>
 
-								<?php if ($getDonorUser->num_rows > 0) { foreach ($getDonorUser as $key => $getDonorDetail) {
-									if (in_array($getDonorDetail['Blood_Type'], $getBloodTypes)){
-									?>
-									<tr <?php if (in_array($getDonorDetail['ID'],$requestArray)){ ?>style="background:#ddd;"<?php } ?>>
-									<td>
-										<?php echo $getDonorDetail['Name']?>
-									</td>
-									<td>
-										<?php echo $getDonorDetail['Email']?>
-									</td>
-									<td>
-										<?php echo $getDonorDetail['City']?>
-									</td>
-									<td>
-										<?php echo $getDonorDetail['Blood_Type']?>
-									</td>
-									<td>
-										<?php if (in_array($getDonorDetail['ID'],$requestArray)){ ?>
-											<small>Request has been sent to this member</small>
-										<?php } ?>
-										<form method="post" action="">
-										<input type="hidden" name="reciverid" value="<?php echo $getDonorDetail['ID']?>">
-										<input type="hidden" name="senderid" value="<?php echo $row['ID']?>">
-										<input type="hidden" name="senddonreq" />
-										<button id="submitbtn<?php echo $key ?>" type="submit" class="btn btn-sm btn-success">SEND Request</button>
-										</form>
-									</td>
-								</tr>
-
-							<?php }}}else{ ?>
-									<td colspan="5">
-										NO DATA AVAILABLE
-									</td>
-								<?php } ?>
-
-								</tbody>
-							</table>
-						<?php } ?>
+							<!-- <p><a href="#" class="btn btn-default">Get Started</a></p> -->
 						</div>
 					</div>
 				</div>
@@ -185,38 +109,38 @@ include("header.php") ?>
 				<div class="col-md-4 col-sm-4">
 					<div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<span class="icon">
-							<i class="icon-eye"></i>
+							<i class="icon-search"></i>
 						</span>
-						<h3>Retina Ready</h3>
-						<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
-						<p><a href="#" class="btn btn-primary">Learn More</a></p>
+						<h3>Search</h3>
+						<p>Search for Kidney Failure Patients and Kidney Donors </p>
+						<!-- <p><a href="#" class="btn btn-primary">Learn More</a></p> -->
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-4">
 					<div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<span class="icon">
-							<i class="icon-command"></i>
+							<i class="icon-share"></i>
 						</span>
-						<h3>Fully Responsive</h3>
-						<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
-						<p><a href="#" class="btn btn-primary">Learn More</a></p>
+						<h3>Share</h3>
+						<p>Share Kidney Failure Patients  information</p>
+						<!-- <p><a href="#" class="btn btn-primary">Learn More</a></p> -->
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-4">
 					<div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<span class="icon">
-							<i class="icon-power"></i>
+							<i class="icon-flash"></i>
 						</span>
-						<h3>Web Starter</h3>
-						<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
-						<p><a href="#" class="btn btn-primary">Learn More</a></p>
+						<h3>Send Request</h3>
+						<p>if you are kidney failure patients register now and send request to anu donor.</p>
+						<!-- <p><a href="#" class="btn btn-primary">Learn More</a></p> -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div id="gtco-features-2">
+	<!-- <div id="gtco-features-2">
 		<div class="gtco-container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
@@ -266,9 +190,9 @@ include("header.php") ?>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
-	<div id="gtco-counter" class="gtco-bg gtco-counter" style="background-image:url(images/img_bg_2.jpg);">
+	<!-- <div id="gtco-counter" class="gtco-bg gtco-counter" style="background-image:url(images/img_bg_2.jpg);">
 		<div class="gtco-container">
 			<div class="row">
 				<div class="display-t">
@@ -318,12 +242,12 @@ include("header.php") ?>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
-	<div id="gtco-testimonial">
+	<!-- <div id="gtco-testimonial">
 		<div class="gtco-container">
 			<!-- <div class="row"> -->
-				<div class="row animate-box">
+			<!--	<div class="row animate-box">
 					<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
 						<h2>Testimonial</h2>
 					</div>
@@ -367,7 +291,7 @@ include("header.php") ?>
 						</div>
 					</div>
 				</div>
-			<!-- </div> -->
+			<!-- </div> 
 		</div>
 	</div>
 
@@ -392,7 +316,7 @@ include("header.php") ?>
 					</ul>
 
 					<!-- Tabs -->
-					<div class="gtco-tab-content-wrap">
+			<!--		<div class="gtco-tab-content-wrap">
 
 						<div class="gtco-tab-content tab-content active" data-tab-content="1">
 							<div class="col-md-6">
@@ -501,17 +425,30 @@ include("header.php") ?>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 
 	<div id="gtco-started">
 		<div class="gtco-container">
-			<div> <!--  class="row animate-box" -->
+			<div class="row animate-box">
 				<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-					<h2 id="Signup">Get Started</h2>
+					<h2>Get Started</h2>
 				</div>
 			</div>
-
+			<div class="row animate-box">
+				<div class="col-md-12">
+					<form class="form-inline">
+						<div class="col-md-4 col-sm-4">
+							
+						</div>
+						<div class="col-md-4 col-sm-4">
+                            <a href="signup.php"><button type="button" class="btn btn-default btn-block">Sign Up</button></a>
+						</div>
+						<div class="col-md-4 col-sm-4">
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 

@@ -11,8 +11,7 @@ else
     header("Location:login.php");
 
 
-?>
-    	        
+?>   	        
         
 <style>
 .BoxBorder {

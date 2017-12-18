@@ -20,7 +20,7 @@
                 $file = fopen($_FILES['file']['tmp_name'], "rb");
 
                 try {
-               $stmt = $conn->prepare("UPDATE donor SET Test='".$_FILES['file']['name']."' WHERE User_ID=5");
+               $stmt = $conn->prepare("UPDATE donor SET Test='".$_FILES['file']['name']."' WHERE User_ID=".$_SESSION['usr_id']."");
 
                     
                      

@@ -9,57 +9,6 @@ if (isset($_SESSION['usr_level']) && isset($_SESSION['usr_id']))
 
 }
 
-				 
-                    
-if (isset($_POST['submit'])) {
-                $temp = explode('.', $_FILES['file']['name']);
-                $extn = strtolower(end($temp));
-                if(($extn == "doc") || ($extn == "docx") || ($extn == "pdf")) {
-                // Filetype is correct. Check size
-                if($_FILES['file']['size'] < 5632000) {
-                // Filesize is below maximum permitted. Add to the DB.
-                $mime = $_FILES['file']['type'];
-                $size = $_FILES['file']['size'];
-                $name = $_FILES['file']['name'];
-                $tmpf = $_FILES['file']['tmp_name'];
-                $file = fopen($_FILES['file']['tmp_name'], "rb");
-
-                try {
-               $stmt = $conn->prepare("UPDATE donor SET Test='".$_FILES['file']['name']."' WHERE User_ID=".$_SESSION['usr_id']."");
-
-                    
-                     
-                        $target='./Tests/';
-                     
-                     
-                    // Bind Values
-                    $stmt->bindParam(1, $appID, PDO::PARAM_INT, 11);
-                    $stmt->bindParam(2, $uaID, PDO::PARAM_INT, 11);
-                    $stmt->bindParam(3, $uID, PDO::PARAM_INT, 11);
-                   
-                    $stmt->bindParam(5, $applicationKey, PDO::PARAM_STR, 8);
-                    $stmt->bindParam(6, $name, PDO::PARAM_STR, 256);
-                    $stmt->bindParam(7, $mime, PDO::PARAM_STR, 128);
-                    $stmt->bindParam(8, $size, PDO::PARAM_INT, 20);
-                    $stmt->bindParam(9, $file, PDO::PARAM_LOB);
-
-                    // Execute the query
-                    $stmt->execute();
-                } catch(PDOException $e) {    echo "Error: " . $e->getMessage(); }
-
-            } else {
-                // Filesize is over our limit. Send error message
-                $error = "Your file is too large.";
-            }
-        } else {
-            $error = "Your file was the incorrect type.";
-        }
-        //move_uploaded_file($_FILES['file']['name'], $target);
-        move_uploaded_file($_FILES["file"]["tmp_name"], $target.$_FILES["file"]["name"]);
-    }
-  
-                
-
 if (isset($_POST['update']))
 {   
     $updatedName = $_POST['Fname'];
@@ -177,19 +126,14 @@ text-align:left;
                     
                     <form method='POST' action="">
                         
-
+                        <input type="submit" value='Update' name = 'update' id='update' class='btn btn-primary'>
                     
                 </span>
                 </h2>
                 </div>
-                    
-            <div Style=" border: 0px solid #f1f1f1; border-radius: 10px; width:85%; text-align:left; ">
-                    
                 
-
-                <span Style="text-align:left; font-size:18px; color:#b7b7b7; margin-left:50px;" >Personal Information </span>
-             
-                    <input type="submit" value='Update' name = 'update' id='update' class='btn btn-primary' style="float:right;">
+                <span Style="text-align:left; font-size:18px; color:#b7b7b7; margin-left:-700px;" >Personal Information             
+                </span>
                 
 
                 
@@ -307,12 +251,45 @@ text-align:left;
                     <td></td>    
                     </tr>
                         
+                        
+                    <tr>    
+                    <td> 
+                        <br><li class="icon-file" style="zoom:1.4;"> </li>
+
+                    </td> 
+
+                    <td>
+                             <?php $target='./Tests/'; ?>
+
+                            <?php echo "<a href='".$target.basename($row['Test'])."' target='_blank'>View My Uploaded Test</a>"; ?>
+                            
+                        
+                    </td>
+                    </tr>                 
+                      
+                        <tr>
+                        <td><br></td>
+                        </tr>
+                        
                     <tr>
                         
                     <td width='30'><br></td>
                         
                     <td>      
-                      
+                      <!--          <input type="hidden" name="MAX_FILE_SIZE" value="5632000">
+                                Upload a New File ? 
+                                <form action="" method="post" enctype="multipart/form-data">
+
+                                <input type="file" name="file" id="file" style="cursor: pointer;">
+                                
+                                <input class='btn btn-primary' style="margin-top: 12px;" type="submit" name="upload" value="Upload" title="Upload"> 
+                                </form> -->
+                        
+                        <input type="hidden" name="MAX_FILE_SIZE" value="5632000">
+                        <label for='file'>Filename:</label> <input type='file' name='file' id='file' style='cursor: pointer;'>
+                        <!-- <input class="button" style="margin-top: 12px;" type="submit" name="upload" value="Upload" id="upload" title="Upload"> -->
+                   
+                        
                     </td>
                     
                     </tr>
@@ -382,79 +359,11 @@ text-align:left;
 
 				</div>
                                     </form>    
+                
+
 
 			</div>            
             
-            
-            <div class="row animate-box" align="center">
-	            <br><br>
-                <div class="BoxBorder"></div>
-
-                <br><br>
-                
-                <div Style=" border: 0px solid #f1f1f1; border-radius: 10px; width:85%; text-align:left; ">
-                    
-              <!--      <br><ul Style="margin-left:100px;"> -->
-                
-                <form action="" method="post" enctype="multipart/form-data">
-
-                <span Style="text-align:left; font-size:18px; color:#b7b7b7; margin-left:50px;" >Tests </span>
-                    
-                <input class='btn btn-primary' style="margin-top: 12px; float:right;"  type="submit" name="submit" value="Upload" title="Upload">
-                    
-                    <div Style=" border: 0px solid #f1f1f1; border-radius: 10px; width:85%; text-align:left; ">
-                    
-                    <br><ul Style="margin-left:100px;">
-
-                    <table border="0">
-                    
-                    <?php if (($row['Test']) != '')
-                    { ?>
-                    <tr>    
-                    <td> 
-                        <p><li class="icon-file" style="zoom:1.4;"> </li></p>
-                        
-                    </td> 
-
-                    <td>
-                             <?php $target='./Tests/'; ?>
-
-                            <?php echo "<br><a href='".$target.basename($row['Test'])."' target='_blank'>View My Uploaded Test</a>"; ?>
-                            
-                        
-                    </td>
-                    </tr>                 
-                      <?php } ?>
-                    <tr>
-                    <td><br></td>
-                    </tr>
-            
-                    
-                    <tr>   
-
-                    <td colspan="2">
-
-                        <label>Upload new test ?</label> <span><br></span><input type="file" name="file" id="file" style="cursor: pointer;">
-
-                        
-                        
-                    </td>
-                    </tr>                 
-                      
-                    
-                    </table>
-                    
-                        </ul>
-  
-                    
-                    <br>
-
-                    
-				</div>
-                    
-                    </form>
-
-			</div>
             
             <div class="row animate-box" align="center">
 	            <br><br>
@@ -547,11 +456,116 @@ text-align:left;
                     
                     
                     <br>
-                    </div>
-            
+
                     
 				</div>
                 </form>
+			</div>
+            <br>
+            
+        </div>
+        
+        
+        
+        
+        <div class="row animate-box" align="center">
+	            <br><br>
+                <div class="BoxBorder"></div>
+
+                <br><br>
+                
+                <div class="BoxBorder" style="border: 0px solid #f1f1f1; ">
+                    
+                                        
+
+                        
+                <span Style="text-align:left; font-size:18px; color:#b7b7b7; margin-left:50px;" >Upload Tests </span>
+
+                    <!-- <form method='POST' action="" style="float:right;">
+                        <input type="submit" value='Change' name = 'change' id='change' class='btn btn-primary'> -->
+
+                                    
+                
+                </div>
+
+
+                <div Style=" border: 0px solid #f1f1f1; border-radius: 10px; width:85%; text-align:left; ">
+                    
+              <!--      <br><ul Style="margin-left:100px;"> -->
+                                    
+                 <form action="" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="MAX_FILE_SIZE" value="5632000">
+                    <label for='file'>Filename:</label> <input type="file" name="file" id="file" style="cursor: pointer;">
+                    <input class="button" style="margin-top: 12px;" type="submit" name="submit" value="Upload" title="Upload">
+                </form>
+                    
+				<?php 
+                    
+                if (isset($_POST['submit'])) {
+                $temp = explode('.', $_FILES['file']['name']);
+                $extn = strtolower(end($temp));
+                if(($extn == "doc") || ($extn == "docx") || ($extn == "pdf")) {
+                // Filetype is correct. Check size
+                if($_FILES['file']['size'] < 5632000) {
+                // Filesize is below maximum permitted. Add to the DB.
+                $mime = $_FILES['file']['type'];
+                $size = $_FILES['file']['size'];
+                $name = $_FILES['file']['name'];
+                $tmpf = $_FILES['file']['tmp_name'];
+                $file = fopen($_FILES['file']['tmp_name'], "rb");
+
+                try {
+               $stmt = $conn->prepare("UPDATE donor SET Test='".$_FILES['file']['name']."' WHERE User_ID=".$_SESSION['usr_id']."");
+
+                    
+                     
+                        $target='./Tests/';
+                     
+                     
+                    // Bind Values
+                    $stmt->bindParam(1, $appID, PDO::PARAM_INT, 11);
+                    $stmt->bindParam(2, $uaID, PDO::PARAM_INT, 11);
+                    $stmt->bindParam(3, $uID, PDO::PARAM_INT, 11);
+                   
+                    $stmt->bindParam(5, $applicationKey, PDO::PARAM_STR, 8);
+                    $stmt->bindParam(6, $name, PDO::PARAM_STR, 256);
+                    $stmt->bindParam(7, $mime, PDO::PARAM_STR, 128);
+                    $stmt->bindParam(8, $size, PDO::PARAM_INT, 20);
+                    $stmt->bindParam(9, $file, PDO::PARAM_LOB);
+
+                    // Execute the query
+                    $stmt->execute();
+                } catch(PDOException $e) {    echo "Error: " . $e->getMessage(); }
+
+            } else {
+                // Filesize is over our limit. Send error message
+                $error = "Your file is too large.";
+            }
+        } else {
+            $error = "Your file was the incorrect type.";
+        }
+        //move_uploaded_file($_FILES['file']['name'], $target);
+        move_uploaded_file($_FILES["file"]["tmp_name"], $target.$_FILES["file"]["name"]);
+    }
+  
+                    ?>
+                    
+                 <!--    <li class="password"><input type="password" name="password" id="password" Style='width:350px;' class="form-control" placeholder="Enter your current password"></li>                     
+                    
+                    <li class="password"><input type="password" name="newpass" id="newpass" Style='width:350px;' class="form-control" placeholder="Enter your new password"></li>                     
+                    
+                    <li class="password"><input type="password" name="confpass" id="confpass" Style='width:350px;' class="form-control" placeholder="Enter your new password again">
+                    <span id="mess"></span>
+                    </li> 
+                    
+                    </ul> -->
+                    
+                    
+                    <br>
+
+                    
+				</div>
+               <!-- </form>-->
 			</div>
             <br>
             

@@ -141,8 +141,12 @@ th {
                         
                          if (isset($_POST['patients']) && isset($_POST['donors'])) {
 
+                             
                              $date = date('Y-m-d H:i:s');    
-                             $db = new PDO("mysql:host=localhost;dbname=mykideny4;charset=utf8mb4", 'root', '');                      
+                             
+                             
+                             
+                             $db = new PDO("mysql:host=localhost;dbname=mykidney6;charset=utf8mb4", 'root', '');                      
                              $sql = "INSERT INTO requests(Patients_ID,Donor_ID,Donor_Approval,Sender,Request_Date) 
                              VALUES (".$_POST['patients'].",".$_POST['donors'].",0,1,'".$date."')";
                             
@@ -150,6 +154,9 @@ th {
                             
                              if ( ! $stmt->execute() )
                              { die ("Error while execute query, The Error is: ".mysql_error ()); }
+                             
+                             header("Location:php_api/testsms.php?PID=".$_POST['patients']."&DID=".$_POST['donors']."");
+
                              
                         }
                         ?>

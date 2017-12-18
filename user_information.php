@@ -1,7 +1,6 @@
 <?php
  require ('connection.php');
 
-include_once 'dbconnect.php';
 
 //set validation error flag as false
 $error = false;
@@ -32,14 +31,17 @@ if (isset($_POST['signup'])) {
 
 
 	if (!$error) {
-		$q = "INSERT INTO ".$Level." (User_ID, Name, Email, Phone, Blood_Type, City, Date_of_Birth, Diabetes, LowPressure, HighPressure, Test)
-		VALUES (".$_SESSION['usr_id'].", '".$name."', '".$email."', ".$phone.", '".$blood."', '".$city."', '".$dob."', '".$q1."', '".$q2."', '".$q3."', '')";
+		$sql = "INSERT INTO ".$Level." (User_ID, Name, Email, Phone, Blood_Type, City, Date_of_Birth, Diabetes, LowPressure, HighPressure)
+		VALUES (".$_SESSION['usr_id'].", '".$name."', '".$email."', ".$phone.", '".$blood."', '".$city."', '".$dob."', '".$q1."', '".$q2."', '".$q3."')";
 		
-        if(mysqli_query($con, $q))
+        $stmt = $conn->prepare($sql);
+        
+        
+        if($stmt->execute())
 		{
-		 	header("Location: control_panel.php");
+		 	header("Location: HomePD.php");
 		} else {
-			$errormsg = "Error in registering...Please try again later! <br>".$q;
+			$errormsg = "Error in registering...Please try again later! <br>";
 		}
 	}
 }
@@ -105,14 +107,19 @@ if (isset($_POST['signup'])) {
 				</script>
 
 				<p><select name="city" required class="form-control">
-						<option value="" selected disabled hidden="hidden">Choose City</option>
-						<option value="Riyadh">Riyadh</option>
-						<option value="Jeddah">Jeddah</option>
-						<option value="Dammam">Dammam</option>
-						<option value="Makkah">Makkah</option>
-						<option value="Other">Other</option>
+                                  <option value="" disabled selected hidden="hidden">Select city</option>
+                                  <option value="Abha" >Abha</option>
+                                  <option value="AlBahah" >AlBahah</option>
+                                  <option value="Dammam">Dammam</option>
+                                  <option value="Jeddah" >Jeddah</option>
+                                  <option value="Makkah" >Makkah</option>                                   
+                                  <option value="Taif">Taif</option>
+                                  <option value="Riyadh">Riyadh</option>
+                                  <option value="Hail" >Hail</option>
+                                  <option value="Tabuk">Tabuk</option>
 					</select></p>
 
+                    
 				<p><select name="blood" required class="form-control">
 						<option value="" selected disabled hidden="hidden">Choose Blood Type</option>
 						<option value="A+">A+</option>
@@ -126,18 +133,18 @@ if (isset($_POST['signup'])) {
 					</select></p>
 					<p>
 							<label for="q1">Do you Suffer from Diabetes ?</label>
-							<input type="radio" required name="q1" value="1"> <label>Yes</label>
-							<input type="radio" required name="q1" value="0"> <label>No</label>
+							<input type="radio" required name="q1" value="Yes"> <label>Yes</label>
+							<input type="radio" required name="q1" value="No"> <label>No</label>
 					</p>
 					<p>
 							<label for="q2">Do you Suffer from Low Blood Pressure ?</label>
-							<input type="radio" required name="q2" value="1"> <label>Yes</label>
-							<input type="radio" required name="q2" value="0"> <label>No</label>
+							<input type="radio" required name="q2" value="Yes"> <label>Yes</label>
+							<input type="radio" required name="q2" value="No"> <label>No</label>
 					</p>
 					<p>
 							<label for="q3">Do you Suffer from High Blood Pressure ?</label>
-							<input type="radio" required name="q3" value="1"> <label>Yes</label>
-							<input type="radio" required name="q3" value="0"> <label>No</label>
+							<input type="radio" required name="q3" value="Yes"> <label>Yes</label>
+							<input type="radio" required name="q3" value="No"> <label>No</label>
 					</p>
 
 				</div>

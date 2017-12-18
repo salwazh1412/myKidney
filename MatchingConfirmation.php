@@ -110,13 +110,18 @@ th {
                                     echo "<tr>"."<td style='width:10%; text-align:center;'>".$_POST["patients"]."</td>".
                                         "<td style='text-align:center;'>"."<a href='profile.php?ID=".$_POST["patients"]."&Type=3'>".$row['PName']."</a>"."</td>".
                                         "<td style='width:10%; text-align:center;'>".$_POST["donors"]."</td>".
+                                        
                                         "<td style=' width:35%; text-align:center;'>"."<a href='profile.php?ID=".$_POST["donors"]."&Type=4'>".$row['DName']."</a>"."</td>".
-                                        "<td style='width:10%';><button type='submit' 
-                        name='Match'
-                        value='match'
-                        class='btn btn-default btn-block'
-                        Style='background: rgb(82,211,170); width: 100px; color:#ffffff;  float: right;'>send</button></td>".
+                                        //"<td style='width:10%';><button type='submit' 
+                                        //name='Match'
+                                        //value='match'
+                                        //class='btn btn-default btn-block'
+                                        //Style='background: rgb(82,211,170); width: 100px; color:#ffffff;  float: right;'>send</button></td>".
+                                        
+                                        "<td style='width:10%'><a href='php_api/testsms.php?PID=".$_POST["patients"]."&DID=".$_POST["donors"]."'> <input type='button' name='sms' id='sms' value='send' class='btn btn-default btn-block' Style='background: rgb(82,211,170); width: 100px; color:#ffffff;  float: right;'></a></td>".
+                                        
                                         "</tr>"."\n";
+                                    
                                     echo "<input type='hidden' name='patients' value='".$_POST["patients"]."' />";
                                     echo "<input type='hidden' name='donors' value='".$_POST['donors']."' />";
                                 }

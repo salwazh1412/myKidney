@@ -1,102 +1,5 @@
 <?php
     include("HeaderAdmin.php");
-
-
-if (isset($_POST['Add']))
-{
-
-    
-    $Type = $_POST['type'];
-    $username = $_POST['username'];
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];    
-               
-
-    // insert into users table
-    $sql1 = "INSERT INTO users (User_Name, Password, Level) VALUES ('".$username."','".$password."','".$Type."')";
-    
-    $stmt = $conn->prepare($sql1);
-
-    if ( ! $stmt->execute() ){
-        //die ("Error while execute query, The Error is: ".mysql_error ()); 
-             $Added = false;
-   
-    }
-    
-    else {
-
-            /// get ID
-
-            $sql2 = "SELECT ID FROM users where User_Name = '".$username."'";
-
-            $stmt = $conn->prepare($sql2);
-
-            if ( ! $stmt->execute() )
-                die ("Error while execute query, The Error is: ".mysql_error ()); 
-        
-            elseif ($Type == 3 || $Type == 4)
-            {
-                    $phone = $_POST['phone'];
-                    $city = "";
-                    $city = $_POST['city'];
-                    $bloodType = "";
-                    $bloodType = $_POST['BloodType'];
-                    $rawdate = htmlentities($_POST['BD']);
-                    $BD = date('Y-m-d', strtotime($rawdate));
-                    $diabetes = $_POST['diabetes'];
-                    $LowPressure = $_POST['LowPressure'];
-                    $HighPressure = $_POST['HighPressure'];
-                
-                    $row = $stmt->fetch();
-                    if ($Type == 3)
-                        $tableName = 'patient';
-                    elseif ($Type == 4)
-                        $tableName = 'donor';
-
-                
-                    // insert into Donor / Patient table
-                    $sql3 = "INSERT INTO ".$tableName." (User_ID, Name, Email, Phone, City, Blood_Type, Date_of_Birth, Diabetes, LowPressure, HighPressure) VALUES (".$row['ID'].",'".$name."','".$email."',".$phone.",'".$city."','".$bloodType."',".$BD.",'".$diabetes."','".$LowPressure."','".$HighPressure."')";
-
-                    $stmt = $conn->prepare($sql3);
-
-                    if ( ! $stmt->execute() )
-                    { //die ("Error while execute query, The Error is: ".mysql_error ()); 
-                         $Added = false;
-
-                    }
-                        else
-                            $Added = true;
-            
-            
-            } elseif ($Type == 2)
-                
-                {
-                    $row = $stmt->fetch();
-
-                    // insert into staff table
-                    $sql4 = "INSERT INTO staff ( Name, Email, User_ID) VALUES ('".$name."','".$email."',".$row['ID'].")";
-
-                    $stmt = $conn->prepare($sql4);
-
-                    if ( ! $stmt->execute() )
-                    { //die ("Error while execute query, The Error is: ".mysql_error ()); 
-                         $Added = false;
-   
-                    }
-                        else
-
-                            $Added = true;
-                }
-        
-        
-        
-    }
-    
-}  // end of post add function
-
-
-
 ?>
 
         
@@ -219,7 +122,7 @@ function checkPhoneLength(){
 
                     ?>
                     
-					<form action='AddAccount.php' method='post' class='col-md-6 animate-box' Style='margin-left:80px;'>
+					<form action='AddAccount.php' method='post' class='col-md-6 animate-box' Style='margin-left:80px;' enctype="multipart/form-data">
 				        
                         <div class="row form-group">
 							<div class="col-md-12">
@@ -296,16 +199,7 @@ function checkPhoneLength(){
 							</div>
 						</div>
                  
-                        <div class="row form-group">
-							<div class="col-md-12">
-								<label for="test" >Test</label>
-                                <input type="file" id="test" name="test" size="40"  >
-							</div>
-						</div>
-                 
-                 
-
-						<div class="row form-group">
+                 						<div class="row form-group">
 							<div class="col-md-12">
 								<label for="city">City</label>
                                 <select class="form-control" name="city" id="city">
@@ -372,6 +266,20 @@ function checkPhoneLength(){
 						</div>
                  
                  
+                        <div class="row form-group">
+							<div class="col-md-12">
+							<!--	<label for="test" >Test</label>
+                                <input type="file" id="test" name="test" size="40"  > --> 
+                                 <input type="hidden" name="MAX_FILE_SIZE" value="5632000">
+
+                             <label for='file'>Filename:</label> <input type="file" name="file" id="file" style="cursor: pointer;">
+                                
+							</div>
+						</div>
+                 
+                 
+                 
+                 
              </div>  
    
                         <div class="form-group">
@@ -391,5 +299,156 @@ function checkPhoneLength(){
 	
 	<!------ Footer -------->		
 <?php
+
+
+if (isset($_POST['Add']))
+{
+ 
+    $Type = $_POST['type'];
+    $username = $_POST['username'];
+    $Fname = $_POST['name'];
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);    
+               
+
+    // insert into users table
+    $sql1 = "INSERT INTO users (User_Name, Password, Level) VALUES ('".$username."','".$password."','".$Type."')";
+    
+    $stmt = $conn->prepare($sql1);
+
+    if ( ! $stmt->execute() ){
+        //die ("Error while execute query, The Error is: ".mysql_error ()); 
+             $Added = false;
+   
+    }
+    
+    else {
+
+            /// get ID
+
+            $sql2 = "SELECT ID FROM users where User_Name = '".$username."'";
+
+            $stmt = $conn->prepare($sql2);
+
+            if ( ! $stmt->execute() )
+                die ("Error while execute query, The Error is: ".mysql_error ()); 
+        
+            elseif ($Type == 3 || $Type == 4)
+            {
+                    $phone = $_POST['phone'];
+                    $city = "";
+                    $city = $_POST['city'];
+                    $bloodType = "";
+                    $bloodType = $_POST['BloodType'];
+                    $rawdate = htmlentities($_POST['BD']);
+                    $BD = date('Y-m-d', strtotime($rawdate));
+                    $diabetes = $_POST['diabetes'];
+                    $LowPressure = $_POST['LowPressure'];
+                    $HighPressure = $_POST['HighPressure'];
+                
+                    $row = $stmt->fetch();
+                    if ($Type == 3)
+                        $tableName = 'patient';
+                    elseif ($Type == 4)
+                        $tableName = 'donor';
+                
+                
+                // -------------------- FILE ---------------------- //
+                
+                    $temp = explode('.', $_FILES['file']['name']);
+                    $extn = strtolower(end($temp));
+                    if(($extn == "doc") || ($extn == "docx") || ($extn == "pdf")) {
+                        // Filetype is correct. Check size
+
+                    if($_FILES['file']['size'] < 5632000) {
+                        // Filesize is below maximum permitted. Add to the DB.
+                        $mime = $_FILES['file']['type'];
+                        $size = $_FILES['file']['size'];
+                        $name = $_FILES['file']['name'];
+                        $tmpf = $_FILES['file']['tmp_name'];
+                        $file = fopen($_FILES['file']['tmp_name'], "rb");
+
+                        try {
+                            
+                            // insert into Donor / Patient table
+                            
+                            $sql3 = "INSERT INTO ".$tableName." (User_ID, Name, Email, Phone, City, Blood_Type, Date_of_Birth, Diabetes, LowPressure, HighPressure, Test) VALUES (".$row['ID'].",'".$Fname."','".$email."',".$phone.",'".$city."','".$bloodType."',".$BD.",'".$diabetes."','".$LowPressure."','".$HighPressure."','".$_FILES['file']['name']."')";
+
+                            $stmt = $conn->prepare($sql3);
+                            
+
+                            $target='./Tests/';
+
+
+                            // Bind Values
+                            $stmt->bindParam(1, $appID, PDO::PARAM_INT, 11);
+                            $stmt->bindParam(2, $uaID, PDO::PARAM_INT, 11);
+                            $stmt->bindParam(3, $uID, PDO::PARAM_INT, 11);
+
+                            $stmt->bindParam(5, $applicationKey, PDO::PARAM_STR, 8);
+                            $stmt->bindParam(6, $name, PDO::PARAM_STR, 256);
+                            $stmt->bindParam(7, $mime, PDO::PARAM_STR, 128);
+                            $stmt->bindParam(8, $size, PDO::PARAM_INT, 20);
+                            $stmt->bindParam(9, $file, PDO::PARAM_LOB);
+
+  
+
+                            if ( ! $stmt->execute() )
+                            {  
+                                 $Added = false;
+
+                            }
+                                else
+                                    $Added = true;
+                            
+                        move_uploaded_file($_FILES["file"]["tmp_name"], $target.$_FILES["file"]["name"]);
+
+                            
+                            } catch(PDOException $e) {    echo "Error: " . $e->getMessage(); }
+
+                        } else {
+                                // Filesize is over our limit. Send error message
+                                $error = "Your file is too large.";
+                            }
+                    }
+                    else 
+                    {$error = "Your file was the incorrect type.";}
+                    
+                        
+                        //move_uploaded_file($_FILES['file']['name'], $target);
+
+            
+                }
+    
+            
+             elseif ($Type == 2)
+                
+                {
+                    $row = $stmt->fetch();
+
+                    // insert into staff table
+                    $sql4 = "INSERT INTO staff ( Name, Email, User_ID) VALUES ('".$name."','".$email."',".$row['ID'].")";
+
+                    $stmt = $conn->prepare($sql4);
+
+                    if ( ! $stmt->execute() )
+                    { //die ("Error while execute query, The Error is: ".mysql_error ()); 
+                         $Added = false;
+   
+                    }
+                        else
+
+                            $Added = true;
+                }
+        
+    }
+
+    
+    
+}  // end of post add function
+
+
+
+
 include ('footer.html');
 ?>
